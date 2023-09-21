@@ -18,7 +18,16 @@ function Pokedex() {
 
   return (
     <>
-      <Square placeContent={'start'} padding={6} borderRadius={5} backgroundColor={'#F00222'}>
+      <Square
+        borderTopLeftRadius={15}
+        borderTopRightRadius={0}
+        borderBottomLeftRadius={15}
+        borderBottomRightRadius={0}
+        placeContent={'start'}
+        padding={6}
+        backgroundColor={'#F00222'}
+        boxShadow="10px 10px 10px rgba(0, 0, 0, 0.4)"
+      >
         <VStack align={'left'} width={'100%'}>
           <HStack className='section-top'>
             <Circle

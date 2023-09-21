@@ -19,7 +19,7 @@ function Pokedex() {
   return (
     <>
       <Square placeContent={'start'} padding={6} borderRadius={5} backgroundColor={'#F00222'}>
-        <VStack align={'left'}>
+        <VStack align={'left'} width={'100%'}>
           <HStack className='section-top'>
             <Circle backgroundColor={'#01FBFB'} size={'60px'} borderWidth={4} />
 
@@ -55,8 +55,8 @@ function Pokedex() {
             </Flex>
           </HStack>
 
-          <HStack className='section-search' align={'stretch'} gap={2}>
-            <Box>
+          <HStack className='section-search' align={'stretch'} gap={3}>
+            <Box flex='12'>
               <form onSubmit={handleSubmit}>
                 <FormControl>
                   <Input placeholder='Search for...' />
@@ -64,7 +64,7 @@ function Pokedex() {
               </form>
             </Box>
 
-            <Button borderRadius={20} colorScheme='green' />
+            <Button rounded={'full'} colorScheme='green' />
           </HStack>
         </VStack>
       </Square>

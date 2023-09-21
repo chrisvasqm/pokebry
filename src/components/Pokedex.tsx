@@ -21,7 +21,12 @@ function Pokedex() {
       <Square placeContent={'start'} padding={6} borderRadius={5} backgroundColor={'#F00222'}>
         <VStack align={'left'} width={'100%'}>
           <HStack className='section-top'>
-            <Circle backgroundColor={'#01FBFB'} size={'60px'} borderWidth={4} />
+            <Circle
+              backgroundColor={'#01FBFB'}
+              size={'60px'}
+              borderWidth={1}
+              borderColor={'black'}
+            />
 
             <Flex paddingBottom={10} gap={2}>
               <Circle backgroundColor={'#EE031D'} size={3} borderWidth={1} borderColor={'black'} />
@@ -31,7 +36,12 @@ function Pokedex() {
           </HStack>
 
           <HStack className='section-bottom'>
-            <Circle backgroundColor={'#519AFB'} size={'50px'} borderWidth={4} />
+            <Circle
+              backgroundColor={'#519AFB'}
+              size={'50px'}
+              borderWidth={1}
+              borderColor={'black'}
+            />
 
             <Flex paddingBottom={10} gap={2}>
               <Square

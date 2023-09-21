@@ -24,9 +24,9 @@ function Pokedex() {
             <Circle backgroundColor={'#01FBFB'} size={'60px'} borderWidth={4} />
 
             <Flex paddingBottom={10} gap={2}>
-              <Circle backgroundColor={'#EE031D'} size={3} borderWidth={2} borderColor={'black'} />
-              <Circle backgroundColor={'#CEB900'} size={3} borderWidth={2} borderColor={'black'} />
-              <Circle backgroundColor={'#217E44'} size={3} borderWidth={2} borderColor={'black'} />
+              <Circle backgroundColor={'#EE031D'} size={3} borderWidth={1} borderColor={'black'} />
+              <Circle backgroundColor={'#FFEB3B'} size={3} borderWidth={1} borderColor={'black'} />
+              <Circle backgroundColor={'#2FF901'} size={3} borderWidth={1} borderColor={'black'} />
             </Flex>
           </HStack>
 
@@ -39,16 +39,16 @@ function Pokedex() {
                 size={3}
                 minHeight={5}
                 borderRadius={10}
-                borderWidth={2}
+                borderWidth={1}
                 borderColor={'black'}
                 minWidth={'70px'}
               />
               <Square
-                backgroundColor={'#CEB900'}
+                backgroundColor={'#FFEB3B'}
                 size={3}
                 minHeight={5}
                 borderRadius={10}
-                borderWidth={2}
+                borderWidth={1}
                 borderColor={'black'}
                 minWidth={'70px'}
               />

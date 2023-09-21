@@ -35,6 +35,19 @@ function Pokedex() {
             </Flex>
           </HStack>
 
+          <HStack className='section-middle' marginY={4}>
+            <Square
+              backgroundColor={'white'}
+              borderRadius={6}
+              borderWidth={10}
+              borderColor={'gray.400'}
+              minHeight={'400px'}
+              minWidth={'100%'}
+            >
+              Hola
+            </Square>
+          </HStack>
+
           <HStack className='section-bottom'>
             <Circle
               backgroundColor={'#519AFB'}

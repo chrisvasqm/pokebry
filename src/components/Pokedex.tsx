@@ -58,7 +58,7 @@ function Pokedex() {
           <HStack className='section-search' align={'stretch'} gap={3}>
             <Box flex='12'>
               <form onSubmit={handleSubmit}>
-                <FormControl>
+                <FormControl borderWidth={0} backgroundColor={'white'} borderRadius={6}>
                   <Input placeholder='Search for...' />
                 </FormControl>
               </form>

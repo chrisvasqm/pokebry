@@ -1,4 +1,4 @@
-import { HStack, Circle, Flex, Square, FormControl, Input, Button, Box } from '@chakra-ui/react';
+import { HStack, Circle, FormControl, Input, Button, Box } from '@chakra-ui/react';
 
 function BottomBar() {
   function handleSubmit(e: any) {

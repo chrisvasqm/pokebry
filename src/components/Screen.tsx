@@ -34,7 +34,12 @@ function Screen({ pokemon }: Props) {
       </Heading>
 
       <HStack>
-        <Image src={pokemon?.sprites.front_default} width={'150px'} height={'150px'} />
+        <Image
+          src={pokemon?.sprites.front_default || '../../images/pokeball.png'}
+          borderRadius={'full'}
+          width={'150px'}
+          height={'150px'}
+        />
         <Box>
           <p>
             <b>HP:</b> {stats.hp}

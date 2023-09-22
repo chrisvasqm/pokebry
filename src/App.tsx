@@ -1,5 +1,5 @@
 import { Container } from '@chakra-ui/react';
-import PokeDex from './components/PokeDex';
+import PokeDex from './components/Pokedex';
 
 function App() {
   return (

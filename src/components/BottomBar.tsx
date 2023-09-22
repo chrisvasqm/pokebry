@@ -8,29 +8,31 @@ function BottomBar() {
 
   return (
     <>
-      <HStack className='section-bottom'>
-        <Circle backgroundColor={'#519AFB'} size={'50px'} borderWidth={1} borderColor={'black'} />
+      <HStack className='section-bottom' gap={2}>
+        <Circle backgroundColor={'#5D5E60'} size={'50px'} borderWidth={1} borderColor={'black'} />
 
-        <Flex paddingBottom={10} gap={2}>
-          <Square
-            backgroundColor={'#2FF901'}
-            size={3}
-            minHeight={5}
-            borderRadius={10}
-            borderWidth={1}
-            borderColor={'black'}
-            minWidth={'70px'}
-          />
-          <Square
-            backgroundColor={'#FFEB3B'}
-            size={3}
-            minHeight={5}
-            borderRadius={10}
-            borderWidth={1}
-            borderColor={'black'}
-            minWidth={'70px'}
-          />
-        </Flex>
+        <Button
+          colorScheme={'blue'}
+          minHeight={5}
+          borderRadius={10}
+          borderWidth={1}
+          borderColor={'black'}
+          minWidth={'70px'}
+        >
+          Previous
+        </Button>
+
+        <Button
+          colorScheme={'blue'}
+          minHeight={5}
+          textColor={'white'}
+          borderRadius={10}
+          borderWidth={1}
+          borderColor={'black'}
+          minWidth={'70px'}
+        >
+          Next
+        </Button>
       </HStack>
 
       <form onSubmit={handleSubmit}>

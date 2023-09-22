@@ -36,7 +36,7 @@ function PokeDex() {
       borderBottomRightRadius={0}
       placeContent={'start'}
       padding={6}
-      backgroundColor={'#F00222'}
+      backgroundColor={'#E80D28'}
       boxShadow='10px 10px 10px rgba(0, 0, 0, 0.4)'
     >
       <TopBar />

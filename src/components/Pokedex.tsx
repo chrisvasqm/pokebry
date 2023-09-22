@@ -1,19 +1,20 @@
+import { useEffect, useState } from 'react';
 import { VStack, useToast } from '@chakra-ui/react';
 import TopBar from './TopBar';
 import Screen from './Screen';
 import BottomBar from './BottomBar';
-import { useEffect, useState } from 'react';
 import Pokemon from '../models/Pokemon';
 import PokemonsService from '../services/pokemons';
 const service = new PokemonsService();
 
 function PokeDex() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+  const [pokemonId, setPokemonId] = useState(1);
   const toast = useToast();
 
   useEffect(() => {
     service
-      .find(1)
+      .find(pokemonId)
       .then(response => setPokemon(response.data))
       .catch(error => {
         console.log(`Error fetching Pokemon details: ${error}`);
@@ -24,7 +25,13 @@ function PokeDex() {
           isClosable: true
         });
       });
-  }, [toast]);
+  }, [pokemonId, toast]);
+
+  function handleNext() {
+    if (pokemonId >= 1017) return;
+
+    setPokemonId(pokemonId + 1);
+  }
 
   return (
     <VStack
@@ -41,7 +48,7 @@ function PokeDex() {
     >
       <TopBar />
       <Screen pokemon={pokemon} />
-      <BottomBar />
+      <BottomBar onNext={handleNext} />
     </VStack>
   );
 }

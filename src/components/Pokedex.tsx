@@ -1,4 +1,4 @@
-import { StepIndicator, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import TopBar from './TopBar';
 import Screen from './Screen';
 import BottomBar from './BottomBar';

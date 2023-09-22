@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/react';
+import { VStack, useToast } from '@chakra-ui/react';
 import TopBar from './TopBar';
 import Screen from './Screen';
 import BottomBar from './BottomBar';
@@ -9,13 +9,22 @@ const service = new PokemonsService();
 
 function PokeDex() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+  const toast = useToast();
 
   useEffect(() => {
     service
       .find(1)
       .then(response => setPokemon(response.data))
-      .catch(error => console.log(`Error fetching Pokemon details: ${error}`));
-  }, []);
+      .catch(error => {
+        console.log(`Error fetching Pokemon details: ${error}`);
+        toast({
+          description: error.response.data,
+          status: 'error',
+          duration: 3000,
+          isClosable: true
+        });
+      });
+  }, [toast]);
 
   return (
     <VStack

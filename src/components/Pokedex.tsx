@@ -33,6 +33,12 @@ function PokeDex() {
     setPokemonId(pokemonId + 1);
   }
 
+  function handlePrevious() {
+    if (pokemonId <= 1) return;
+
+    setPokemonId(pokemonId - 1);
+  }
+
   return (
     <VStack
       align={'left'}
@@ -48,7 +54,7 @@ function PokeDex() {
     >
       <TopBar />
       <Screen pokemon={pokemon} />
-      <BottomBar onNext={handleNext} />
+      <BottomBar onNext={handleNext} onPrevious={handlePrevious} />
     </VStack>
   );
 }

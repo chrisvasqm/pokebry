@@ -2,8 +2,9 @@ import { HStack, Circle, FormControl, Input, Button, Box } from '@chakra-ui/reac
 
 interface Props {
   onNext: () => void;
+  onPrevious: () => void;
 }
-function BottomBar({ onNext }: Props) {
+function BottomBar({ onNext, onPrevious }: Props) {
   function handleSubmit(e: any) {
     e.preventDefault();
     console.log('Submitted a pokemon name');
@@ -21,6 +22,7 @@ function BottomBar({ onNext }: Props) {
           borderWidth={1}
           borderColor={'black'}
           minWidth={'70px'}
+          onClick={onPrevious}
         >
           Previous
         </Button>

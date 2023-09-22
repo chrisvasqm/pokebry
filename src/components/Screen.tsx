@@ -1,11 +1,12 @@
-import { Box, HStack, Heading, Image, VStack } from '@chakra-ui/react';
+import { Box, HStack, Heading, Image, Skeleton, SkeletonText, VStack } from '@chakra-ui/react';
 import Pokemon from '../models/Pokemon';
 
 interface Props {
   pokemon: Pokemon | null;
+  isLoaded: boolean;
 }
 
-function Screen({ pokemon }: Props) {
+function Screen({ pokemon, isLoaded }: Props) {
   const stats = {
     hp: pokemon?.stats[0].base_stat,
     attack: pokemon?.stats[1].base_stat,
@@ -28,38 +29,44 @@ function Screen({ pokemon }: Props) {
       minHeight={'360px'}
       minWidth={'100%'}
     >
-      <Heading>
-        {pokemon?.name.charAt(0).toUpperCase()}
-        {pokemon?.name.slice(1)}
-      </Heading>
+      <Skeleton isLoaded={isLoaded}>
+        <Heading>
+          {pokemon?.name.charAt(0).toUpperCase()}
+          {pokemon?.name.slice(1)}
+        </Heading>
+      </Skeleton>
 
       <HStack>
-        <Image
-          src={pokemon?.sprites.front_default || '../../images/pokeball.png'}
-          borderRadius={'full'}
-          width={'150px'}
-          height={'150px'}
-        />
-        <Box>
-          <p>
-            <b>HP:</b> {stats.hp}
-          </p>
-          <p>
-            <b>Attack:</b> {stats.attack}
-          </p>
-          <p>
-            <b>Defense:</b> {stats.defense}
-          </p>
-          <p>
-            <b>Special-Attack:</b> {stats.specialAttack}
-          </p>
-          <p>
-            <b>Special-Defense:</b> {stats.specialDefense}
-          </p>
-          <p>
-            <b>Speed:</b> {stats.speed}
-          </p>
-        </Box>
+        <Skeleton isLoaded={isLoaded}>
+          <Image
+            src={pokemon?.sprites.front_default || '../../images/pokeball.png'}
+            borderRadius={'full'}
+            width={'150px'}
+            height={'150px'}
+          />
+        </Skeleton>
+        <SkeletonText isLoaded={isLoaded}>
+          <Box>
+            <p>
+              <b>HP:</b> {stats.hp}
+            </p>
+            <p>
+              <b>Attack:</b> {stats.attack}
+            </p>
+            <p>
+              <b>Defense:</b> {stats.defense}
+            </p>
+            <p>
+              <b>Special-Attack:</b> {stats.specialAttack}
+            </p>
+            <p>
+              <b>Special-Defense:</b> {stats.specialDefense}
+            </p>
+            <p>
+              <b>Speed:</b> {stats.speed}
+            </p>
+          </Box>
+        </SkeletonText>
       </HStack>
     </VStack>
   );

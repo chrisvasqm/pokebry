@@ -10,13 +10,21 @@ const service = new PokemonsService();
 function PokeDex() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [pokemonId, setPokemonId] = useState(1);
+  const [isLoaded, setLoading] = useState(false);
   const toast = useToast();
 
   useEffect(() => {
+    setLoading(false);
+
     service
       .find(pokemonId)
-      .then(response => setPokemon(response.data))
+      .then(response => {
+        setLoading(true);
+        setPokemon(response.data);
+      })
       .catch(error => {
+        setLoading(true);
+
         console.log(`Error fetching Pokemon details: ${error}`);
         toast({
           description: error.response.data,
@@ -53,7 +61,7 @@ function PokeDex() {
       boxShadow='10px 10px 10px rgba(0, 0, 0, 0.4)'
     >
       <TopBar />
-      <Screen pokemon={pokemon} />
+      <Screen pokemon={pokemon} isLoaded={isLoaded} />
       <BottomBar onNext={handleNext} onPrevious={handlePrevious} />
     </VStack>
   );

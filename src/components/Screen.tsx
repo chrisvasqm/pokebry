@@ -1,4 +1,4 @@
-import { Box, HStack, Heading, Square, VStack } from '@chakra-ui/react';
+import { Box, HStack, Heading, Image, VStack } from '@chakra-ui/react';
 import Pokemon from '../models/Pokemon';
 
 interface Props {
@@ -19,10 +19,13 @@ function Screen({ pokemon }: Props) {
       minHeight={'360px'}
       minWidth={'100%'}
     >
-      <Heading>{pokemon?.name.charAt(0).toUpperCase()}{pokemon?.name.slice(1)}</Heading>
+      <Heading>
+        {pokemon?.name.charAt(0).toUpperCase()}
+        {pokemon?.name.slice(1)}
+      </Heading>
 
-      <HStack gap={10}>
-        <Square minHeight={'75px'} minWidth={'75px'} backgroundColor={'gray'} />
+      <HStack>
+        <Image src={pokemon?.sprites.front_default} width={'150px'} height={'150px'} />
         <Box>
           <p>
             <b>HP:</b> {pokemon?.stats[0].base_stat}

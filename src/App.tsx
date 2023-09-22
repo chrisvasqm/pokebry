@@ -1,10 +1,9 @@
-import { Container, Heading } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 import Pokedex from './components/Pokedex';
 
 function App() {
   return (
-    <Container size={['md', 'sm']}>
-      <Heading>Pokedex App</Heading>
+    <Container paddingTop={4} size={['md', 'sm']}>
       <Pokedex />
     </Container>
   );

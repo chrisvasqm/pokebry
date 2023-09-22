@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Pokemon from '../models/Pokemon';
 import axios from 'axios';
 
-function Pokedex() {
+function PokeDex() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ function Pokedex() {
   );
 }
 
-export default Pokedex;
+export default PokeDex;

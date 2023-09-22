@@ -4,14 +4,15 @@ import Screen from './Screen';
 import BottomBar from './BottomBar';
 import { useEffect, useState } from 'react';
 import Pokemon from '../models/Pokemon';
-import axios from 'axios';
+import PokemonsService from '../services/pokemons';
+const service = new PokemonsService();
 
 function PokeDex() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
   useEffect(() => {
-    axios
-      .get('https://pokeapi.co/api/v2/pokemon/1/')
+    service
+      .find(1)
       .then(response => setPokemon(response.data))
       .catch(error => console.log(`Error fetching Pokemon details: ${error}`));
   }, []);

@@ -1,9 +1,21 @@
-import { VStack } from '@chakra-ui/react';
+import { StepIndicator, VStack } from '@chakra-ui/react';
 import TopBar from './TopBar';
 import Screen from './Screen';
 import BottomBar from './BottomBar';
+import { useEffect, useState } from 'react';
+import Pokemon from '../models/Pokemon';
+import axios from 'axios';
 
 function Pokedex() {
+  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+
+  useEffect(() => {
+    axios
+      .get('https://pokeapi.co/api/v2/pokemon/1/')
+      .then(response => setPokemon(response.data))
+      .catch(error => console.log(`Error fetching Pokemon details: ${error}`));
+  }, []);
+
   return (
     <VStack
       align={'left'}
@@ -18,7 +30,7 @@ function Pokedex() {
       boxShadow='10px 10px 10px rgba(0, 0, 0, 0.4)'
     >
       <TopBar />
-      <Screen />
+      <Screen pokemon={pokemon} />
       <BottomBar />
     </VStack>
   );

@@ -1,6 +1,11 @@
 import { Box, HStack, Heading, Square, VStack } from '@chakra-ui/react';
+import Pokemon from '../models/Pokemon';
 
-function Screen() {
+interface Props {
+  pokemon: Pokemon | null;
+}
+
+function Screen({ pokemon }: Props) {
   return (
     <VStack
       className='section-middle'
@@ -14,7 +19,7 @@ function Screen() {
       minHeight={'360px'}
       minWidth={'100%'}
     >
-      <Heading>Name</Heading>
+      <Heading>{pokemon?.name.charAt(0).toUpperCase()}{pokemon?.name.slice(1)}</Heading>
 
       <HStack gap={10}>
         <Square minHeight={'75px'} minWidth={'75px'} backgroundColor={'gray'} />

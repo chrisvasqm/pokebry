@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Heading, Square, VStack } from '@chakra-ui/react';
+import { Box, HStack, Heading, Square, VStack } from '@chakra-ui/react';
 
 function Screen() {
   return (
@@ -17,7 +17,7 @@ function Screen() {
       <Heading>Name</Heading>
 
       <HStack gap={10}>
-        <Square minHeight={'50px'} minWidth={'50px'} backgroundColor={'gray'} />
+        <Square minHeight={'75px'} minWidth={'75px'} backgroundColor={'gray'} />
         <Box>
           <p>
             <b>HP:</b> 100

@@ -33,17 +33,16 @@ function BottomBar() {
         </Flex>
       </HStack>
 
-      <HStack className='section-search' align={'stretch'} gap={3}>
-        <Box flex='12'>
-          <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
+        <HStack className='section-search' align={'stretch'} gap={3}>
+          <Box flex='12'>
             <FormControl borderWidth={0} backgroundColor={'white'} borderRadius={6}>
               <Input placeholder='Search for...' />
             </FormControl>
-          </form>
-        </Box>
-
-        <Button rounded={'full'} colorScheme='green' />
-      </HStack>
+          </Box>
+          <Button rounded={'full'} colorScheme='green' onClick={handleSubmit} />
+        </HStack>
+      </form>
     </>
   );
 }

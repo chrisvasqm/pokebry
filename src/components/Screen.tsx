@@ -25,22 +25,22 @@ function Screen({ pokemon }: Props) {
         <Square minHeight={'75px'} minWidth={'75px'} backgroundColor={'gray'} />
         <Box>
           <p>
-            <b>HP:</b> 100
+            <b>HP:</b> {pokemon?.stats[0].base_stat}
           </p>
           <p>
-            <b>Attack:</b> 100
+            <b>Attack:</b> {pokemon?.stats[1].base_stat}
           </p>
           <p>
-            <b>Defense:</b> 100
+            <b>Defense:</b> {pokemon?.stats[2].base_stat}
           </p>
           <p>
-            <b>Special-Attack:</b> 100
+            <b>Special-Attack:</b> {pokemon?.stats[3].base_stat}
           </p>
           <p>
-            <b>Special-Defense:</b> 100
+            <b>Special-Defense:</b> {pokemon?.stats[4].base_stat}
           </p>
           <p>
-            <b>Speed:</b> 100
+            <b>Speed:</b> {pokemon?.stats[5].base_stat}
           </p>
         </Box>
       </HStack>

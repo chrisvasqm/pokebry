@@ -1,10 +1,12 @@
 import { HStack, Circle, FormControl, Input, Button, Box } from '@chakra-ui/react';
 
 interface Props {
+  isLoaded: boolean;
   onNext: () => void;
   onPrevious: () => void;
 }
-function BottomBar({ onNext, onPrevious }: Props) {
+
+function BottomBar({ isLoaded, onNext, onPrevious }: Props) {
   function handleSubmit(e: any) {
     e.preventDefault();
     console.log('Submitted a pokemon name');
@@ -23,6 +25,7 @@ function BottomBar({ onNext, onPrevious }: Props) {
           borderColor={'black'}
           minWidth={'70px'}
           onClick={onPrevious}
+          isLoading={!isLoaded}
         >
           Previous
         </Button>
@@ -36,6 +39,7 @@ function BottomBar({ onNext, onPrevious }: Props) {
           borderColor={'black'}
           minWidth={'70px'}
           onClick={onNext}
+          isLoading={!isLoaded}
         >
           Next
         </Button>
@@ -48,7 +52,12 @@ function BottomBar({ onNext, onPrevious }: Props) {
               <Input placeholder='Search for...' />
             </FormControl>
           </Box>
-          <Button rounded={'full'} colorScheme='green' onClick={handleSubmit} />
+          <Button
+            rounded={'full'}
+            colorScheme='green'
+            onClick={handleSubmit}
+            isLoading={!isLoaded}
+          />
         </HStack>
       </form>
     </>

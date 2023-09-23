@@ -62,7 +62,7 @@ function PokeDex() {
     >
       <TopBar />
       <Screen pokemon={pokemon} isLoaded={isLoaded} />
-      <BottomBar onNext={handleNext} onPrevious={handlePrevious} />
+      <BottomBar onNext={handleNext} onPrevious={handlePrevious} isLoaded={isLoaded} />
     </VStack>
   );
 }

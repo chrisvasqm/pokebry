@@ -10,7 +10,7 @@ const service = new PokemonsService();
 function PokeDex() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [pokemonId, setPokemonId] = useState(1);
-  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
   const [isLoaded, setLoading] = useState(false);
   const toast = useToast();
 
@@ -50,7 +50,31 @@ function PokeDex() {
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    console.log('Submitted', search);
+
+    if (query == '') return;
+
+    if (query == pokemon?.name) return;
+
+    setLoading(true);
+
+    service
+      .search(query)
+      .then(response => {
+        setLoading(false);
+        setPokemon(response.data);
+        setPokemonId(response.data.id);
+      })
+      .catch(error => {
+        setLoading(false);
+
+        console.log(`Error searching Pokemon details: ${error}`);
+        toast({
+          description: error.response.data,
+          status: 'error',
+          duration: 3000,
+          isClosable: true
+        });
+      });
   }
 
   return (
@@ -72,8 +96,8 @@ function PokeDex() {
         onNext={handleNext}
         onPrevious={handlePrevious}
         isLoaded={isLoaded}
-        onSearch={e => setSearch(e.target.value)}
-        onSubmit={e => handleSubmit(e)}
+        onSearch={e => setQuery(e.target.value)}
+        onSubmit={handleSubmit}
       />
     </VStack>
   );

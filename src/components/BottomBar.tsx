@@ -1,4 +1,13 @@
-import { HStack, Circle, FormControl, Input, Button, Box } from '@chakra-ui/react';
+import {
+  HStack,
+  Circle,
+  FormControl,
+  Input,
+  Button,
+  Box,
+  InputLeftAddon,
+  InputGroup
+} from '@chakra-ui/react';
 
 interface Props {
   isLoaded: boolean;
@@ -46,7 +55,10 @@ function BottomBar({ isLoaded, onNext, onPrevious, onSubmit, onSearch }: Props) 
         <HStack className='section-search' align={'stretch'} gap={3}>
           <Box flex='12'>
             <FormControl borderWidth={0} backgroundColor={'white'} borderRadius={6}>
-              <Input placeholder='Search for...' onChange={onSearch} />
+              <InputGroup>
+                <InputLeftAddon children='Search for: ' />
+                <Input onChange={onSearch} />
+              </InputGroup>
             </FormControl>
           </Box>
           <Button rounded={'full'} colorScheme='green' type='submit' isLoading={!isLoaded} />

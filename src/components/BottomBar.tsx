@@ -4,14 +4,11 @@ interface Props {
   isLoaded: boolean;
   onNext: () => void;
   onPrevious: () => void;
+  onSubmit: (e: any) => void;
+  onSearch: (e: any) => void;
 }
 
-function BottomBar({ isLoaded, onNext, onPrevious }: Props) {
-  function handleSubmit(e: any) {
-    e.preventDefault();
-    console.log('Submitted a pokemon name');
-  }
-
+function BottomBar({ isLoaded, onNext, onPrevious, onSubmit, onSearch }: Props) {
   return (
     <>
       <HStack className='section-bottom' gap={2}>
@@ -45,19 +42,14 @@ function BottomBar({ isLoaded, onNext, onPrevious }: Props) {
         </Button>
       </HStack>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <HStack className='section-search' align={'stretch'} gap={3}>
           <Box flex='12'>
             <FormControl borderWidth={0} backgroundColor={'white'} borderRadius={6}>
-              <Input placeholder='Search for...' />
+              <Input placeholder='Search for...' onChange={onSearch} />
             </FormControl>
           </Box>
-          <Button
-            rounded={'full'}
-            colorScheme='green'
-            onClick={handleSubmit}
-            isLoading={!isLoaded}
-          />
+          <Button rounded={'full'} colorScheme='green' type='submit' isLoading={!isLoaded} />
         </HStack>
       </form>
     </>

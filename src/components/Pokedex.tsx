@@ -10,6 +10,7 @@ const service = new PokemonsService();
 function PokeDex() {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [pokemonId, setPokemonId] = useState(1);
+  const [search, setSearch] = useState('');
   const [isLoaded, setLoading] = useState(false);
   const toast = useToast();
 
@@ -47,6 +48,11 @@ function PokeDex() {
     setPokemonId(pokemonId - 1);
   }
 
+  function handleSubmit(e: any) {
+    e.preventDefault();
+    console.log('Submitted', search);
+  }
+
   return (
     <VStack
       align={'left'}
@@ -62,7 +68,13 @@ function PokeDex() {
     >
       <TopBar />
       <Screen pokemon={pokemon} isLoaded={isLoaded} />
-      <BottomBar onNext={handleNext} onPrevious={handlePrevious} isLoaded={isLoaded} />
+      <BottomBar
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+        isLoaded={isLoaded}
+        onSearch={e => setSearch(e.target.value)}
+        onSubmit={e => handleSubmit(e)}
+      />
     </VStack>
   );
 }

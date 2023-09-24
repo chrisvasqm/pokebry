@@ -48,6 +48,9 @@ function Screen({ pokemon, isLoaded }: Props) {
         <SkeletonText isLoaded={isLoaded}>
           <Box>
             <p>
+              <b>Type:</b> {pokemon?.types[0].type.name}
+            </p>
+            <p>
               <b>HP:</b> {stats.hp}
             </p>
             <p>

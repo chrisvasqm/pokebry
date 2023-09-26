@@ -1,4 +1,13 @@
-import { Box, HStack, Heading, Image, Skeleton, SkeletonText, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  FormErrorMessage,
+  HStack,
+  Heading,
+  Image,
+  Skeleton,
+  SkeletonText,
+  VStack
+} from '@chakra-ui/react';
 import Pokemon from '../models/Pokemon';
 
 interface Props {
@@ -15,6 +24,20 @@ function Screen({ pokemon, isLoaded }: Props) {
     specialDefense: pokemon?.stats[4].base_stat,
     speed: pokemon?.stats[5].base_stat
   };
+
+  function formatTypes(pokemon: Pokemon) {
+    const types = pokemon?.types;
+
+    if (types.length > 1) {
+      let formattedTypes = types[0].type.name;
+
+      types.slice(1).forEach(type => (formattedTypes += `, ${type.type.name}`));
+
+      return formattedTypes;
+    }
+
+    return types[0].type.name;
+  }
 
   return (
     <VStack
@@ -48,7 +71,7 @@ function Screen({ pokemon, isLoaded }: Props) {
         <SkeletonText isLoaded={isLoaded}>
           <Box>
             <p>
-              <b>Type:</b> {pokemon?.types[0].type.name}
+              <b>Type:</b> {pokemon && formatTypes(pokemon)}
             </p>
             <p>
               <b>HP:</b> {stats.hp}

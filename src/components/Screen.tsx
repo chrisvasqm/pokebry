@@ -1,13 +1,4 @@
-import {
-  Box,
-  FormErrorMessage,
-  HStack,
-  Heading,
-  Image,
-  Skeleton,
-  SkeletonText,
-  VStack
-} from '@chakra-ui/react';
+import { Box, HStack, Heading, Image, Skeleton, SkeletonText, VStack } from '@chakra-ui/react';
 import Pokemon from '../models/Pokemon';
 
 interface Props {

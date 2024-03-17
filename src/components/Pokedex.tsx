@@ -1,40 +1,14 @@
-import { useEffect, useState } from 'react';
-import { VStack, useToast } from '@chakra-ui/react';
+import { useState } from 'react';
+import { VStack } from '@chakra-ui/react';
 import TopBar from './TopBar';
 import Screen from './Screen';
 import BottomBar from './BottomBar';
-import Pokemon from '../models/Pokemon';
-import PokemonsService from '../services/pokemons';
-const service = new PokemonsService();
+import usePokemonById from '../hooks/usePokemons';
 
 function PokeDex() {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [pokemonId, setPokemonId] = useState(1);
   const [query, setQuery] = useState('');
-  const [isLoaded, setLoading] = useState(false);
-  const toast = useToast();
-
-  useEffect(() => {
-    setLoading(false);
-
-    service
-      .find(pokemonId)
-      .then(response => {
-        setLoading(true);
-        setPokemon(response.data);
-      })
-      .catch(error => {
-        setLoading(true);
-
-        console.log(`Error fetching Pokemon details: ${error}`);
-        toast({
-          description: error.response.data,
-          status: 'error',
-          duration: 3000,
-          isClosable: true
-        });
-      });
-  }, [pokemonId, toast]);
+  const { data: pokemon, isLoading, error } = usePokemonById(pokemonId);
 
   function handleNext() {
     if (pokemonId >= 1017) return;
@@ -54,28 +28,9 @@ function PokeDex() {
     if (query == '') return;
 
     if (query == pokemon?.name) return;
-
-    setLoading(true);
-
-    service
-      .search(query)
-      .then(response => {
-        setLoading(false);
-        setPokemon(response.data);
-        setPokemonId(response.data.id);
-      })
-      .catch(error => {
-        setLoading(false);
-
-        console.log(`Error searching Pokemon details: ${error}`);
-        toast({
-          description: error.response.data,
-          status: 'error',
-          duration: 3000,
-          isClosable: true
-        });
-      });
   }
+
+  if (error) return <p>{error.message}</p>
 
   return (
     <VStack
@@ -91,11 +46,11 @@ function PokeDex() {
       boxShadow='10px 10px 10px rgba(0, 0, 0, 0.4)'
     >
       <TopBar />
-      <Screen pokemon={pokemon} isLoaded={isLoaded} />
+      <Screen pokemon={pokemon ? pokemon : null} isLoaded={!isLoading} />
       <BottomBar
         onNext={handleNext}
         onPrevious={handlePrevious}
-        isLoaded={isLoaded}
+        isLoaded={!isLoading}
         onSearch={e => setQuery(e.target.value)}
         onSubmit={handleSubmit}
       />

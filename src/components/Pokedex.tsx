@@ -3,7 +3,7 @@ import { VStack } from '@chakra-ui/react';
 import TopBar from './TopBar';
 import Screen from './Screen';
 import BottomBar from './BottomBar';
-import usePokemonById from '../hooks/usePokemons';
+import usePokemonById from '../hooks/usePokemonById';
 
 function PokeDex() {
   const [pokemonId, setPokemonId] = useState(1);
@@ -46,7 +46,7 @@ function PokeDex() {
       boxShadow='10px 10px 10px rgba(0, 0, 0, 0.4)'
     >
       <TopBar />
-      <Screen pokemon={pokemon ? pokemon : null} isLoaded={!isLoading} />
+      {pokemon && <Screen pokemon={pokemon} isLoaded={!isLoading} />}
       <BottomBar
         onNext={handleNext}
         onPrevious={handlePrevious}

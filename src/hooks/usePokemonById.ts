@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import service from '../services/pokemonService';
-import Pokemon from "../models/Pokemon";
 
 const usePokemonById = (id: number) => {
-    return useQuery<Pokemon, Error>({
+    return useQuery({
         queryKey: ['pokemon', id],
-        queryFn: () => service.find(id)
+        queryFn: () => service.find(id),
+        placeholderData: prev => prev
     })
 }
 

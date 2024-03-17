@@ -46,7 +46,7 @@ function PokeDex() {
       boxShadow='10px 10px 10px rgba(0, 0, 0, 0.4)'
     >
       <TopBar />
-      {pokemon && <Screen pokemon={pokemon} isLoaded={!isLoading} />}
+      <Screen pokemon={pokemon} isLoaded={!isLoading} />
       <BottomBar
         onNext={handleNext}
         onPrevious={handlePrevious}

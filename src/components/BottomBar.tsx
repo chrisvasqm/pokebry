@@ -55,7 +55,7 @@ function BottomBar({ isLoaded, onNext, onPrevious, onSubmit, onSearch }: Props) 
         <HStack className='section-search' align={'stretch'} gap={3}>
           <Box flex='12'>
             <FormControl borderWidth={0} backgroundColor={'white'} borderRadius={6}>
-              <InputGroup>
+              <InputGroup textColor={'gray.800'}>
                 <InputLeftAddon children='Search for: ' />
                 <Input onChange={onSearch} />
               </InputGroup>

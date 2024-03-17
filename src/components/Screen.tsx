@@ -1,8 +1,8 @@
-import { Box, HStack, Heading, Image, Skeleton, SkeletonText, VStack } from '@chakra-ui/react';
+import { Box, HStack, Heading, Image, Skeleton, SkeletonText, VStack, Text } from '@chakra-ui/react';
 import Pokemon from '../models/Pokemon';
 
 interface Props {
-  pokemon: Pokemon | null;
+  pokemon?: Pokemon;
   isLoaded: boolean;
 }
 
@@ -60,28 +60,28 @@ function Screen({ pokemon, isLoaded }: Props) {
           />
         </Skeleton>
         <SkeletonText isLoaded={isLoaded}>
-          <Box>
-            <p>
-              <b>Type:</b> {pokemon && formatTypes(pokemon)}
-            </p>
-            <p>
-              <b>HP:</b> {stats.hp}
-            </p>
-            <p>
-              <b>Attack:</b> {stats.attack}
-            </p>
-            <p>
-              <b>Defense:</b> {stats.defense}
-            </p>
-            <p>
-              <b>Special-Attack:</b> {stats.specialAttack}
-            </p>
-            <p>
-              <b>Special-Defense:</b> {stats.specialDefense}
-            </p>
-            <p>
-              <b>Speed:</b> {stats.speed}
-            </p>
+          <Box textColor={'gray.800'}>
+            <Text>
+              <Text as='b'>Type:</Text> {pokemon && formatTypes(pokemon)}
+            </Text>
+            <Text>
+              <Text as='b'>HP:</Text> {stats.hp}
+            </Text>
+            <Text>
+              <Text as='b'>Attack:</Text> {stats.attack}
+            </Text>
+            <Text>
+              <Text as='b'>Defense:</Text> {stats.defense}
+            </Text>
+            <Text>
+              <Text as='b'>Special-Attack:</Text> {stats.specialAttack}
+            </Text>
+            <Text>
+              <Text as='b'>Special-Defense:</Text> {stats.specialDefense}
+            </Text>
+            <Text>
+              <Text as='b'>Speed:</Text> {stats.speed}
+            </Text>
           </Box>
         </SkeletonText>
       </HStack>

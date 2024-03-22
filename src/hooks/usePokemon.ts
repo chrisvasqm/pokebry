@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import service from '../services/pokemonService';
 import Pokemon from "../models/Pokemon";
 
-const usePokemonById = (id: number) => {
+const usePokmeon = (id: number | string) => {
     return useQuery<Pokemon, Error>({
         queryKey: ['pokemon', id],
         queryFn: () => service.find(id),
@@ -10,4 +10,4 @@ const usePokemonById = (id: number) => {
     })
 }
 
-export default usePokemonById;
+export default usePokmeon;

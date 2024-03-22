@@ -3,23 +3,21 @@ import { VStack } from '@chakra-ui/react';
 import TopBar from './TopBar';
 import Screen from './Screen';
 import BottomBar from './BottomBar';
-import usePokemonById from '../hooks/usePokemonById';
+import usePokemon from '../hooks/usePokemon';
 
 function PokeDex() {
-  const [pokemonId, setPokemonId] = useState(1);
+  const [pokemonId, setPokemonId] = useState<number | string>(1);
   const [query, setQuery] = useState('');
-  const { data: pokemon, isLoading, error } = usePokemonById(pokemonId);
+  const { data: pokemon, isLoading, error } = usePokemon(pokemonId);
 
   function handleNext() {
-    if (pokemonId >= 1017) return;
-
-    setPokemonId(pokemonId + 1);
+    if (typeof pokemonId === 'number' && pokemonId <= 1017)
+      setPokemonId(pokemonId + 1);
   }
 
   function handlePrevious() {
-    if (pokemonId <= 1) return;
-
-    setPokemonId(pokemonId - 1);
+    if (typeof pokemonId === 'number' && pokemonId >= 1)
+      setPokemonId(pokemonId - 1);
   }
 
   function handleSubmit(e: any) {
@@ -28,6 +26,9 @@ function PokeDex() {
     if (query == '') return;
 
     if (query == pokemon?.name) return;
+
+    setPokemonId(query.toLowerCase());
+    setQuery('');
   }
 
   if (error) return <p>{error.message}</p>

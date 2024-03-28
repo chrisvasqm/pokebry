@@ -16,7 +16,7 @@ function PokeDex() {
   }
 
   function handlePrevious() {
-    if (typeof pokemonId === 'number' && pokemonId >= 1)
+    if (typeof pokemonId === 'number' && pokemonId > 1)
       setPokemonId(pokemonId - 1);
   }
 

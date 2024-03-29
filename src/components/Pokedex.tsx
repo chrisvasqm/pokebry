@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { VStack } from '@chakra-ui/react';
-import TopBar from './TopBar';
-import Screen from './Screen';
-import BottomBar from './BottomBar';
+import { useState } from 'react';
 import usePokemon from '../hooks/usePokemon';
+import BottomBar from './BottomBar';
+import Screen from './Screen';
+import TopBar from './TopBar';
 
 function PokeDex() {
   const [pokemonId, setPokemonId] = useState<number | string>(1);
@@ -49,6 +49,7 @@ function PokeDex() {
       <TopBar />
       <Screen pokemon={pokemon} isLoaded={!isLoading} />
       <BottomBar
+        pokemonId={pokemonId}
         onNext={handleNext}
         onPrevious={handlePrevious}
         isLoaded={!isLoading}

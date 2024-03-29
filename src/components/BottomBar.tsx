@@ -1,15 +1,16 @@
 import {
-  HStack,
+  Box,
+  Button,
   Circle,
   FormControl,
+  HStack,
   Input,
-  Button,
-  Box,
-  InputLeftAddon,
-  InputGroup
+  InputGroup,
+  InputLeftAddon
 } from '@chakra-ui/react';
 
 interface Props {
+  pokemonId: number;
   isLoaded: boolean;
   onNext: () => void;
   onPrevious: () => void;
@@ -17,7 +18,7 @@ interface Props {
   onSearch: (e: any) => void;
 }
 
-function BottomBar({ isLoaded, onNext, onPrevious, onSubmit, onSearch }: Props) {
+function BottomBar({ pokemonId, isLoaded, onNext, onPrevious, onSubmit, onSearch }: Props) {
   return (
     <>
       <HStack className='section-bottom' gap={2}>
@@ -32,6 +33,7 @@ function BottomBar({ isLoaded, onNext, onPrevious, onSubmit, onSearch }: Props) 
           minWidth={'70px'}
           onClick={onPrevious}
           isLoading={!isLoaded}
+          isDisabled={pokemonId <= 1}
         >
           Previous
         </Button>

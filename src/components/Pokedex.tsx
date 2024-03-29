@@ -49,7 +49,7 @@ function PokeDex() {
       <TopBar />
       <Screen pokemon={pokemon} isLoaded={!isLoading} />
       <BottomBar
-        pokemonId={pokemonId}
+        pokemonId={pokemonId as number}
         onNext={handleNext}
         onPrevious={handlePrevious}
         isLoaded={!isLoading}

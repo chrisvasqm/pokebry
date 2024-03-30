@@ -7,7 +7,6 @@ import TopBar from './TopBar';
 
 function PokeDex() {
   const [pokemonId, setPokemonId] = useState<number | string>(1);
-  const [query, setQuery] = useState('');
   const { data: pokemon, isLoading, error } = usePokemon(pokemonId);
   const toast = useToast();
 
@@ -19,17 +18,6 @@ function PokeDex() {
   function handlePrevious() {
     if (typeof pokemonId === 'number' && pokemonId > 1)
       setPokemonId(pokemonId - 1);
-  }
-
-  function handleSubmit(e: any) {
-    e.preventDefault();
-
-    if (query == '') return;
-
-    if (query == pokemon?.name) return;
-
-    setPokemonId(query.toLowerCase());
-    setQuery('');
   }
 
   if (error) toast({

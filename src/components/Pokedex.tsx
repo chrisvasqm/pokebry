@@ -59,8 +59,6 @@ function PokeDex() {
         onNext={handleNext}
         onPrevious={handlePrevious}
         isLoaded={!isLoading}
-        onSearch={e => setQuery(e.target.value)}
-        onSubmit={handleSubmit}
       />
     </VStack>
   );

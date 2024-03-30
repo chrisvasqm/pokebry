@@ -11,7 +11,7 @@ class APIClient<T> {
         this.endpoint = endpoint;
     }
 
-    find = (id: number | string) => {
+    find = (id: number) => {
         return instance.get<T>(`${this.endpoint}/${id}`)
             .then(response => response.data);
     }

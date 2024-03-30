@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/react';
+import { VStack, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 import usePokemon from '../hooks/usePokemon';
 import BottomBar from './BottomBar';
@@ -9,6 +9,7 @@ function PokeDex() {
   const [pokemonId, setPokemonId] = useState<number | string>(1);
   const [query, setQuery] = useState('');
   const { data: pokemon, isLoading, error } = usePokemon(pokemonId);
+  const toast = useToast();
 
   function handleNext() {
     if (typeof pokemonId === 'number' && pokemonId <= 1017)
@@ -31,7 +32,12 @@ function PokeDex() {
     setQuery('');
   }
 
-  if (error) return <p>{error.message}</p>
+  if (error) toast({
+    isClosable: true,
+    description: error.message,
+    duration: 3000,
+    status: 'error'
+  });
 
   return (
     <VStack

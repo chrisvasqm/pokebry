@@ -9,12 +9,12 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 interface Props {
   pokemonId: number;
-  isLoaded: boolean;
+  isLoading: boolean;
   onNext: () => void;
   onPrevious: () => void;
 }
 
-function BottomBar({ pokemonId, isLoaded, onNext, onPrevious }: Props) {
+function BottomBar({ pokemonId, isLoading, onNext, onPrevious }: Props) {
   return (
     <>
       <HStack width={100} className='section-bottom' gap={2}>
@@ -29,7 +29,7 @@ function BottomBar({ pokemonId, isLoaded, onNext, onPrevious }: Props) {
             borderColor={'black'}
             minWidth={'70px'}
             onClick={onPrevious}
-            isLoading={!isLoaded}
+            isLoading={isLoading}
             isDisabled={pokemonId <= 1}
           >
             <MdArrowBack />
@@ -43,7 +43,7 @@ function BottomBar({ pokemonId, isLoaded, onNext, onPrevious }: Props) {
             borderColor={'black'}
             minWidth={'70px'}
             onClick={onNext}
-            isLoading={!isLoaded}
+            isLoading={isLoading}
           >
             <MdArrowForward />
           </Button>

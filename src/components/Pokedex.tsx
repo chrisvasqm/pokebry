@@ -6,17 +6,17 @@ import Screen from './Screen';
 import TopBar from './TopBar';
 
 function PokeDex() {
-  const [pokemonId, setPokemonId] = useState<number | string>(1);
+  const [pokemonId, setPokemonId] = useState(1);
   const { data: pokemon, isLoading, error } = usePokemon(pokemonId);
   const toast = useToast();
 
   function handleNext() {
-    if (typeof pokemonId === 'number' && pokemonId <= 1017)
+    if (pokemonId <= 1017)
       setPokemonId(pokemonId + 1);
   }
 
   function handlePrevious() {
-    if (typeof pokemonId === 'number' && pokemonId > 1)
+    if (pokemonId > 1)
       setPokemonId(pokemonId - 1);
   }
 
@@ -41,12 +41,12 @@ function PokeDex() {
       boxShadow='10px 10px 10px rgba(0, 0, 0, 0.4)'
     >
       <TopBar />
-      <Screen pokemon={pokemon} isLoaded={!isLoading} />
+      <Screen pokemon={pokemon} isLoading={isLoading} />
       <BottomBar
-        pokemonId={pokemonId as number}
+        pokemonId={pokemonId}
         onNext={handleNext}
         onPrevious={handlePrevious}
-        isLoaded={!isLoading}
+        isLoading={isLoading}
       />
     </VStack>
   );

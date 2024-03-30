@@ -1,12 +1,14 @@
-import { Box, HStack, Heading, Image, Skeleton, SkeletonText, VStack, Text } from '@chakra-ui/react';
+import { Box, HStack, Heading, Image, Skeleton, SkeletonText, VStack, Text, useColorMode } from '@chakra-ui/react';
 import Pokemon from '../models/Pokemon';
 
 interface Props {
   pokemon?: Pokemon;
-  isLoaded: boolean;
+  isLoading: boolean;
 }
 
-function Screen({ pokemon, isLoaded }: Props) {
+function Screen({ pokemon, isLoading }: Props) {
+  const { colorMode } = useColorMode();
+
   const stats = {
     hp: pokemon?.stats[0].base_stat,
     attack: pokemon?.stats[1].base_stat,
@@ -34,7 +36,7 @@ function Screen({ pokemon, isLoaded }: Props) {
     <VStack
       className='section-middle'
       marginY={4}
-      backgroundColor={'white'}
+      backgroundColor={colorMode === 'light' ? 'white' : 'gray.700'}
       borderRadius={6}
       borderWidth={10}
       padding={6}
@@ -43,7 +45,7 @@ function Screen({ pokemon, isLoaded }: Props) {
       minHeight={'360px'}
       minWidth={'100%'}
     >
-      <Skeleton isLoaded={isLoaded}>
+      <Skeleton isLoaded={!isLoading}>
         <Heading>
           {pokemon?.name.charAt(0).toUpperCase()}
           {pokemon?.name.slice(1)}
@@ -51,7 +53,7 @@ function Screen({ pokemon, isLoaded }: Props) {
       </Skeleton>
 
       <HStack>
-        <Skeleton isLoaded={isLoaded}>
+        <Skeleton isLoaded={!isLoading}>
           <Image
             src={pokemon?.sprites.front_default || '../../images/pokeball.png'}
             borderRadius={'full'}
@@ -59,8 +61,8 @@ function Screen({ pokemon, isLoaded }: Props) {
             height={'150px'}
           />
         </Skeleton>
-        <SkeletonText isLoaded={isLoaded}>
-          <Box textColor={'gray.800'}>
+        <SkeletonText isLoaded={!isLoading}>
+          <Box>
             <Text>
               <Text as='b'>Type:</Text> {pokemon && formatTypes(pokemon)}
             </Text>

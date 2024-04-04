@@ -1,9 +1,8 @@
-import { Card, VStack, Image, Text } from "@chakra-ui/react"
-import PokemonResult from "../../models/PokemonResult"
-import usePokemonByUrl from "../../hooks/usePokemonByUrl"
-import typeColors from "../../colors/typeColors"
+import { Card, Image, Text, VStack } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
-import { capitalizeName } from "../../common"
+import { capitalizeName, getPrimaryColorByType } from "../../common"
+import usePokemonByUrl from "../../hooks/usePokemonByUrl"
+import PokemonResult from "../../models/PokemonResult"
 
 interface Props {
   result: PokemonResult
@@ -16,8 +15,7 @@ const PokemonCard = ({ result }: Props) => {
 
   if (error) return <p>{error.message}</p>
 
-  const primaryType = pokemon?.types[0].type.name;
-  const typeColor = typeColors[primaryType || '']
+  const typeColor = getPrimaryColorByType(pokemon!)
 
   return (
     <Link to={`/pokemons/${pokemon?.id}`}>

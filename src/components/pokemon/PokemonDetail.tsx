@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import usePokemon from "../../hooks/usePokemon";
 import useTitleStore from "../../store/useTitleStore";
 import PokemonTabs from "./PokemonTabs";
+import PokemonTypeBadge from "./PokemonTypeBadge";
 
 const PokemonDetail = () => {
   const { id } = useParams();
@@ -26,6 +27,7 @@ const PokemonDetail = () => {
             src={pokemon?.sprites.other["official-artwork"].front_default}
             boxSize={'250px'}
           />
+          <PokemonTypeBadge pokemon={pokemon!} />
         </VStack>
       </Center>
       <PokemonTabs pokemon={pokemon!} />

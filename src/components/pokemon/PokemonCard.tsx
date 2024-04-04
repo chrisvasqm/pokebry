@@ -15,7 +15,7 @@ const PokemonCard = ({ result }: Props) => {
 
   if (error) return <p>{error.message}</p>
 
-  const name = `${pokemon?.name[0].toUpperCase()}${pokemon?.name.slice(1)}`
+  const name = `${pokemon?.name.charAt(0).toUpperCase()}${pokemon?.name.slice(1)}`
 
   const primaryType = pokemon?.types[0].type.name;
   const typeColor = typeColors[primaryType || '']

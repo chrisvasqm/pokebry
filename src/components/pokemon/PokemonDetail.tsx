@@ -21,7 +21,7 @@ const PokemonDetail = () => {
     <Card>
       <Center>
         <VStack>
-          <Heading>{`${pokemon?.name[0].toUpperCase()}${pokemon?.name.slice(1)}`}</Heading>
+          <Heading>{`${pokemon?.name.charAt(0).toUpperCase()}${pokemon?.name.slice(1)}`}</Heading>
 
           <Image
             src={pokemon?.sprites.other["official-artwork"].front_default}

@@ -8,7 +8,7 @@ const NavBar = () => {
     return (
         <Card paddingY={2} paddingX={4} borderRadius={0} boxShadow={'md'}>
             <Heading as={'h1'} fontSize={'2xl'}>
-                <Link to='/pokemons'>{title}</Link>
+                <Link to='/pokemons'>{title.charAt(0).toUpperCase() + title.slice(1)}</Link>
             </Heading>
         </Card>
     )

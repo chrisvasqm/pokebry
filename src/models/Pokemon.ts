@@ -22,4 +22,5 @@ export default interface Pokemon {
       version_group_details: [{ level_learned_at: number }]
     }
   ]
+  cries: { latest: string, legacy: string }
 }

@@ -1,4 +1,4 @@
-import usePokemons from "../hooks/usePokemons"
+import usePokemons from "../../hooks/usePokemons"
 
 const PokemonsContainer = () => {
     const { data: pokemons, isLoading, error } = usePokemons();

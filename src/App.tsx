@@ -1,5 +1,5 @@
 import { Container } from '@chakra-ui/react';
-import PokemonsContainer from './components/Pokemons';
+import PokemonsContainer from './components/pokemon/PokemonContainer';
 
 function App() {
   return (

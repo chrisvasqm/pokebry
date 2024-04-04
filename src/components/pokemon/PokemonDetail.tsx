@@ -17,7 +17,7 @@ const PokemonDetail = () => {
           <Heading>{`${pokemon?.name[0].toUpperCase()}${pokemon?.name.slice(1)}`}</Heading>
 
           <Image
-            src={pokemon?.sprites.front_default}
+            src={pokemon?.sprites.other["official-artwork"].front_default}
             boxSize={'250px'}
           />
         </VStack>

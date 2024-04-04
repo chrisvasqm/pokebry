@@ -1,8 +1,12 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://pokeapi.co/api'
+    baseURL: 'https://pokeapi.co/api/v2'
 });
+
+interface FetchResponse<T> {
+    results: T[]
+}
 
 class APIClient<T> {
     endpoint: string;
@@ -11,10 +15,18 @@ class APIClient<T> {
         this.endpoint = endpoint;
     }
 
-    find = (id: number) => {
-        return instance.get<T>(`${this.endpoint}/${id}`)
+    getAll = () =>
+        instance.get<FetchResponse<T>>(`${this.endpoint}`)
+            .then(response => response.data.results);
+
+    find = (url: string) =>
+        instance.get<T>(url)
             .then(response => response.data);
-    }
+
+    get = (id: number) =>
+        instance.get<T>(`${this.endpoint}/${id}`)
+            .then(response => response.data);
+
 }
 
 export default APIClient;

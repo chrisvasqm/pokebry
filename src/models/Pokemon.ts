@@ -1,11 +1,27 @@
-import Stat from './Stat';
-import Sprites from './Sprites';
-import Type from './Type';
 
 export default interface Pokemon {
-  id: number;
-  name: string;
-  stats: Stat[];
-  sprites: Sprites;
-  types: Type[];
+  id: number
+  name: string
+  stats: [
+    {
+      base_stat: number
+      stat: {
+        name: string
+      }
+    }
+  ]
+  sprites: {
+    other: {
+      'official-artwork': {
+        front_default: string
+      }
+    };
+  }
+  types: [
+    {
+      type: {
+        name: string
+      }
+    }
+  ]
 }

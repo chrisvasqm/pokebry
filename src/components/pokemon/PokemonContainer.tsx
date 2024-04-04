@@ -10,8 +10,8 @@ const PokemonsContainer = () => {
     if (error) return <p>{error.message}</p>
 
     return (
-        <SimpleGrid gap={4} columns={[2, 4]}>
-            {pokemons?.map(result => <PokemonCard result={result} />)}
+        <SimpleGrid gap={2} columns={[2, 4]}>
+            {pokemons?.map(result => <PokemonCard key={result.name} result={result} />)}
         </SimpleGrid>
     )
 }

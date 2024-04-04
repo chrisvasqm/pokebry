@@ -13,11 +13,17 @@ const PokemonCard = ({ result }: Props) => {
 
   if (error) return <p>{error.message}</p>
 
+  const name = pokemon?.name[0].toUpperCase() + pokemon?.name.slice(1)!
+
   return (
-    <Card padding={2}>
+    <Card padding={2} boxShadow={'lg'}>
       <VStack>
-        <Image src={pokemon?.sprites.front_default} />
-        <Text>{pokemon?.name}</Text>
+        <Image
+          src={pokemon?.sprites.front_default}
+          boxSize={'120px'}
+          objectFit={'cover'}
+        />
+        <Text>{name}</Text>
       </VStack>
     </Card>
   )

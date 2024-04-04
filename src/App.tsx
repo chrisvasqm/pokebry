@@ -3,7 +3,7 @@ import PokemonsContainer from './components/pokemon/PokemonContainer';
 
 function App() {
   return (
-    <Container paddingTop={4} size={['md', 'sm']}>
+    <Container paddingY={4} paddingX={2} size={['md', 'sm']}>
       <PokemonsContainer />
     </Container>
   );

@@ -1,4 +1,4 @@
-import { Card, Center, Image, Text, VStack } from "@chakra-ui/react";
+import { Card, Center, Image, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack } from "@chakra-ui/react";
 import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import usePokemon from "../../hooks/usePokemon";
@@ -27,6 +27,28 @@ const PokemonDetail = () => {
           />
         </VStack>
       </Center>
+      <Tabs marginX={2} marginY={2} variant='soft-rounded' colorScheme="green" isFitted>
+        <TabList>
+          <Tab>Details</Tab>
+          <Tab>Abilities</Tab>
+          <Tab>Sounds</Tab>
+          <Tab>Games</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Text>Details...</Text>
+          </TabPanel>
+          <TabPanel>
+            <Text>Abilities...</Text>
+          </TabPanel>
+          <TabPanel>
+            <Text>Sounds...</Text>
+          </TabPanel>
+          <TabPanel>
+            <Text>Games...</Text>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Card>
   )
 }

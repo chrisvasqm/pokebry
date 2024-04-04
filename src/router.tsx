@@ -4,7 +4,7 @@ import PokemonDetail from './components/pokemon/PokemonDetail'
 
 const router = createBrowserRouter([
     { path: '/', element: <App /> },
-    { path: '/pokemon/:id', element: <PokemonDetail /> }
+    { path: '/pokemons/:id', element: <PokemonDetail /> }
 ])
 
 export default router

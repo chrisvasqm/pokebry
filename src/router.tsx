@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Layout from './App'
+import Layout from './Layout'
 import PokemonDetail from './components/pokemon/PokemonDetail'
 import PokemonsContainer from './components/pokemon/PokemonContainer'
 

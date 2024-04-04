@@ -16,7 +16,10 @@ const PokemonCard = ({ result }: Props) => {
   const name = pokemon?.name[0].toUpperCase() + pokemon?.name.slice(1)!
 
   return (
-    <Card padding={2} boxShadow={'lg'}>
+    <Card
+      padding={2}
+      boxShadow={'lg'}
+      borderRadius={'xl'}>
       <VStack>
         <Image
           src={pokemon?.sprites.front_default}

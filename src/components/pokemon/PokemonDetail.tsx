@@ -1,9 +1,8 @@
-import { Center, Heading, Text, Image, VStack, Card } from "@chakra-ui/react";
-import { useParams } from "react-router-dom"
+import { Card, Center, Image, Text, VStack } from "@chakra-ui/react";
+import { useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import usePokemon from "../../hooks/usePokemon";
 import useTitleStore from "../../store/useTitleStore";
-import { useEffect } from 'react';
-import { capitalizeName } from "../../common";
 
 const PokemonDetail = () => {
   const { id } = useParams();
@@ -22,8 +21,6 @@ const PokemonDetail = () => {
     <Card>
       <Center>
         <VStack>
-          <Heading>{capitalizeName(pokemon?.name || '')}</Heading>
-
           <Image
             src={pokemon?.sprites.other["official-artwork"].front_default}
             boxSize={'250px'}

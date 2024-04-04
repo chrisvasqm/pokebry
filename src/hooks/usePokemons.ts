@@ -1,5 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import client from "../services/pokemonService";
+import APIClient from "../services/apiClient";
+import PokemonResult from "../models/PokemonResult";
+
+const client = new APIClient<PokemonResult>('/pokemon')
 
 const usePokemons = () => useQuery({
     queryKey: ['pokemons'],

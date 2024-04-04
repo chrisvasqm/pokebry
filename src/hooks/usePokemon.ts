@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import service from '../services/pokemonService';
 import Pokemon from "../models/Pokemon";
+import APIClient from "../services/apiClient";
 
-const usePokemon = (id: number) => {
-    return useQuery<Pokemon, Error>({
-        queryKey: ['pokemon', id],
-        queryFn: () => service.find(id),
-        placeholderData: prev => prev
-    })
-}
+const client = new APIClient<Pokemon>('/api/pokemon');
+
+const usePokemon = (url: string) => useQuery<Pokemon, Error>({
+    queryKey: ['pokemon', url],
+    queryFn: () => client.find(url),
+})
 
 export default usePokemon;

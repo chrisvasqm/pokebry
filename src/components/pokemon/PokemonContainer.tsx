@@ -1,4 +1,6 @@
+import { SimpleGrid } from "@chakra-ui/react";
 import usePokemons from "../../hooks/usePokemons"
+import PokemonCard from "./PokemonCard";
 
 const PokemonsContainer = () => {
     const { data: pokemons, isLoading, error } = usePokemons();
@@ -8,9 +10,9 @@ const PokemonsContainer = () => {
     if (error) return <p>{error.message}</p>
 
     return (
-        <ul>
-            {pokemons?.map(pokemon => <li>{pokemon.name}</li>)}
-        </ul>
+        <SimpleGrid gap={4} columns={[2, 4]}>
+            {pokemons?.map(result => <PokemonCard result={result} />)}
+        </SimpleGrid>
     )
 }
 

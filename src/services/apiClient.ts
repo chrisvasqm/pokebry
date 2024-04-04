@@ -23,6 +23,10 @@ class APIClient<T> {
         instance.get<T>(url)
             .then(response => response.data);
 
+    get = (id: number) =>
+        instance.get<T>(`${this.endpoint}/${id}`)
+            .then(response => response.data);
+
 }
 
 export default APIClient;

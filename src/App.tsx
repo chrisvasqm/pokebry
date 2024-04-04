@@ -1,10 +1,10 @@
 import { Container } from '@chakra-ui/react';
-import PokeDex from './components/Pokedex';
+import PokemonsContainer from './components/Pokemons';
 
 function App() {
   return (
     <Container paddingTop={4} size={['md', 'sm']}>
-      <PokeDex />
+      <PokemonsContainer />
     </Container>
   );
 }

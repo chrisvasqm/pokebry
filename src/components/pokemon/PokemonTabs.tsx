@@ -1,6 +1,7 @@
 import { Tabs, TabList, Tab, TabPanels, TabPanel, Text } from "@chakra-ui/react"
 import Pokemon from '../../models/Pokemon';
 import PokemonStats from "./PokemonStats";
+import PokemonAbilities from "./PokemonAbilities";
 
 interface Props {
     pokemon: Pokemon
@@ -20,7 +21,7 @@ const PokemonTabs = ({ pokemon }: Props) => {
                     <PokemonStats pokemon={pokemon} />
                 </TabPanel>
                 <TabPanel>
-                    <Text>Abilities...</Text>
+                    <PokemonAbilities pokemon={pokemon} />
                 </TabPanel>
                 <TabPanel>
                     <Text>Sounds...</Text>

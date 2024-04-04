@@ -27,7 +27,7 @@ const PokemonDetail = () => {
           />
         </VStack>
       </Center>
-      <Tabs marginX={2} marginY={2} variant='soft-rounded' colorScheme="green" isFitted>
+      <Tabs marginX={2} marginY={2} variant='soft-rounded' isFitted>
         <TabList>
           <Tab>Details</Tab>
           <Tab>Abilities</Tab>

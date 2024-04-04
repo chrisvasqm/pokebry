@@ -1,10 +1,13 @@
 
 export default interface Pokemon {
-  id: number;
-  name: string;
+  id: number
+  name: string
   stats: [
     {
-      base_stat: number;
+      base_stat: number
+      stat: {
+        name: string
+      }
     }
   ]
   sprites: {

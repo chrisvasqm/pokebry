@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import usePokemon from "../../hooks/usePokemon";
 import useTitleStore from "../../store/useTitleStore";
 import { useEffect } from 'react';
+import { capitalizeName } from "../../common";
 
 const PokemonDetail = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const PokemonDetail = () => {
     <Card>
       <Center>
         <VStack>
-          <Heading>{`${pokemon?.name.charAt(0).toUpperCase()}${pokemon?.name.slice(1)}`}</Heading>
+          <Heading>{capitalizeName(pokemon?.name || '')}</Heading>
 
           <Image
             src={pokemon?.sprites.other["official-artwork"].front_default}

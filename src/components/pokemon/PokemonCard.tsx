@@ -3,6 +3,7 @@ import PokemonResult from "../../models/PokemonResult"
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
 import typeColors from "../../colors/typeColors"
 import { Link } from "react-router-dom"
+import { capitalizeName } from "../../common"
 
 interface Props {
   result: PokemonResult
@@ -14,8 +15,6 @@ const PokemonCard = ({ result }: Props) => {
   if (isLoading) return <p>Loading...</p>
 
   if (error) return <p>{error.message}</p>
-
-  const name = `${pokemon?.name.charAt(0).toUpperCase()}${pokemon?.name.slice(1)}`
 
   const primaryType = pokemon?.types[0].type.name;
   const typeColor = typeColors[primaryType || '']
@@ -29,7 +28,7 @@ const PokemonCard = ({ result }: Props) => {
         backgroundColor={typeColor}>
         <VStack>
           <Image src={pokemon?.sprites.other["official-artwork"].front_default} />
-          <Text fontWeight={'semibold'}>{name}</Text>
+          <Text fontWeight={'semibold'}>{capitalizeName(pokemon?.name || '')}</Text>
         </VStack>
       </Card>
     </Link>

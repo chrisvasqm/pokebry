@@ -31,7 +31,7 @@ const PokemonCard = ({ result }: Props) => {
           boxSize={'120px'}
           objectFit={'cover'}
         />
-        <Text>{name}</Text>
+        <Text fontWeight={'semibold'}>{name}</Text>
       </VStack>
     </Card>
   )

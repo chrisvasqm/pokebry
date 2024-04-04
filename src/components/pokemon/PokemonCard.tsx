@@ -1,6 +1,7 @@
 import { Card, VStack, Image, Text } from "@chakra-ui/react"
 import PokemonResult from "../../models/PokemonResult"
 import usePokemon from "../../hooks/usePokemon"
+import typeColors from "../../colors/typeColors"
 
 interface Props {
   result: PokemonResult
@@ -15,11 +16,15 @@ const PokemonCard = ({ result }: Props) => {
 
   const name = pokemon?.name[0].toUpperCase() + pokemon?.name.slice(1)!
 
+  const primaryType = pokemon?.types[0].type.name;
+  const typeColor = typeColors[primaryType || '']
+
   return (
     <Card
       padding={2}
       boxShadow={'lg'}
-      borderRadius={'xl'}>
+      borderRadius={'xl'}
+      backgroundColor={typeColor}>
       <VStack>
         <Image
           src={pokemon?.sprites.front_default}

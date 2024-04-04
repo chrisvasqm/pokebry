@@ -1,8 +1,8 @@
-import { Tabs, TabList, Tab, TabPanels, TabPanel, Text } from "@chakra-ui/react"
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import Pokemon from '../../models/Pokemon';
-import PokemonStats from "./PokemonStats";
-import PokemonAbilities from "./PokemonAbilities";
 import PokemonSounds from "../PokemonSounds";
+import PokemonAbilities from "./PokemonAbilities";
+import PokemonStats from "./PokemonStats";
 
 interface Props {
     pokemon: Pokemon
@@ -12,10 +12,10 @@ const PokemonTabs = ({ pokemon }: Props) => {
     return (
         <Tabs marginX={2} marginY={2} variant='soft-rounded' isFitted>
             <TabList>
-                <Tab>Details</Tab>
+                <Tab>Stats</Tab>
                 <Tab>Abilities</Tab>
                 <Tab>Sounds</Tab>
-                <Tab>Games</Tab>
+                
             </TabList>
             <TabPanels>
                 <TabPanel>
@@ -26,9 +26,6 @@ const PokemonTabs = ({ pokemon }: Props) => {
                 </TabPanel>
                 <TabPanel>
                     <PokemonSounds pokemon={pokemon} />
-                </TabPanel>
-                <TabPanel>
-                    <Text>Games...</Text>
                 </TabPanel>
             </TabPanels>
         </Tabs>

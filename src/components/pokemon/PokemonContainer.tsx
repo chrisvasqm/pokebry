@@ -12,7 +12,7 @@ const PokemonsContainer = () => {
 
     return (
         <>
-            <SimpleGrid gap={3} columns={[2, 3, 4]}>
+            <SimpleGrid gap={3} columns={[2, 3, 4, 5, 6]}>
                 {data?.pages.map((page, index) =>
                     <React.Fragment key={index}>
                         {page.map(result => <PokemonCard key={result.name} result={result} />)}

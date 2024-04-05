@@ -13,7 +13,7 @@ function Layout() {
   return (
     <>
       <NavBar />
-      <Container paddingY={4} paddingX={2} size={['md', 'sm']}>
+      <Container paddingY={4} paddingX={2} maxWidth={'4xl'}>
         <Outlet />
       </Container>
     </>

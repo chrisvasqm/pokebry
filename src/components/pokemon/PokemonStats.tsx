@@ -7,7 +7,7 @@ interface Props {
 
 const PokemonStats = ({ pokemon }: Props) => {
     return (
-        <SimpleGrid columns={2} gap={5}>
+        <SimpleGrid columns={[2, 3]} gap={5}>
             {pokemon.stats.map(stat =>
                 <Stat key={stat.stat.name}>
                     <StatLabel color={'gray.500'}>{stat.stat.name.toUpperCase()}</StatLabel>

@@ -1,11 +1,10 @@
 import { Button, Center, SimpleGrid, Spinner } from "@chakra-ui/react";
+import React from "react";
 import usePokemons from "../../hooks/usePokemons";
 import PokemonCard from "./PokemonCard";
-import { useState } from "react";
 
 const PokemonsContainer = () => {
-    const [limit, setLimit] = useState(20);
-    const { data: pokemons, isLoading, error } = usePokemons({ limit });
+    const { data, isLoading, error, isFetchingNextPage, fetchNextPage } = usePokemons({ limit: 52 });
 
     if (isLoading) return <Center height={'100vh'}><Spinner /></Center>
 
@@ -14,13 +13,17 @@ const PokemonsContainer = () => {
     return (
         <>
             <SimpleGrid gap={3} columns={[2, 3, 4]}>
-                {pokemons?.map(result => <PokemonCard key={result.name} result={result} />)}
+                {data?.pages.map((page, index) =>
+                    <React.Fragment key={index}>
+                        {page.map(result => <PokemonCard key={result.name} result={result} />)}
+                    </React.Fragment>
+                )}
             </SimpleGrid>
             <Center marginY={2}>
                 <Button
                     colorScheme="blue"
-                    isLoading={isLoading}
-                    onClick={() => setLimit(limit + 16)}>
+                    isLoading={isLoading || isFetchingNextPage}
+                    onClick={() => fetchNextPage()}>
                     Load More
                 </Button>
             </Center>

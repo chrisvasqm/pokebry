@@ -1,16 +1,36 @@
-import { Card, Heading } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import useTitleStore from "../store/useTitleStore";
-import { capitalizeName } from "../common";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Card, Heading, HStack, IconButton } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
+import useBackButtonStore from "../store/useBackButtonStore";
 
 const NavBar = () => {
-    const title = useTitleStore(state => state.title)
+    const { isVisible, display, hide } = useBackButtonStore();
+    const navigate = useNavigate();
+
+    const onHide = () => {
+        hide()
+        navigate('/pokemons');
+    }
+
+    const onDisplay = () => {
+        display()
+    }
 
     return (
-        <Card paddingY={2} paddingX={4} borderRadius={0} boxShadow={'md'}>
-            <Heading as={'h1'} fontSize={'3xl'}>
-                <Link to='/pokemons'>{capitalizeName(title)}</Link>
-            </Heading>
+        <Card borderRadius={0} boxShadow={'md'}>
+            <HStack>
+                {isVisible &&
+                    <IconButton
+                        icon={<ArrowBackIcon boxSize={'25px'} />}
+                        variant={'ghost'}
+                        height={'55px'}
+                        width={'55px'}
+                        aria-label="back-button"
+                        onClick={() => isVisible ? onHide() : onDisplay()} />}
+                <Heading marginY={2} marginLeft={isVisible ? 1 : 4} as={'h1'} fontSize={'3xl'}>
+                    <Link to='/pokemons'>PokéDex</Link>
+                </Heading>
+            </HStack>
         </Card>
     )
 }

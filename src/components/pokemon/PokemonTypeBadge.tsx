@@ -12,8 +12,11 @@ const PokemonTypeBadge = ({ pokemon }: Props) => {
             {pokemon.types.map(({ type }) =>
                 <Badge
                     paddingY={1}
-                    paddingX={2}
+                    paddingX={4}
                     borderRadius={'full'}
+                    fontWeight={'bold'}
+                    fontSize={'xs'}
+                    color={'white'}
                     backgroundColor={typeColors[type.name]}
                 >
                     {type.name}

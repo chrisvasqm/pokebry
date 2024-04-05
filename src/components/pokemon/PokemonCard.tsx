@@ -25,7 +25,7 @@ const PokemonCard = ({ result }: Props) => {
         borderRadius={'xl'}
         backgroundColor={typeColor}>
         <VStack>
-          <Image src={pokemon?.sprites.other["official-artwork"].front_default} />
+          <Image src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"} />
           <Text fontWeight={'semibold'}>{capitalizeName(pokemon?.name || '')}</Text>
         </VStack>
       </Card>

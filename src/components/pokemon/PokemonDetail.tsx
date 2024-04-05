@@ -28,7 +28,7 @@ const PokemonDetail = () => {
       <Center>
         <VStack>
           <Image
-            src={pokemon?.sprites.other["official-artwork"].front_default}
+            src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"}
             boxSize={'250px'}
           />
           <Text as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>

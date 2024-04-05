@@ -1,4 +1,4 @@
-import { Center, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Center, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import usePokemons from "../../hooks/usePokemons";
@@ -25,6 +25,7 @@ const PokemonsContainer = () => {
             hasMore={hasNextPage}
             next={fetchNextPage}
             loader={<Spinner />}
+            endMessage={<Center marginY={4}><Text fontWeight={'semibold'}>There are no more Pokemons</Text></Center>}
         >
             <SimpleGrid gap={3} columns={[2, 3, 4, 5, 6]}>
                 {data?.pages.map((page, index) =>

@@ -1,19 +1,17 @@
 import { Card, Center, Image, Spinner, Text, VStack } from "@chakra-ui/react";
-import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import usePokemon from "../../hooks/usePokemon";
-import useTitleStore from "../../store/useTitleStore";
+import useBackButtonStore from "../../store/useBackButtonStore";
 import PokemonTabs from "./PokemonTabs";
 import PokemonTypeBadge from "./PokemonTypeBadge";
+import { capitalizeName } from "../../common";
 
 const PokemonDetail = () => {
   const { id } = useParams();
   const { data: pokemon, isLoading, error } = usePokemon(parseInt(id!));
-  const setTitle = useTitleStore(state => state.setTitle);
 
-  useEffect(() => {
-    setTitle(pokemon?.name || 'PokéDex');
-  }, [pokemon?.name, setTitle])
+  const display = useBackButtonStore(state => state.display);
+  display();
 
   if (isLoading) return <Center height={'100vh'}><Spinner /></Center>
 
@@ -27,6 +25,7 @@ const PokemonDetail = () => {
             src={pokemon?.sprites.other["official-artwork"].front_default}
             boxSize={'250px'}
           />
+          <Text as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>
           <PokemonTypeBadge pokemon={pokemon!} />
         </VStack>
       </Center>

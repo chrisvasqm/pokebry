@@ -1,5 +1,5 @@
 import { Center, Heading, VStack } from "@chakra-ui/react";
-import Pokemon from "../models/Pokemon";
+import Pokemon from "../../models/Pokemon";
 
 interface Props {
     pokemon: Pokemon

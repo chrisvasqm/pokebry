@@ -15,7 +15,6 @@ const PokemonTabs = ({ pokemon }: Props) => {
                 <Tab>Stats</Tab>
                 <Tab>Abilities</Tab>
                 <Tab>Sounds</Tab>
-
             </TabList>
             <TabPanels>
                 <TabPanel>

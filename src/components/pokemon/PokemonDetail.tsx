@@ -1,17 +1,14 @@
-import { Card, Center, Image, Spinner, Text, VStack } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Card, Center, IconButton, Image, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Link, useParams } from "react-router-dom";
+import { capitalizeName } from "../../common";
 import usePokemon from "../../hooks/usePokemon";
-import useBackButtonStore from "../../store/useBackButtonStore";
 import PokemonTabs from "./PokemonTabs";
 import PokemonTypeBadge from "./PokemonTypeBadge";
-import { capitalizeName } from "../../common";
 
 const PokemonDetail = () => {
   const { id } = useParams();
   const { data: pokemon, isLoading, error } = usePokemon(parseInt(id!));
-
-  const display = useBackButtonStore(state => state.display);
-  display();
 
   if (isLoading) return <Center height={'100vh'}><Spinner /></Center>
 
@@ -19,6 +16,15 @@ const PokemonDetail = () => {
 
   return (
     <Card>
+      <Link to={'/pokemons'}>
+        <IconButton
+          icon={<ArrowBackIcon boxSize={'25px'} />}
+          variant={'ghost'}
+          height={'55px'}
+          width={'55px'}
+          aria-label="back-button"
+        />
+      </Link>
       <Center>
         <VStack>
           <Image

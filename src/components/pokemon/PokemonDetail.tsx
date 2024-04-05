@@ -18,10 +18,10 @@ const PokemonDetail = () => {
     <Card>
       <Link to={'/pokemons'}>
         <IconButton
-          icon={<ArrowBackIcon boxSize={'25px'} />}
+          icon={<ArrowBackIcon boxSize={'30px'} />}
           variant={'ghost'}
-          height={'55px'}
-          width={'55px'}
+          height={'70px'}
+          width={'70px'}
           aria-label="back-button"
         />
       </Link>

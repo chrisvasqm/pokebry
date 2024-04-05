@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 const instance = axios.create({
     baseURL: 'https://pokeapi.co/api/v2'
@@ -15,8 +15,8 @@ class APIClient<T> {
         this.endpoint = endpoint;
     }
 
-    getAll = () =>
-        instance.get<FetchResponse<T>>(`${this.endpoint}`)
+    getAll = (config?: AxiosRequestConfig) =>
+        instance.get<FetchResponse<T>>(`${this.endpoint}`, config)
             .then(response => response.data.results);
 
     find = (url: string) =>

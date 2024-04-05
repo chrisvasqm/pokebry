@@ -5,9 +5,18 @@ import ms from "ms";
 
 const client = new APIClient<PokemonResult>('/pokemon')
 
-const usePokemons = () => useQuery({
-    queryKey: ['pokemons'],
-    queryFn: client.getAll,
+interface PokemonsQuery {
+    limit: number
+}
+
+const usePokemons = (query: PokemonsQuery) => useQuery({
+    queryKey: ['pokemons', query],
+    queryFn: () => client.getAll({
+        params: {
+            limit: query.limit
+        }
+    }),
+    placeholderData: previousData => previousData,
     staleTime: ms('24h')
 })
 

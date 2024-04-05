@@ -10,11 +10,11 @@ interface Props {
 
 const PokemonTabs = ({ pokemon }: Props) => {
     return (
-        <Tabs marginX={2} marginY={2} variant='soft-rounded' isFitted>
+        <Tabs marginX={2} marginY={2} variant='enclosed' isFitted>
             <TabList>
-                <Tab>Stats</Tab>
-                <Tab>Abilities</Tab>
-                <Tab>Sounds</Tab>
+                <Tab fontWeight={'semibold'}>Stats</Tab>
+                <Tab fontWeight={'semibold'}>Abilities</Tab>
+                <Tab fontWeight={'semibold'}>Sounds</Tab>
             </TabList>
             <TabPanels>
                 <TabPanel>

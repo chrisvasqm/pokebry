@@ -5,7 +5,7 @@ import APIClient from "../services/apiClient";
 const client = new APIClient<Pokemon>('/api/pokemon');
 
 const usePokemonByUrl = (url: string) => useQuery<Pokemon, Error>({
-    queryKey: ['pokemon', url],
+    queryKey: ['pokemonUrl', url],
     queryFn: () => client.find(url),
 })
 

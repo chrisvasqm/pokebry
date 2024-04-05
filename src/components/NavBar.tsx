@@ -9,7 +9,7 @@ const NavBar = () => {
         <Card borderRadius={0} boxShadow={'md'}>
             <HStack>
                 <Heading marginY={2} marginLeft={4} as={'h1'} fontSize={'3xl'}>
-                    <Link to='/pokemons'>PokéDex</Link>
+                    <Link to='/pokemons'>Pokebry</Link>
                 </Heading>
                 <Spacer />
                 <Switch isChecked={colorMode === 'dark'} onChange={toggleColorMode} />

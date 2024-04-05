@@ -1,4 +1,4 @@
-import { Card, Image, Text, VStack } from "@chakra-ui/react"
+import { Card, Center, Image, Spinner, Text, VStack } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { capitalizeName, getPrimaryColorByType } from "../../common"
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
@@ -11,7 +11,7 @@ interface Props {
 const PokemonCard = ({ result }: Props) => {
   const { data: pokemon, isLoading, error } = usePokemonByUrl(result.url);
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <Center><Spinner /></Center>
 
   if (error) return <p>{error.message}</p>
 

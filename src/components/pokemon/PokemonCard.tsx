@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { capitalizeName, getPrimaryColorByType } from "../../common"
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
 import PokemonResult from "../../models/PokemonResult"
+import { motion } from 'framer-motion'
 
 interface Props {
   result: PokemonResult
@@ -18,18 +19,24 @@ const PokemonCard = ({ result }: Props) => {
   const typeColor = getPrimaryColorByType(pokemon!)
 
   return (
-    <Link to={`/pokemons/${pokemon?.id}`}>
-      <Card
-        padding={2}
-        boxShadow={'lg'}
-        borderRadius={'xl'}
-        backgroundColor={typeColor}>
-        <VStack>
-          <Image src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"} />
-          <Text fontWeight={'semibold'}>{capitalizeName(pokemon?.name || '')}</Text>
-        </VStack>
-      </Card>
-    </Link>
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ duration: 0.2 }}
+    >
+      <Link to={`/pokemons/${pokemon?.id}`}>
+        <Card
+          padding={2}
+          boxShadow={'lg'}
+          borderRadius={'xl'}
+          backgroundColor={typeColor}>
+          <VStack>
+            <Image src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"} />
+            <Text fontWeight={'semibold'}>{capitalizeName(pokemon?.name || '')}</Text>
+          </VStack>
+        </Card>
+      </Link>
+    </motion.div>
   )
 }
 

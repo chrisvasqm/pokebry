@@ -27,7 +27,7 @@ const PokemonsContainer = () => {
             loader={<Spinner />}
             endMessage={<Center marginY={4}><Text fontWeight={'semibold'}>There are no more Pokemons</Text></Center>}
         >
-            <SimpleGrid gap={3} columns={[2, 3, 4, 5, 6]}>
+            <SimpleGrid padding={1} gap={3} columns={[2, 3, 4, 5, 6]}>
                 {data?.pages.map((page, index) =>
                     <React.Fragment key={index}>
                         {page.map(result => <PokemonCard key={result.name} result={result} />)}

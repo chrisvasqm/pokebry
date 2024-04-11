@@ -1,15 +1,15 @@
 import { SimpleGrid, Stat, StatLabel, StatNumber } from "@chakra-ui/react";
-import Pokemon from "../../models/Pokemon";
+import { Moves } from "../../models/Pokemon";
 
 interface Props {
-    pokemon: Pokemon
+    moves: Moves[]
 }
 
-const PokemonAbilities = ({ pokemon }: Props) => {
+const PokemonAbilities = ({ moves }: Props) => {
     return (
         <>
             <SimpleGrid columns={[2, 3]} gap={5} overflowY={'scroll'} height={'230px'}>
-                {pokemon.moves.map(({ move, version_group_details }) =>
+                {moves.map(({ move, version_group_details }) =>
                     <Stat key={move.name}>
                         <StatLabel color={'gray.500'}>Required level: {version_group_details[0].level_learned_at}</StatLabel>
                         <StatNumber fontSize={'md'}>{move.name.toUpperCase()}</StatNumber>

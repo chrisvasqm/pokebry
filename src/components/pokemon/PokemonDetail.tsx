@@ -32,7 +32,7 @@ const PokemonDetail = () => {
             boxSize={'250px'}
           />
           <Text as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>
-          <PokemonTypeBadge pokemon={pokemon!} />
+          <PokemonTypeBadge types={pokemon?.types || []} />
         </VStack>
       </Center>
       <PokemonTabs pokemon={pokemon!} />

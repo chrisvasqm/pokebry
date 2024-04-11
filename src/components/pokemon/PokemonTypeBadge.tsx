@@ -1,15 +1,15 @@
 import { Badge, HStack } from "@chakra-ui/react";
 import typeColors from "../../colors/typeColors";
-import Pokemon from "../../models/Pokemon";
+import { Types } from "../../models/Pokemon";
 
 interface Props {
-    pokemon: Pokemon
+    types: Types[]
 }
 
-const PokemonTypeBadge = ({ pokemon }: Props) => {
+const PokemonTypeBadge = ({ types }: Props) => {
     return (
         <HStack marginY={2}>
-            {pokemon.types.map(({ type }) =>
+            {types.map(({ type }) =>
                 <Badge
                     paddingY={1}
                     paddingX={4}

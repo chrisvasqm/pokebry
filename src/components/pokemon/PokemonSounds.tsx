@@ -1,24 +1,24 @@
 import { Center, Heading, VStack } from "@chakra-ui/react";
-import Pokemon from "../../models/Pokemon";
+import { Cries } from "../../models/Pokemon";
 
 interface Props {
-    pokemon: Pokemon
+    cries: Cries
 }
 
-const PokemonSounds = ({ pokemon }: Props) => {
+const PokemonSounds = ({ cries }: Props) => {
     return (
         <VStack gap={2} alignItems={'left'}>
             <Heading as={'h2'} fontWeight={'medium'} fontSize={'lg'}>Latest</Heading>
             <Center>
                 <audio controls>
-                    <source src={pokemon.cries.latest} type="audio/ogg" />
+                    <source src={cries.latest} type="audio/ogg" />
                 </audio>
             </Center>
 
             <Heading as={'h2'} fontWeight={'medium'} fontSize={'lg'}>Legacy</Heading>
             <Center>
                 <audio controls>
-                    <source src={pokemon.cries.legacy} type="audio/ogg" />
+                    <source src={cries.legacy} type="audio/ogg" />
                 </audio>
             </Center>
         </VStack>

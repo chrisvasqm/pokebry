@@ -18,13 +18,13 @@ const PokemonTabs = ({ pokemon }: Props) => {
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <PokemonStats pokemon={pokemon} />
+                    <PokemonStats stats={pokemon.stats} />
                 </TabPanel>
                 <TabPanel>
-                    <PokemonAbilities pokemon={pokemon} />
+                    <PokemonAbilities moves={pokemon.moves} />
                 </TabPanel>
                 <TabPanel>
-                    <PokemonSounds pokemon={pokemon} />
+                    <PokemonSounds cries={pokemon.cries} />
                 </TabPanel>
             </TabPanels>
         </Tabs>

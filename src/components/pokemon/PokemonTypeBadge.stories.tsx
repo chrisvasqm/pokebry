@@ -23,35 +23,6 @@ type Story = StoryObj<typeof PokemonTypeBadge>;
 
 export const Default: Story = {
     args: {
-        pokemon: {
-            id: 1,
-            name: 'Name',
-            stats: [
-                {
-                    base_stat: 1,
-                    stat: {
-                        name: 'Stat'
-                    }
-                }
-            ],
-            cries: {
-                latest: 'Latest',
-                legacy: 'Legacy'
-            },
-            moves: [
-                {
-                    move: { name: 'Move' },
-                    version_group_details: [{ level_learned_at: 1 }]
-                }
-            ],
-            sprites: {
-                other: {
-                    'official-artwork': { front_default: 'Sprite' }
-                }
-            },
-            types: [
-                { type: { name: "fire" } }
-            ]
-        }
+        types: [{ type: { name: "fire" } }, { type: { name: "poison" } }]
     }
 }

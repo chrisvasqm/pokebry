@@ -18,3 +18,11 @@ npm run dev
 ```
 
 Then follow the instructions on your terminal.
+
+## Preview components with Storybook
+
+Start the Storybook with this command:
+
+```
+npm run storybook
+```

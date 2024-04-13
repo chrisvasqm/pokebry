@@ -1,5 +1,5 @@
 import { MoonIcon } from "@chakra-ui/icons";
-import { Card, HStack, Heading, Spacer, Switch, useColorMode } from "@chakra-ui/react";
+import { Card, Container, HStack, Heading, Spacer, Switch, useColorMode } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {

@@ -8,16 +8,16 @@ interface Props {
 const PokemonSounds = ({ cries }: Props) => {
     return (
         <VStack gap={2} alignItems={'left'}>
-            <Heading as={'h2'} fontWeight={'medium'} fontSize={'lg'}>Latest</Heading>
+            <Heading id='sounds-title-latest' as={'h2'} fontWeight={'medium'} fontSize={'lg'}>Latest</Heading>
             <Center>
-                <audio controls>
+                <audio id='audio-latest' controls>
                     <source src={cries.latest} type="audio/ogg" />
                 </audio>
             </Center>
 
-            <Heading as={'h2'} fontWeight={'medium'} fontSize={'lg'}>Legacy</Heading>
+            <Heading id='sounds-title-legacy' as={'h2'} fontWeight={'medium'} fontSize={'lg'}>Legacy</Heading>
             <Center>
-                <audio controls>
+                <audio id='audio-legacy' controls>
                     <source src={cries.legacy} type="audio/ogg" />
                 </audio>
             </Center>

@@ -6,15 +6,15 @@ const NavBar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
-        <Card borderRadius={0} boxShadow={'md'}>
-            <Container maxWidth={'4xl'} paddingX={2}>
+        <Card id='navbar' borderRadius={0} boxShadow={'md'}>
+            <Container maxWidth={'4xl'}>
                 <HStack>
                     <Heading marginY={2} as={'h1'} fontSize={'3xl'}>
-                        <Link to='/pokemons'>Pokebry</Link>
+                        <Link id='navbar-title' to='/pokemons'>Pokebry</Link>
                     </Heading>
                     <Spacer />
-                    <Switch isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
-                    <MoonIcon marginLeft={1} />
+                    <Switch id='navbar-switch' isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
+                    <MoonIcon id='navbar-moon-icon' marginLeft={1} />
                 </HStack>
             </Container>
         </Card>

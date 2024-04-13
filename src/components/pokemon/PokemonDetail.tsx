@@ -18,6 +18,7 @@ const PokemonDetail = () => {
     <Card>
       <Link to={'/pokemons'}>
         <IconButton
+          id='details-button-back'
           icon={<ArrowBackIcon boxSize={'30px'} />}
           variant={'ghost'}
           height={'70px'}
@@ -28,10 +29,11 @@ const PokemonDetail = () => {
       <Center>
         <VStack>
           <Image
+            id='details-image'
             src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"}
             boxSize={'250px'}
           />
-          <Text as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>
+          <Text id='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>
           <PokemonTypeBadge types={pokemon?.types || []} />
         </VStack>
       </Center>

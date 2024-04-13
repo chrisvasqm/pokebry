@@ -10,20 +10,20 @@ interface Props {
 
 const PokemonTabs = ({ pokemon }: Props) => {
     return (
-        <Tabs marginX={2} marginY={2} variant='enclosed' isFitted>
+        <Tabs id='tab-container' marginX={2} marginY={2} variant='enclosed' isFitted>
             <TabList>
-                <Tab fontWeight={'semibold'}>Stats</Tab>
-                <Tab fontWeight={'semibold'}>Abilities</Tab>
-                <Tab fontWeight={'semibold'}>Sounds</Tab>
+                <Tab id='tab-stats-title' fontWeight={'semibold'}>Stats</Tab>
+                <Tab id='tab-abilities-title' fontWeight={'semibold'}>Abilities</Tab>
+                <Tab id='tab-sounds-title' fontWeight={'semibold'}>Sounds</Tab>
             </TabList>
             <TabPanels>
-                <TabPanel>
+                <TabPanel id='tab-stats-content'>
                     <PokemonStats stats={pokemon.stats} />
                 </TabPanel>
-                <TabPanel>
+                <TabPanel id='tab-abilities-content'>
                     <PokemonAbilities moves={pokemon.moves} />
                 </TabPanel>
-                <TabPanel>
+                <TabPanel id='tab-sounds-content'>
                     <PokemonSounds cries={pokemon.cries} />
                 </TabPanel>
             </TabPanels>

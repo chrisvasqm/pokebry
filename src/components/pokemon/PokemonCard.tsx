@@ -20,6 +20,7 @@ const PokemonCard = ({ result }: Props) => {
 
   return (
     <motion.div
+      id={`card-container-${pokemon?.name}`}      
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2 }}
@@ -31,8 +32,8 @@ const PokemonCard = ({ result }: Props) => {
           borderRadius={'xl'}
           backgroundColor={typeColor}>
           <VStack>
-            <Image src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"} />
-            <Text fontWeight={'semibold'}>{capitalizeName(pokemon?.name || '')}</Text>
+            <Image id='card-image' src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"} />
+            <Text id='card-name' fontWeight={'semibold'}>{capitalizeName(pokemon?.name || '')}</Text>
           </VStack>
         </Card>
       </Link>

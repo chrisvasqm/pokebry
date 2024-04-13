@@ -8,9 +8,9 @@ const ErrorPage = () => {
             <NavBar />
             <Center height={'100vh'}>
                 <VStack>
-                    <Heading>Oops!</Heading>
-                    <Text>Seems like you have lost your way</Text>
-                    <Link to={'/pokemons'}><Button>Go Home</Button></Link>
+                    <Heading id='error-title'>Oops!</Heading>
+                    <Text id='error-message'>Seems like you have lost your way</Text>
+                    <Link id='error-button-home' to={'/pokemons'}><Button>Go Home</Button></Link>
                 </VStack>
             </Center>
         </>

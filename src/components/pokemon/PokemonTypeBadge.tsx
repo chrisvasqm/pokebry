@@ -11,6 +11,7 @@ const PokemonTypeBadge = ({ types }: Props) => {
         <HStack marginY={2}>
             {types.map(({ type }) =>
                 <Badge
+                    id={`badge-${type.name}`}
                     paddingY={1}
                     paddingX={4}
                     borderRadius={'full'}

@@ -25,9 +25,9 @@ const PokemonsContainer = () => {
             hasMore={hasNextPage}
             next={fetchNextPage}
             loader={<Spinner />}
-            endMessage={<Center marginY={4}><Text fontWeight={'semibold'}>There are no more Pokemons</Text></Center>}
+            endMessage={<Center marginY={4}><Text id='list-no-more-items' fontWeight={'semibold'}>There are no more Pokemons</Text></Center>}
         >
-            <SimpleGrid padding={1} gap={3} columns={[2, 3, 4, 5, 6]}>
+            <SimpleGrid id='list-grid' padding={1} gap={3} columns={[2, 3, 4, 5, 6]}>
                 {data?.pages.map((page, index) =>
                     <React.Fragment key={index}>
                         {page.map(result => <PokemonCard key={result.name} result={result} />)}

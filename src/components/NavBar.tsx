@@ -4,7 +4,7 @@ import { FaGithub } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
-    const { colorMode, toggleColorMode } = useColorMode();ø
+    const { colorMode, toggleColorMode } = useColorMode();
 
     return (
         <Card id='navbar' borderRadius={0} boxShadow={'md'}>

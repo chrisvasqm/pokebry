@@ -19,7 +19,7 @@ const PokemonCard = ({ result }: Props) => {
   return (
     <motion.div
       id={`card-container-${pokemon?.name}`}
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2 }}
     >

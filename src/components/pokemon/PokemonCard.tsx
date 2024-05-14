@@ -1,4 +1,4 @@
-import { Card, Image, Skeleton, Text, VStack } from "@chakra-ui/react"
+import { Card, Image, Skeleton, Spinner, Text, VStack } from "@chakra-ui/react"
 import { motion } from 'framer-motion'
 import { Link } from "react-router-dom"
 import { capitalizeName, getPrimaryColorByType } from "../../common"
@@ -30,16 +30,33 @@ const PokemonCard = ({ result }: Props) => {
             boxShadow={'lg'}
             borderRadius={'xl'}
             backgroundColor={typeColor}
+            alignItems={'center'}
+            justifyContent={'center'}
             minWidth='40px'
             minHeight='180px'>
-            <VStack>
-              <Image id='card-image' src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"} />
-              <Text id='card-name' fontWeight={'semibold'}>{capitalizeName(pokemon?.name || '')}</Text>
-            </VStack>
+              
+            {isLoading && <Spinner boxSize={'40px'} />}
+
+            {!isLoading &&
+              <VStack height={'100%'} align={'center'} justify={'center'}>
+                
+                <Image
+                  id='card-image'
+                  boxSize={'130px'}
+                  objectFit={'contain'}
+                  src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"} />
+                
+                <Text
+                  id='card-name'
+                  fontWeight={'semibold'}>
+                  {capitalizeName(pokemon?.name || '')}
+                </Text>
+
+              </VStack>}
           </Card>
         </Skeleton>
       </Link>
-    </motion.div>
+    </motion.div >
   )
 }
 

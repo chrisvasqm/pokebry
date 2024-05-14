@@ -24,7 +24,7 @@ const PokemonsContainer = () => {
             dataLength={fetchedPokemonsCount}
             hasMore={hasNextPage}
             next={fetchNextPage}
-            loader={<Spinner />}
+            loader={<Center marginY={4}><Text>Loading...</Text></Center>}
             endMessage={<Center marginY={4}><Text id='list-no-more-items' fontWeight={'semibold'}>There are no more Pokemons</Text></Center>}
         >
             <SimpleGrid id='list-grid' padding={1} gap={3} columns={[2, 3, 4, 5, 6]}>

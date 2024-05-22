@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import Pokemon from '../../models/Pokemon';
-import PokemonSounds from "./PokemonSounds";
 import PokemonAbilities from "./PokemonAbilities";
+import PokemonSounds from "./PokemonSounds";
 import PokemonStats from "./PokemonStats";
 
 interface Props {

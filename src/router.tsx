@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from './Layout'
-import PokemonDetail from './components/pokemon/PokemonDetail'
-import PokemonsContainer from './components/pokemon/PokemonContainer'
 import ErrorPage from './components/ErrorPage'
+import PokemonsContainer from './components/pokemon/PokemonContainer'
+import PokemonDetail from './components/pokemon/PokemonDetail'
 
 const router = createBrowserRouter([
     {
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
         element: <Layout />,
         errorElement: <ErrorPage />,
         children: [
-            { path: '/pokemons', element: <PokemonsContainer /> },
+            { path: '/', element: <PokemonsContainer /> },
             { path: '/pokemons/:id', element: <PokemonDetail /> }
         ]
     },

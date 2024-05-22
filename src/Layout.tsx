@@ -1,15 +1,8 @@
 import { Container } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import NavBar from './components/NavBar';
 
 function Layout() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate('/pokemons')
-  }, [navigate])
-
   return (
     <>
       <NavBar />

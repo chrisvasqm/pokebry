@@ -10,7 +10,7 @@ const ErrorPage = () => {
                 <VStack>
                     <Heading id='error-title'>Oops!</Heading>
                     <Text id='error-message'>Seems like you have lost your way</Text>
-                    <Link id='error-button-home' to={'/pokemons'}><Button>Go Home</Button></Link>
+                    <Link id='error-button-home' to={'/'}><Button>Go Home</Button></Link>
                 </VStack>
             </Center>
         </>

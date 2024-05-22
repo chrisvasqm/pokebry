@@ -16,7 +16,7 @@ const PokemonDetail = () => {
 
   return (
     <Card>
-      <Link to={'/pokemons'}>
+      <Link to={'/'}>
         <IconButton
           id='details-button-back'
           icon={<ArrowBackIcon boxSize={'30px'} />}

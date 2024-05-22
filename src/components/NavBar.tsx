@@ -11,7 +11,7 @@ const NavBar = () => {
             <Container maxWidth={'4xl'}>
                 <HStack>
                     <Heading marginY={2} as={'h1'} fontSize={'3xl'}>
-                        <Link id='navbar-title' to='/pokemons'>Pokebry</Link>
+                        <Link id='navbar-title' to='/'>Pokebry</Link>
                     </Heading>
                     <Spacer />
                     <a href='https://github.com/chrisvasqm/pokebry' target='_blank'>

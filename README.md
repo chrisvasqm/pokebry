@@ -23,6 +23,6 @@ Then follow the instructions on your terminal.
 
 Start the Storybook with this command:
 
-```
+```bash
 pnpm storybook
 ```

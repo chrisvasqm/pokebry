@@ -34,18 +34,18 @@ const PokemonCard = ({ result }: Props) => {
             justifyContent={'center'}
             minWidth='40px'
             minHeight='180px'>
-              
+
             {isLoading && <Spinner boxSize={'40px'} />}
 
             {!isLoading &&
               <VStack height={'100%'} align={'center'} justify={'center'}>
-                
+
                 <Image
                   id='card-image'
                   boxSize={'130px'}
                   objectFit={'contain'}
-                  src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"} />
-                
+                  src={pokemon?.sprites.front_default || "/src/assets/pokeball.png"} />
+
                 <Text
                   id='card-name'
                   fontWeight={'semibold'}>

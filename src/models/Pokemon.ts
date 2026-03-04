@@ -1,35 +1,35 @@
-
 export default interface Pokemon {
-  id: number
-  name: string
-  stats: Stats[]
-  sprites: Sprites
-  types: Types[]
-  moves: Moves[]
-  cries: Cries
+  id: number;
+  name: string;
+  stats: Stats[];
+  sprites: Sprites;
+  types: Types[];
+  moves: Moves[];
+  cries: Cries;
 }
 
 export interface Stats {
-  base_stat: number,
-  stat: { name: string }
+  base_stat: number;
+  stat: {name: string};
 }
 
 export interface Sprites {
+  front_default?: string;
   other: {
-    'official-artwork': { front_default: string }
-  }
+    'official-artwork': {front_default: string};
+  };
 }
 
 export interface Types {
-  type: { name: string }
+  type: {name: string};
 }
 
 export interface Moves {
-  move: { name: string },
-  version_group_details: [{ level_learned_at: number }]
+  move: {name: string};
+  version_group_details: [{level_learned_at: number}];
 }
 
 export interface Cries {
-  latest: string,
-  legacy: string
+  latest: string;
+  legacy: string;
 }

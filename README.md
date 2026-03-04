@@ -8,13 +8,13 @@ Sample React app that mimicks a Pokedex using a publicly available [Pokemon base
 Install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 Run the app:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Then follow the instructions on your terminal.
@@ -24,5 +24,5 @@ Then follow the instructions on your terminal.
 Start the Storybook with this command:
 
 ```
-npm run storybook
+pnpm storybook
 ```

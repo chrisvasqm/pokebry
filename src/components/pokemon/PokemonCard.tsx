@@ -42,7 +42,7 @@ const PokemonCard = ({ result }: Props) => {
 
                 <Image
                   id='card-image'
-                  boxSize={'130px'}
+                  boxSize={'96px'}
                   objectFit={'contain'}
                   src={pokemon?.sprites.front_default || "/src/assets/pokeball.png"} />
 

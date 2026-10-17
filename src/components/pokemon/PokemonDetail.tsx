@@ -30,7 +30,7 @@ const PokemonDetail = () => {
         <VStack>
           <Image
             id='details-image'
-            src={pokemon?.sprites.other["official-artwork"].front_default || "/src/assets/pokeball.png"}
+            src={pokemon?.sprites.other["official-artwork"].front_default || "/pokeball.png"}
             boxSize={'250px'}
           />
           <Text id='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>

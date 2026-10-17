@@ -1,6 +1,6 @@
 import { MoonIcon, SearchIcon } from "@chakra-ui/icons";
-import { Button, Card, Container, HStack, Heading, IconButton, Kbd, Spacer, Switch, useColorMode, useDisclosure } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Button, Card, Container, HStack, Heading, IconButton, Kbd, Spacer, Switch, useColorMode } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { FaGithub } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import SearchModal from "./SearchModal";
@@ -12,18 +12,19 @@ const isMac = /Mac|iPhone|iPad/i.test(platform);
 
 const NavBar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
-    const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         const onKeyDown = (event: globalThis.KeyboardEvent) => {
-            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+            const isShortcut = (event.metaKey || event.ctrlKey) && !event.shiftKey && !event.altKey && event.key.toLowerCase() === 'k';
+            if (isShortcut) {
                 event.preventDefault();
-                onToggle();
+                setIsOpen(open => !open);
             }
         }
         window.addEventListener('keydown', onKeyDown);
         return () => window.removeEventListener('keydown', onKeyDown);
-    }, [onToggle]);
+    }, []);
 
     return (
         <Card id='navbar' borderRadius={0} boxShadow={'md'} position={'sticky'} top={0} zIndex={'sticky'}>
@@ -38,7 +39,7 @@ const NavBar = () => {
                         variant={'outline'}
                         size={'sm'}
                         leftIcon={<SearchIcon />}
-                        onClick={onOpen}
+                        onClick={() => setIsOpen(true)}
                         aria-label='Search Pokemon'>
                         <HStack spacing={1}>
                             <Kbd>{isMac ? '⌘' : 'Ctrl'}</Kbd>
@@ -56,7 +57,7 @@ const NavBar = () => {
                     <MoonIcon id='navbar-moon-icon' marginLeft={1} />
                 </HStack>
             </Container>
-            <SearchModal isOpen={isOpen} onClose={onClose} />
+            <SearchModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </Card>
     )
 }

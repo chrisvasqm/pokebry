@@ -40,6 +40,7 @@ const usePokemonSearch = (term: string, limit = 10) => {
                 sprite: pokemon.pokemonsprites[0]?.sprites.front_default ?? undefined
             }))),
         enabled: normalized.length > 0,
+        retry: false,
         staleTime: ms('24h')
     });
 }

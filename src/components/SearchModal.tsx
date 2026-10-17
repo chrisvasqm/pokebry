@@ -24,10 +24,12 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
 
     const debouncedTerm = useDebounce(term, SEARCH_DEBOUNCE_MS);
     const { data, isFetching, error } = usePokemonSearch(debouncedTerm);
-    const isWaiting = term.trim().length > 0 && (term !== debouncedTerm || isFetching);
-    // Never show or act on results that belong to a previous term.
-    const results = isWaiting ? [] : data ?? [];
-    const activeResult = results[activeIndex];
+    const hasTerm = term.trim().length > 0;
+    const isWaiting = hasTerm && (term !== debouncedTerm || isFetching);
+    // Never show or act on results that belong to a previous or cleared term.
+    const results = hasTerm && !isWaiting ? data ?? [] : [];
+    const clampedIndex = Math.min(activeIndex, Math.max(results.length - 1, 0));
+    const activeResult = results[clampedIndex];
 
     useEffect(() => {
         if (isOpen) {
@@ -36,20 +38,24 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
         }
     }, [isOpen]);
 
-    useEffect(() => setActiveIndex(0), [debouncedTerm]);
-
     const select = (id: number) => {
         navigate(`/pokemons/${id}`);
         onClose();
     }
 
+    const onChange = (value: string) => {
+        setTerm(value);
+        setActiveIndex(0);
+    }
+
     const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.nativeEvent.isComposing) return;
         if (event.key === 'ArrowDown') {
             event.preventDefault();
-            setActiveIndex(index => Math.max(0, Math.min(index + 1, results.length - 1)));
+            setActiveIndex(Math.min(clampedIndex + 1, Math.max(results.length - 1, 0)));
         } else if (event.key === 'ArrowUp') {
             event.preventDefault();
-            setActiveIndex(index => Math.max(index - 1, 0));
+            setActiveIndex(Math.max(clampedIndex - 1, 0));
         } else if (event.key === 'Enter' && activeResult) {
             select(activeResult.id);
         }
@@ -71,18 +77,18 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                             placeholder='Search Pokemon by name'
                             role='combobox'
                             aria-expanded={results.length > 0}
-                            aria-controls='search-results'
+                            aria-controls={results.length > 0 ? 'search-results' : undefined}
                             aria-activedescendant={activeResult ? `search-result-${activeResult.name}` : undefined}
                             aria-autocomplete='list'
                             value={term}
-                            onChange={event => setTerm(event.target.value)}
+                            onChange={event => onChange(event.target.value)}
                             onKeyDown={onKeyDown}
                         />
                     </InputGroup>
 
                     {error && <Text id='search-error' padding={3} color='red.400'>{error.message}</Text>}
 
-                    {!error && debouncedTerm.trim() && !isWaiting && results.length === 0 &&
+                    {!error && hasTerm && !isWaiting && results.length === 0 &&
                         <Text id='search-empty' padding={3}>No Pokemon found.</Text>}
 
                     {results.length > 0 &&
@@ -92,12 +98,12 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                                     key={result.id}
                                     id={`search-result-${result.name}`}
                                     role='option'
-                                    aria-selected={index === activeIndex}
+                                    aria-selected={index === clampedIndex}
                                     cursor='pointer'
                                     borderRadius='md'
                                     padding={2}
-                                    background={index === activeIndex ? 'blackAlpha.200' : undefined}
-                                    _dark={{ background: index === activeIndex ? 'whiteAlpha.200' : undefined }}
+                                    background={index === clampedIndex ? 'blackAlpha.200' : undefined}
+                                    _dark={{ background: index === clampedIndex ? 'whiteAlpha.200' : undefined }}
                                     onMouseEnter={() => setActiveIndex(index)}
                                     onClick={() => select(result.id)}>
                                     <HStack>

@@ -1,5 +1,5 @@
-ignoredBuiltDependencies:
-  - esbuild
+allowBuilds:
+  esbuild: true
 
 overrides:
   '@babel/helpers@<7.26.10': '>=7.26.10'

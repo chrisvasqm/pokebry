@@ -11,7 +11,6 @@ export default defineConfig({
     expect: { timeout: 10_000 },
     use: {
         baseURL: `http://localhost:${PORT}`,
-        testIdAttribute: 'data-testid',
         trace: 'retain-on-failure',
         screenshot: 'only-on-failure',
     },
@@ -20,7 +19,7 @@ export default defineConfig({
         // Development build served by Vite preview: React keeps its console warnings (which fail tests)
         // and there is no dev-server dependency pre-bundling that could reload the page mid-test.
         // Vite only picks React's development bundle when NODE_ENV itself is set, --mode alone is not enough.
-        command: `vite build --mode development --outDir dist-e2e && vite preview --outDir dist-e2e --port ${PORT} --strictPort`,
+        command: `pnpm exec vite build --mode development --outDir dist-e2e && pnpm exec vite preview --outDir dist-e2e --port ${PORT} --strictPort`,
         env: { NODE_ENV: 'development' },
         url: `http://localhost:${PORT}`,
         // Always build and serve fresh so a stale server on the port can never make the suite pass.

@@ -16,7 +16,7 @@ const PokemonCard = ({ result }: Props) => {
   if (error) return <p>{error.message}</p>
 
   const typeColor = getPrimaryColorByType(pokemon!)
-  const id = getIdFromUrl(result.url)
+  const id = getIdFromUrl(result.url) ?? pokemon?.id
 
   return (
     <motion.div

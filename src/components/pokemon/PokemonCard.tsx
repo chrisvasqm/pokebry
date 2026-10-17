@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { capitalizeName, getPrimaryColorByType } from "../../common"
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
 import PokemonResult from "../../models/PokemonResult"
+import { fadeUp, fadeUpTransition } from "../motion/fadeUp"
 
 interface Props {
   result: PokemonResult
@@ -19,9 +20,13 @@ const PokemonCard = ({ result }: Props) => {
   return (
     <motion.div
       id={`card-container-${pokemon?.name}`}
+      variants={fadeUp}
+      // Only fade in while the card is actually loading; cached cards (e.g. after Back) render in place.
+      initial={isLoading ? 'hidden' : false}
+      animate='shown'
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.95 }}
-      transition={{ duration: 0.2 }}
+      transition={{ ...fadeUpTransition, scale: { duration: 0.1 } }}
     >
       <Link to={`/pokemons/${pokemon?.id}`}>
         <Skeleton isLoaded={!isLoading} borderRadius={'xl'}>

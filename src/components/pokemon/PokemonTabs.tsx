@@ -13,23 +13,23 @@ interface Props {
 const PokemonTabs = ({ pokemon }: Props) => {
     const [index, setIndex] = useState(0);
 
+    const panels = [
+        { key: 'stats', title: 'Stats', content: <PokemonStats stats={pokemon.stats} /> },
+        { key: 'abilities', title: 'Abilities', content: <PokemonAbilities moves={pokemon.moves} /> },
+        { key: 'sounds', title: 'Sounds', content: <PokemonSounds cries={pokemon.cries} /> }
+    ];
+
     return (
         <Tabs id='tab-container' marginX={2} marginY={2} variant='enclosed' isFitted index={index} onChange={setIndex}>
             <TabList>
-                <Tab id='tab-stats-title' fontWeight={'semibold'}>Stats</Tab>
-                <Tab id='tab-abilities-title' fontWeight={'semibold'}>Abilities</Tab>
-                <Tab id='tab-sounds-title' fontWeight={'semibold'}>Sounds</Tab>
+                {panels.map(panel =>
+                    <Tab id={`tab-${panel.key}-title`} key={panel.key} fontWeight={'semibold'}>{panel.title}</Tab>)}
             </TabList>
             <TabPanels>
-                <TabPanel id='tab-stats-content'>
-                    <FadeIn isVisible={index === 0}><PokemonStats stats={pokemon.stats} /></FadeIn>
-                </TabPanel>
-                <TabPanel id='tab-abilities-content'>
-                    <FadeIn isVisible={index === 1}><PokemonAbilities moves={pokemon.moves} /></FadeIn>
-                </TabPanel>
-                <TabPanel id='tab-sounds-content'>
-                    <FadeIn isVisible={index === 2}><PokemonSounds cries={pokemon.cries} /></FadeIn>
-                </TabPanel>
+                {panels.map((panel, panelIndex) =>
+                    <TabPanel id={`tab-${panel.key}-content`} key={panel.key}>
+                        <FadeIn isVisible={index === panelIndex}>{panel.content}</FadeIn>
+                    </TabPanel>)}
             </TabPanels>
         </Tabs>
     )

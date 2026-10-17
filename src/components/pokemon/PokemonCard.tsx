@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { capitalizeName, getPrimaryColorByType } from "../../common"
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
 import PokemonResult from "../../models/PokemonResult"
-import { fadeUpHidden, fadeUpShown, fadeUpTransition } from "../motion/motion"
+import { fadeUp, fadeUpTransition } from "../motion/fadeUp"
 
 interface Props {
   result: PokemonResult
@@ -20,11 +20,12 @@ const PokemonCard = ({ result }: Props) => {
   return (
     <motion.div
       id={`card-container-${pokemon?.name}`}
-      initial={fadeUpHidden}
-      animate={fadeUpShown}
+      variants={fadeUp}
+      initial='hidden'
+      animate='shown'
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.95 }}
-      transition={fadeUpTransition}
+      transition={{ ...fadeUpTransition, scale: { duration: 0.1 } }}
     >
       <Link to={`/pokemons/${pokemon?.id}`}>
         <Skeleton isLoaded={!isLoading} borderRadius={'xl'}>

@@ -31,11 +31,12 @@ const NavBar = () => {
             <Container maxWidth={'4xl'}>
                 <HStack>
                     <Heading marginY={2} as={'h1'} fontSize={'3xl'}>
-                        <Link id='navbar-title' to='/'>Pokebry</Link>
+                        <Link id='navbar-title' data-testid='navbar-title' to='/'>Pokebry</Link>
                     </Heading>
                     <Spacer />
                     <Button
                         id='navbar-search'
+                        data-testid='navbar-search'
                         variant={'outline'}
                         size={'sm'}
                         leftIcon={<SearchIcon />}
@@ -53,7 +54,7 @@ const NavBar = () => {
                             icon={<FaGithub size={20} />}
                         />
                     </a>
-                    <Switch id='navbar-switch' isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
+                    <Switch id='navbar-switch' data-testid='navbar-switch' isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
                     <MoonIcon id='navbar-moon-icon' marginLeft={1} />
                 </HStack>
             </Container>

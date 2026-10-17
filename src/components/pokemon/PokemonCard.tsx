@@ -20,6 +20,7 @@ const PokemonCard = ({ result }: Props) => {
   return (
     <motion.div
       id={`card-container-${pokemon?.name}`}
+      data-testid={`card-${result.name}`}
       variants={fadeUp}
       // Only fade in while the card is actually loading; cached cards (e.g. after Back) render in place.
       initial={isLoading ? 'hidden' : false}
@@ -53,6 +54,7 @@ const PokemonCard = ({ result }: Props) => {
 
                 <Text
                   id='card-name'
+                  data-testid='card-name'
                   fontWeight={'semibold'}>
                   {capitalizeName(pokemon?.name || '')}
                 </Text>

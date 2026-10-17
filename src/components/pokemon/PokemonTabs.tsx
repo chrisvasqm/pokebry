@@ -23,11 +23,11 @@ const PokemonTabs = ({ pokemon }: Props) => {
         <Tabs id='tab-container' marginX={2} marginY={2} variant='enclosed' isFitted index={index} onChange={setIndex}>
             <TabList>
                 {panels.map(panel =>
-                    <Tab id={`tab-${panel.key}-title`} key={panel.key} fontWeight={'semibold'}>{panel.title}</Tab>)}
+                    <Tab id={`tab-${panel.key}-title`} data-testid={`tab-${panel.key}-title`} key={panel.key} fontWeight={'semibold'}>{panel.title}</Tab>)}
             </TabList>
             <TabPanels>
                 {panels.map((panel, panelIndex) =>
-                    <TabPanel id={`tab-${panel.key}-content`} key={panel.key}>
+                    <TabPanel id={`tab-${panel.key}-content`} data-testid={`tab-${panel.key}-content`} key={panel.key}>
                         <FadeIn isVisible={index === panelIndex}>{panel.content}</FadeIn>
                     </TabPanel>)}
             </TabPanels>

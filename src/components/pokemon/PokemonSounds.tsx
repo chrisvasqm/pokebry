@@ -10,7 +10,7 @@ const PokemonSounds = ({ cries }: Props) => {
         <VStack gap={2} alignItems={'left'}>
             <Heading id='sounds-title-latest' as={'h2'} fontWeight={'medium'} fontSize={'lg'}>Latest</Heading>
             <Center>
-                <audio id='audio-latest' controls>
+                <audio id='audio-latest' data-testid='audio-latest' controls>
                     <source src={cries.latest} type="audio/ogg" />
                 </audio>
             </Center>

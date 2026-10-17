@@ -1,5 +1,12 @@
-ignoredBuiltDependencies:
-  - esbuild
+saveExact: true
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  # Last semver 6.x release (2023, before npm provenance). Required by @babel/* via ^6.3.1; newer majors are not in range.
+  - semver@6.3.1
+
+allowBuilds:
+  esbuild: false
 
 overrides:
   '@babel/helpers@<7.26.10': '>=7.26.10'

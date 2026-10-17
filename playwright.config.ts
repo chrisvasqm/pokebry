@@ -17,10 +17,14 @@ export default defineConfig({
     },
     projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
     webServer: {
-        // Production build served by Vite preview: no dev-only dependency pre-bundling or reloads mid-test.
-        command: `pnpm build && pnpm preview --port ${PORT} --strictPort`,
+        // Development build served by Vite preview: React keeps its console warnings (which fail tests)
+        // and there is no dev-server dependency pre-bundling that could reload the page mid-test.
+        // Vite only picks React's development bundle when NODE_ENV itself is set, --mode alone is not enough.
+        command: `vite build --mode development --outDir dist-e2e && vite preview --outDir dist-e2e --port ${PORT} --strictPort`,
+        env: { NODE_ENV: 'development' },
         url: `http://localhost:${PORT}`,
-        reuseExistingServer: !process.env.CI,
-        timeout: 60_000,
+        // Always build and serve fresh so a stale server on the port can never make the suite pass.
+        reuseExistingServer: false,
+        timeout: 120_000,
     },
 });

@@ -48,4 +48,4 @@ pnpm exec playwright install chromium
 pnpm test:e2e
 ```
 
-The config builds the app and serves it with `vite preview` on port 5179 by itself.
+The config makes a development-mode build (so React warnings still fail tests) and serves it with `vite preview` on port 5179 by itself.

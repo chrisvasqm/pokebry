@@ -15,7 +15,8 @@ test('opens a Pokemon from the list and browses its tabs', async ({ page }) => {
     await expect(page).toHaveURL(/\/pokemons\/1$/);
     await expect(page.getByTestId('details-name')).toHaveText('Bulbasaur');
     await expect(page.getByTestId('badge-grass')).toBeVisible();
-    await expect(page.getByTestId('stat-hp')).toBeVisible();
+    await expect(page.getByTestId('stat-number-hp')).toHaveText('45');
+    await expect(page.getByTestId('stat-number-attack')).toHaveText('49');
 
     await page.getByTestId('tab-abilities-title').click();
     await expect(page.getByTestId('tab-abilities-content')).toBeVisible();

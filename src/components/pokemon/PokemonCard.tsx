@@ -21,7 +21,8 @@ const PokemonCard = ({ result }: Props) => {
     <motion.div
       id={`card-container-${pokemon?.name}`}
       variants={fadeUp}
-      initial='hidden'
+      // Only fade in while the card is actually loading; cached cards (e.g. after Back) render in place.
+      initial={isLoading ? 'hidden' : false}
       animate='shown'
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.95 }}

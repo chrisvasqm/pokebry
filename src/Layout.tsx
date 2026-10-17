@@ -12,7 +12,7 @@ function Layout() {
     <>
       <NavBar />
       <Container paddingY={4} paddingX={2} maxWidth={'4xl'}>
-        <AnimatePresence mode='wait' initial={false}>
+        <AnimatePresence mode='wait'>
           <PageTransition key={location.pathname}>
             {outlet}
           </PageTransition>

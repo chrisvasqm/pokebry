@@ -5,7 +5,10 @@ import { FaGithub } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import SearchModal from "./SearchModal";
 
-const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
+const platform = typeof navigator === 'undefined'
+    ? ''
+    : (navigator as Navigator & { userAgentData?: { platform: string } }).userAgentData?.platform ?? navigator.platform;
+const isMac = /Mac|iPhone|iPad/i.test(platform);
 
 const NavBar = () => {
     const { colorMode, toggleColorMode } = useColorMode();

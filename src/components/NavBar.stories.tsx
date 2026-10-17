@@ -5,12 +5,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import NavBar from './NavBar';
 
+const queryClient = new QueryClient();
+
 const meta: Meta<typeof NavBar> = {
     component: NavBar,
     decorators: [
         (Story) => (
             <ChakraProvider>
-                <QueryClientProvider client={new QueryClient()}>
+                <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
                         <Story />
                     </MemoryRouter>

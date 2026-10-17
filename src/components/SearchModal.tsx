@@ -23,35 +23,40 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
     const navigate = useNavigate();
 
     const debouncedTerm = useDebounce(term, SEARCH_DEBOUNCE_MS);
-    const { data: results = [], isFetching, error } = usePokemonSearch(debouncedTerm);
+    const { data, isFetching, error } = usePokemonSearch(debouncedTerm);
     const isWaiting = term.trim().length > 0 && (term !== debouncedTerm || isFetching);
+    // Never show or act on results that belong to a previous term.
+    const results = isWaiting ? [] : data ?? [];
+    const activeResult = results[activeIndex];
 
-    useEffect(() => setActiveIndex(0), [results]);
+    useEffect(() => {
+        if (isOpen) {
+            setTerm('');
+            setActiveIndex(0);
+        }
+    }, [isOpen]);
 
-    const close = () => {
-        setTerm('');
-        onClose();
-    }
+    useEffect(() => setActiveIndex(0), [debouncedTerm]);
 
     const select = (id: number) => {
         navigate(`/pokemons/${id}`);
-        close();
+        onClose();
     }
 
     const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'ArrowDown') {
             event.preventDefault();
-            setActiveIndex(index => Math.min(index + 1, results.length - 1));
+            setActiveIndex(index => Math.max(0, Math.min(index + 1, results.length - 1)));
         } else if (event.key === 'ArrowUp') {
             event.preventDefault();
             setActiveIndex(index => Math.max(index - 1, 0));
-        } else if (event.key === 'Enter' && results[activeIndex]) {
-            select(results[activeIndex].id);
+        } else if (event.key === 'Enter' && activeResult) {
+            select(activeResult.id);
         }
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={close} initialFocusRef={inputRef} size={'lg'}>
+        <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={inputRef} size={'lg'}>
             <ModalOverlay />
             <ModalContent id='search-modal' marginTop={'10vh'}>
                 <ModalBody padding={2}>
@@ -64,6 +69,11 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                             ref={inputRef}
                             variant='filled'
                             placeholder='Search Pokemon by name'
+                            role='combobox'
+                            aria-expanded={results.length > 0}
+                            aria-controls='search-results'
+                            aria-activedescendant={activeResult ? `search-result-${activeResult.name}` : undefined}
+                            aria-autocomplete='list'
                             value={term}
                             onChange={event => setTerm(event.target.value)}
                             onKeyDown={onKeyDown}
@@ -76,7 +86,7 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                         <Text id='search-empty' padding={3}>No Pokemon found.</Text>}
 
                     {results.length > 0 &&
-                        <List id='search-results' marginTop={2}>
+                        <List id='search-results' role='listbox' marginTop={2}>
                             {results.map((result, index) =>
                                 <ListItem
                                     key={result.id}

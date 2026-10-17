@@ -23,7 +23,7 @@ const PokemonCard = ({ result }: Props) => {
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.95 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.1 }}
     >
       <Link to={`/pokemons/${pokemon?.id}`}>
         <Skeleton isLoaded={!isLoading} borderRadius={'xl'}>

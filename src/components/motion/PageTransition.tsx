@@ -15,7 +15,7 @@ const PageTransition = ({ children }: PropsWithChildren) => {
             initial='initial'
             animate='animate'
             exit='exit'
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            transition={{ duration: 0.125, ease: 'easeOut' }}
         >
             {children}
         </motion.div>

@@ -3,6 +3,7 @@ import { Card, Center, IconButton, Image, Spinner, Text, VStack } from "@chakra-
 import { Link, useParams } from "react-router-dom";
 import { capitalizeName } from "../../common";
 import usePokemon from "../../hooks/usePokemon";
+import FadeIn from "../motion/FadeIn";
 import PokemonTabs from "./PokemonTabs";
 import PokemonTypeBadge from "./PokemonTypeBadge";
 
@@ -15,30 +16,32 @@ const PokemonDetail = () => {
   if (error) return <Text>{error.message}</Text>
 
   return (
-    <Card>
-      <Link to={'/'}>
-        <IconButton
-          id='details-button-back'
-          icon={<ArrowBackIcon boxSize={'30px'} />}
-          variant={'ghost'}
-          height={'70px'}
-          width={'70px'}
-          aria-label="back-button"
-        />
-      </Link>
-      <Center>
-        <VStack>
-          <Image
-            id='details-image'
-            src={pokemon?.sprites.other["official-artwork"].front_default || "/pokeball.png"}
-            boxSize={'250px'}
+    <FadeIn>
+      <Card>
+        <Link to={'/'}>
+          <IconButton
+            id='details-button-back'
+            icon={<ArrowBackIcon boxSize={'30px'} />}
+            variant={'ghost'}
+            height={'70px'}
+            width={'70px'}
+            aria-label="back-button"
           />
-          <Text id='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>
-          <PokemonTypeBadge types={pokemon?.types || []} />
-        </VStack>
-      </Center>
-      <PokemonTabs pokemon={pokemon!} />
-    </Card>
+        </Link>
+        <Center>
+          <VStack>
+            <Image
+              id='details-image'
+              src={pokemon?.sprites.other["official-artwork"].front_default || "/pokeball.png"}
+              boxSize={'250px'}
+            />
+            <Text id='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>
+            <PokemonTypeBadge types={pokemon?.types || []} />
+          </VStack>
+        </Center>
+        <PokemonTabs pokemon={pokemon!} />
+      </Card>
+    </FadeIn>
   )
 }
 

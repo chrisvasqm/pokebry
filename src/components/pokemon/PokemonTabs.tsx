@@ -1,5 +1,6 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import Pokemon from '../../models/Pokemon';
+import FadeIn from "../motion/FadeIn";
 import PokemonAbilities from "./PokemonAbilities";
 import PokemonSounds from "./PokemonSounds";
 import PokemonStats from "./PokemonStats";
@@ -10,7 +11,7 @@ interface Props {
 
 const PokemonTabs = ({ pokemon }: Props) => {
     return (
-        <Tabs id='tab-container' marginX={2} marginY={2} variant='enclosed' isFitted>
+        <Tabs id='tab-container' marginX={2} marginY={2} variant='enclosed' isFitted isLazy>
             <TabList>
                 <Tab id='tab-stats-title' fontWeight={'semibold'}>Stats</Tab>
                 <Tab id='tab-abilities-title' fontWeight={'semibold'}>Abilities</Tab>
@@ -18,13 +19,13 @@ const PokemonTabs = ({ pokemon }: Props) => {
             </TabList>
             <TabPanels>
                 <TabPanel id='tab-stats-content'>
-                    <PokemonStats stats={pokemon.stats} />
+                    <FadeIn><PokemonStats stats={pokemon.stats} /></FadeIn>
                 </TabPanel>
                 <TabPanel id='tab-abilities-content'>
-                    <PokemonAbilities moves={pokemon.moves} />
+                    <FadeIn><PokemonAbilities moves={pokemon.moves} /></FadeIn>
                 </TabPanel>
                 <TabPanel id='tab-sounds-content'>
-                    <PokemonSounds cries={pokemon.cries} />
+                    <FadeIn><PokemonSounds cries={pokemon.cries} /></FadeIn>
                 </TabPanel>
             </TabPanels>
         </Tabs>

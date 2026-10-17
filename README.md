@@ -39,10 +39,13 @@ Stop and remove the container:
 docker compose down
 ```
 
-## Preview components with Storybook
+## Run the end-to-end tests
 
-Start the Storybook with this command:
+Happy-path Playwright tests against the real PokeAPI. First run installs Chromium:
 
 ```bash
-pnpm storybook
+pnpm exec playwright install chromium
+pnpm test:e2e
 ```
+
+The config makes a development-mode build (so React warnings still fail tests) and serves it with `vite preview` on port 5179 by itself.

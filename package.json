@@ -10,8 +10,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "test:e2e": "playwright test",
+    "check": "pnpm lint && pnpm build && tsc -p tsconfig.e2e.json"
   },
   "dependencies": {
     "@chakra-ui/icons": "2.2.6",
@@ -32,15 +32,8 @@
     "zustand": "4.5.7"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "1.9.0",
-    "@storybook/addon-essentials": "8.6.17",
-    "@storybook/addon-interactions": "8.6.17",
-    "@storybook/addon-links": "10.2.14",
-    "@storybook/addon-onboarding": "8.6.17",
-    "@storybook/blocks": "8.6.17",
-    "@storybook/react": "8.6.17",
-    "@storybook/react-vite": "8.6.17",
-    "@storybook/test": "8.6.17",
+    "@playwright/test": "1.64.0",
+    "@types/node": "24.19.2",
     "@types/react": "18.3.28",
     "@types/react-dom": "18.3.7",
     "@typescript-eslint/eslint-plugin": "6.21.0",
@@ -49,8 +42,6 @@
     "eslint": "8.57.1",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-react-refresh": "0.4.26",
-    "eslint-plugin-storybook": "0.12.0",
-    "storybook": "10.2.14",
     "typescript": "5.9.3",
     "vite": "7.3.1"
   }

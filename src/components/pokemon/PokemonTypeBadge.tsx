@@ -12,6 +12,8 @@ const PokemonTypeBadge = ({ types }: Props) => {
             {types.map(({ type }) =>
                 <Badge
                     id={`badge-${type.name}`}
+                    data-testid={`badge-${type.name}`}
+                    key={type.name}
                     paddingY={1}
                     paddingX={4}
                     borderRadius={'full'}

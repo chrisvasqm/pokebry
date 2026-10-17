@@ -73,6 +73,7 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                         </InputLeftElement>
                         <Input
                             id='search-input'
+                            data-testid='search-input'
                             ref={inputRef}
                             variant='filled'
                             placeholder='Search Pokemon by name'
@@ -99,6 +100,7 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                                 <ListItem
                                     key={result.id}
                                     id={`search-result-${result.name}`}
+                                    data-testid={`search-result-${result.name}`}
                                     role='option'
                                     aria-selected={index === clampedIndex}
                                     cursor='pointer'

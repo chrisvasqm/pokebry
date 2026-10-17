@@ -4,7 +4,7 @@ FROM node:24-alpine AS deps
 WORKDIR /app
 RUN npm install -g pnpm@11.22.0
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --frozen-lockfile
 
 FROM deps AS build
 COPY index.html tsconfig.json tsconfig.node.json vite.config.ts ./
@@ -14,5 +14,6 @@ RUN pnpm build
 
 FROM nginxinc/nginx-unprivileged:1.29-alpine AS runtime
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY security-headers.conf /etc/nginx/security-headers.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 8080

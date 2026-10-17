@@ -31,8 +31,9 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
     const clampedIndex = Math.min(activeIndex, Math.max(results.length - 1, 0));
     const activeResult = results[clampedIndex];
 
+    // Reset on close so the next open starts empty without a flicker.
     useEffect(() => {
-        if (isOpen) {
+        if (!isOpen) {
             setTerm('');
             setActiveIndex(0);
         }
@@ -86,7 +87,8 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                         />
                     </InputGroup>
 
-                    {error && <Text id='search-error' padding={3} color='red.400'>{error.message}</Text>}
+                    {error && hasTerm && !isWaiting &&
+                        <Text id='search-error' padding={3} color='red.400'>Search failed. Try again.</Text>}
 
                     {!error && hasTerm && !isWaiting && results.length === 0 &&
                         <Text id='search-empty' padding={3}>No Pokemon found.</Text>}

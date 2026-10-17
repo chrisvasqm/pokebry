@@ -41,7 +41,7 @@ const NavBar = () => {
                         leftIcon={<SearchIcon />}
                         onClick={() => setIsOpen(true)}
                         aria-label='Search Pokemon'>
-                        <HStack spacing={1}>
+                        <HStack spacing={1} display={{ base: 'none', md: 'flex' }}>
                             <Kbd>{isMac ? '⌘' : 'Ctrl'}</Kbd>
                             <Kbd>K</Kbd>
                         </HStack>

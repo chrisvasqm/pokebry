@@ -1,10 +1,11 @@
 import { motion, Variants } from 'framer-motion';
 import { PropsWithChildren } from 'react';
+import { fadeUpHidden, fadeUpShown, fadeUpTransition } from './motion';
 
 const variants: Variants = {
-    initial: { opacity: 0, y: 12 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -12 }
+    initial: fadeUpHidden,
+    animate: fadeUpShown,
+    exit: { opacity: 0, y: -8, pointerEvents: 'none' }
 };
 
 const PageTransition = ({ children }: PropsWithChildren) => {
@@ -15,7 +16,7 @@ const PageTransition = ({ children }: PropsWithChildren) => {
             initial='initial'
             animate='animate'
             exit='exit'
-            transition={{ duration: 0.125, ease: 'easeOut' }}
+            transition={fadeUpTransition}
         >
             {children}
         </motion.div>

@@ -1,11 +1,10 @@
-ignoredBuiltDependencies:
-  - esbuild
+allowBuilds:
+  esbuild: true
 
 overrides:
   '@babel/helpers@<7.26.10': '>=7.26.10'
   '@babel/runtime@<7.26.10': '>=7.26.10'
   '@remix-run/router@<=1.23.1': '>=1.23.2'
-  ajv@<6.14.0: '>=6.14.0'
   axios@>=1.0.0 <1.12.0: '>=1.12.0'
   axios@>=1.0.0 <1.6.0: '>=1.6.0'
   axios@>=1.0.0 <1.8.2: '>=1.8.2'

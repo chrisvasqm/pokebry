@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import NavBar from './NavBar';
 
@@ -9,9 +10,11 @@ const meta: Meta<typeof NavBar> = {
     decorators: [
         (Story) => (
             <ChakraProvider>
-                <MemoryRouter>
-                    <Story />
-                </MemoryRouter>
+                <QueryClientProvider client={new QueryClient()}>
+                    <MemoryRouter>
+                        <Story />
+                    </MemoryRouter>
+                </QueryClientProvider>
             </ChakraProvider>
         )
     ]

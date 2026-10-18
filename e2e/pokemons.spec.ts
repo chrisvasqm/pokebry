@@ -49,3 +49,41 @@ test('unknown route shows the error page and goes home', async ({ page }) => {
     await expect(page).toHaveURL(/\/$/);
     await expect(page.getByTestId('list-grid')).toBeVisible();
 });
+
+test('filters the list by one and two types, then clears', async ({ page }) => {
+    await page.goto('/');
+
+    await page.getByTestId('type-chip-fire').click();
+    await expect(page).toHaveURL(/\?type=fire$/);
+    await expect(page.getByTestId('type-chip-fire')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('type-chip-count-fire')).not.toBeEmpty();
+    await expect(page.getByTestId('list-summary')).toHaveText('Fire Pokemon');
+    await expect(page.getByTestId('card-charmander').getByTestId('card-name')).toHaveText('Charmander');
+    await expect(page.getByTestId('card-bulbasaur')).toHaveCount(0);
+
+    await page.getByTestId('type-chip-flying').click();
+    await expect(page).toHaveURL(/\?type=fire%2Cflying$/);
+    await expect(page.getByTestId('list-summary')).toHaveText('Fire and Flying Pokemon');
+    await expect(page.getByTestId('card-charizard').getByTestId('card-name')).toHaveText('Charizard');
+    await expect(page.getByTestId('card-charmander')).toHaveCount(0);
+
+    await page.getByTestId('type-filter-clear').click();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.getByTestId('list-summary')).toHaveText('All Pokemon');
+    await expect(page.getByTestId('card-bulbasaur')).toBeVisible();
+});
+
+test('opens a filtered list from the URL and keeps the filter after viewing a Pokemon', async ({ page }) => {
+    await page.goto('/?type=water');
+
+    await expect(page.getByTestId('type-chip-water')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('card-squirtle').getByTestId('card-name')).toHaveText('Squirtle');
+
+    await page.getByTestId('card-squirtle').click();
+    await expect(page).toHaveURL(/\/pokemons\/7$/);
+    await expect(page.getByTestId('type-filter')).toHaveCount(0);
+
+    await page.goBack();
+    await expect(page).toHaveURL(/\?type=water$/);
+    await expect(page.getByTestId('card-squirtle')).toBeVisible();
+});

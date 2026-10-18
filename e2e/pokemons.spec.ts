@@ -67,6 +67,12 @@ test('filters the list by one and two types, then clears', async ({ page }) => {
     await expect(page.getByTestId('card-charizard').getByTestId('card-name')).toHaveText('Charizard');
     await expect(page.getByTestId('card-charmander')).toHaveCount(0);
 
+    // A third pick keeps the two most recent types.
+    await page.getByTestId('type-chip-water').click();
+    await expect(page).toHaveURL(/\?type=flying%2Cwater$/);
+    await expect(page.getByTestId('type-chip-fire')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.getByTestId('card-gyarados').getByTestId('card-name')).toHaveText('Gyarados');
+
     await page.getByTestId('type-filter-clear').click();
     await expect(page).toHaveURL(/\/$/);
     await expect(page.getByTestId('list-summary')).toHaveText('All Pokemon');
@@ -86,4 +92,17 @@ test('opens a filtered list from the URL and keeps the filter after viewing a Po
     await page.goBack();
     await expect(page).toHaveURL(/\?type=water$/);
     await expect(page.getByTestId('card-squirtle')).toBeVisible();
+});
+
+test('ignores unknown types in the URL and shows an empty state for a pair with no match', async ({ page }) => {
+    await page.goto('/?type=foo,fire');
+
+    await expect(page.getByTestId('type-chip-fire')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('list-summary')).toHaveText('Fire Pokemon');
+
+    // No Pokemon is both Fire and Fairy.
+    await page.getByTestId('type-chip-fairy').click();
+    await expect(page.getByTestId('list-empty')).toBeVisible();
+    await expect(page.getByTestId('type-chip-count-fire')).toHaveText('0');
+    await expect(page.getByTestId('list-grid').locator('a')).toHaveCount(0);
 });

@@ -3,11 +3,12 @@ import { useEffect, useRef } from "react";
 import typeColors from "../../colors/typeColors";
 import { capitalizeName } from "../../common";
 import useTypeFilter from "../../hooks/useTypeFilter";
-import { useTypePokemonCount } from "../../hooks/useTypePokemons";
+import { useTypeMatchCount } from "../../hooks/useTypePokemons";
 import { POKEMON_TYPES, PokemonType } from "../../models/PokemonType";
 
-const TypeCount = ({ type }: { type: PokemonType }) => {
-    const { data: count } = useTypePokemonCount(type);
+/** Matches for the whole selection, shown on every selected chip so two chips never disagree with the list. */
+const TypeCount = ({ type, selected }: { type: PokemonType, selected: PokemonType[] }) => {
+    const count = useTypeMatchCount(selected);
     if (count === undefined) return null;
     return <Box as='span' fontWeight={'normal'} opacity={0.8} data-testid={`type-chip-count-${type}`}>{count}</Box>
 }
@@ -36,12 +37,7 @@ const TypeFilter = () => {
                 flex={1}
                 minWidth={0}
                 overflowX={'auto'}
-                paddingRight={6}
-                sx={{
-                    scrollbarWidth: 'none',
-                    '&::-webkit-scrollbar': { display: 'none' },
-                    maskImage: 'linear-gradient(to right, black 92%, transparent)'
-                }}>
+                sx={{ scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
                 {POKEMON_TYPES.map(type => {
                     const isSelected = selected.includes(type);
                     const color = typeColors[type];
@@ -69,7 +65,7 @@ const TypeFilter = () => {
                             }>
                             <HStack spacing={1}>
                                 <span>{capitalizeName(type)}</span>
-                                {isSelected && <TypeCount type={type} />}
+                                {isSelected && <TypeCount type={type} selected={selected} />}
                             </HStack>
                         </Button>
                     )

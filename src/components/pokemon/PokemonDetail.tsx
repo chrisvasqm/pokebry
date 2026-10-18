@@ -1,6 +1,6 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Card, Center, IconButton, Image, Spinner, Text, VStack } from "@chakra-ui/react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { capitalizeName } from "../../common";
 import usePokemon from "../../hooks/usePokemon";
 import PokemonTabs from "./PokemonTabs";
@@ -8,6 +8,9 @@ import PokemonTypeBadge from "./PokemonTypeBadge";
 
 const PokemonDetail = () => {
   const { id } = useParams();
+  const location = useLocation();
+  // Back to the list the card was opened from, filter included; a direct open goes to the plain list.
+  const listSearch = (location.state as { search?: string } | null)?.search ?? '';
   const { data: pokemon, isLoading, error } = usePokemon(parseInt(id!));
 
   if (isLoading) return <Center height={'100vh'}><Spinner /></Center>
@@ -16,7 +19,7 @@ const PokemonDetail = () => {
 
   return (
     <Card>
-      <Link to={'/'}>
+      <Link to={{ pathname: '/', search: listSearch }}>
         <IconButton
           id='details-button-back'
           data-testid='details-button-back'

@@ -1,6 +1,6 @@
 import { Card, Image, Skeleton, Spinner, Text, VStack } from "@chakra-ui/react"
 import { motion } from 'framer-motion'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { capitalizeName, getIdFromUrl, getPrimaryColorByType } from "../../common"
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
 import PokemonResult from "../../models/PokemonResult"
@@ -12,6 +12,7 @@ interface Props {
 
 const PokemonCard = ({ result }: Props) => {
   const { data: pokemon, isLoading, error } = usePokemonByUrl(result.url);
+  const location = useLocation();
 
   if (error) return <p>{error.message}</p>
 
@@ -30,7 +31,8 @@ const PokemonCard = ({ result }: Props) => {
       whileTap={{ scale: 0.95 }}
       transition={{ ...fadeUpTransition, scale: { duration: 0.1 } }}
     >
-      <Link to={`/pokemons/${id}`}>
+      {/* The detail page's Back link returns to this list with the same filter. */}
+      <Link to={`/pokemons/${id}`} state={{ search: location.search }}>
         <Skeleton isLoaded={!isLoading} borderRadius={'xl'}>
           <Card
             padding={2}

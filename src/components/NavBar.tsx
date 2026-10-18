@@ -1,6 +1,6 @@
 import { MoonIcon, SearchIcon } from "@chakra-ui/icons";
 import { Button, Card, Container, HStack, Heading, IconButton, Kbd, Spacer, Switch, useColorMode } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { FaGithub } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import SearchModal from "./SearchModal";
@@ -10,7 +10,12 @@ const platform = typeof navigator === 'undefined'
     : (navigator as Navigator & { userAgentData?: { platform: string } }).userAgentData?.platform ?? navigator.platform;
 const isMac = /Mac|iPhone|iPad/i.test(platform);
 
-const NavBar = () => {
+interface Props {
+    /** Optional second row, e.g. the type filter on the list page. */
+    children?: ReactNode
+}
+
+const NavBar = ({ children }: Props) => {
     const { colorMode, toggleColorMode } = useColorMode();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -57,6 +62,7 @@ const NavBar = () => {
                     <Switch id='navbar-switch' data-testid='navbar-switch' isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
                     <MoonIcon id='navbar-moon-icon' marginLeft={1} />
                 </HStack>
+                {children}
             </Container>
             <SearchModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </Card>

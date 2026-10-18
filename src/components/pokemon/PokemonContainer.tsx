@@ -28,9 +28,11 @@ const PokemonsContainer = () => {
     return (
         <>
         <Text id='list-summary' data-testid='list-summary' fontSize={'sm'} color={'gray.500'} marginBottom={2} marginX={1}>{summary}</Text>
-        {!isPending && fetchedPokemonsCount === 0 &&
+        {!isPending && !isPlaceholderData && fetchedPokemonsCount === 0 &&
             <Text id='list-empty' data-testid='list-empty' textAlign={'center'} paddingY={12}>{emptyMessage}</Text>}
         <InfiniteScroll
+            // Remount per filter: the component only resets its "next page requested" latch when dataLength changes.
+            key={selected.join(',')}
             dataLength={fetchedPokemonsCount}
             // Placeholder pages belong to the previous filter; never page them into a query that has not loaded yet.
             hasMore={hasNextPage && !isPlaceholderData}

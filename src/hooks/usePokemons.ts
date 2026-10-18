@@ -13,7 +13,10 @@ interface PokemonsQuery {
     types: PokemonType[]
 }
 
-/** PokeAPI has no multi-type endpoint, so each type list is fetched (and cached) whole and intersected client-side. */
+/**
+ * PokeAPI has no multi-type endpoint, so each type list is fetched (and cached) whole and intersected client-side.
+ * `fetchQuery` does not retry on its own; the infinite query's retries re-run it.
+ */
 const fetchByTypes = async (queryClient: QueryClient, query: PokemonsQuery, offset: number) => {
     const lists = await Promise.all(query.types.map(type => queryClient.fetchQuery(typePokemonsQuery(type))));
     return intersectTypeLists(lists).slice(offset, offset + query.limit);

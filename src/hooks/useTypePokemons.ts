@@ -18,8 +18,6 @@ export const typePokemonsQuery = (type: PokemonType) => queryOptions<PokemonResu
         .then(data => data.pokemon
             .map(entry => entry.pokemon)
             .sort((a, b) => (getIdFromUrl(a.url) ?? 0) - (getIdFromUrl(b.url) ?? 0))),
-    // `queryClient.fetchQuery` defaults to no retries; match `useQuery` so both list paths survive a blip.
-    retry: 3,
     staleTime: ms('24h')
 });
 

@@ -24,7 +24,7 @@ const TypeFilter = () => {
     }, [selectedKey]);
 
     return (
-        <HStack id='type-filter' data-testid='type-filter' spacing={2} paddingY={2} borderTopWidth={1} borderColor={idleBorder}>
+        <HStack id='type-filter' data-testid='type-filter' spacing={2} paddingY={1} borderTopWidth={1} borderColor={idleBorder}>
             <HStack
                 ref={railRef}
                 role='group'
@@ -33,6 +33,8 @@ const TypeFilter = () => {
                 flex={1}
                 minWidth={0}
                 overflowX={'auto'}
+                // Room for the focus ring, which the scrolling box would otherwise clip.
+                paddingY={1}
                 sx={{ scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
                 {POKEMON_TYPES.map(type => {
                     const isSelected = selected.includes(type);

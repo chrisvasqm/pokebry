@@ -14,7 +14,7 @@ const client = new APIClient<TypeResponse>('/type');
 /** Every Pokemon of one type, ordered by id. Shared by the list query and the chip counts. */
 export const typePokemonsQuery = (type: PokemonType) => queryOptions<PokemonResult[], Error>({
     queryKey: ['type-pokemons', type],
-    queryFn: () => client.find(`/type/${type}`)
+    queryFn: () => client.get(type)
         .then(data => data.pokemon
             .map(entry => entry.pokemon)
             .sort((a, b) => (getIdFromUrl(a.url) ?? 0) - (getIdFromUrl(b.url) ?? 0))),

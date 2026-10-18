@@ -4,18 +4,14 @@ import typeColors from "../../colors/typeColors";
 import { capitalizeName } from "../../common";
 import useTypeFilter from "../../hooks/useTypeFilter";
 import { useTypeMatchCount } from "../../hooks/useTypePokemons";
-import { POKEMON_TYPES, PokemonType } from "../../models/PokemonType";
+import { POKEMON_TYPES } from "../../models/PokemonType";
 
-/** Matches for the whole selection, shown on every selected chip so two chips never disagree with the list. */
-const TypeCount = ({ type, selected }: { type: PokemonType, selected: PokemonType[] }) => {
-    const count = useTypeMatchCount(selected);
-    if (count === undefined) return null;
-    return <Box as='span' fontWeight={'normal'} opacity={0.8} data-testid={`type-chip-count-${type}`}>{count}</Box>
-}
 
 /** Row of type chips below the navbar. Selected chips fill with their type color and show how many Pokemon match. */
 const TypeFilter = () => {
     const { selected, toggle, clear } = useTypeFilter();
+    // Matches for the whole selection, shown on every selected chip so two chips never disagree with the list.
+    const matchCount = useTypeMatchCount(selected);
     const idleBorder = useColorModeValue('gray.200', 'whiteAlpha.300');
     const selectedText = 'gray.800';
     const railRef = useRef<HTMLDivElement>(null);
@@ -65,7 +61,8 @@ const TypeFilter = () => {
                             }>
                             <HStack spacing={1}>
                                 <span>{capitalizeName(type)}</span>
-                                {isSelected && <TypeCount type={type} selected={selected} />}
+                                {isSelected && matchCount !== undefined &&
+                                    <Box as='span' fontWeight={'normal'} opacity={0.8} data-testid={`type-chip-count-${type}`}>{matchCount}</Box>}
                             </HStack>
                         </Button>
                     )

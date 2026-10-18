@@ -1,6 +1,6 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Card, Center, IconButton, Image, Spinner, Text, VStack } from "@chakra-ui/react";
-import { Link, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { capitalizeName } from "../../common";
 import usePokemon from "../../hooks/usePokemon";
 import PokemonTabs from "./PokemonTabs";
@@ -8,6 +8,10 @@ import PokemonTypeBadge from "./PokemonTypeBadge";
 
 const PokemonDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // Go back in history (keeping e.g. a type filter) when the app has one; a direct open goes home.
+  const goBack = () => location.key === 'default' ? navigate('/') : navigate(-1);
   const { data: pokemon, isLoading, error } = usePokemon(parseInt(id!));
 
   if (isLoading) return <Center height={'100vh'}><Spinner /></Center>
@@ -16,17 +20,17 @@ const PokemonDetail = () => {
 
   return (
     <Card>
-      <Link to={'/'}>
-        <IconButton
-          id='details-button-back'
-          data-testid='details-button-back'
-          icon={<ArrowBackIcon boxSize={'30px'} />}
-          variant={'ghost'}
-          height={'70px'}
-          width={'70px'}
-          aria-label="back-button"
-        />
-      </Link>
+      <IconButton
+        id='details-button-back'
+        data-testid='details-button-back'
+        icon={<ArrowBackIcon boxSize={'30px'} />}
+        variant={'ghost'}
+        height={'70px'}
+        width={'70px'}
+        alignSelf={'flex-start'}
+        onClick={goBack}
+        aria-label="back-button"
+      />
       <Center>
         <VStack>
           <Image

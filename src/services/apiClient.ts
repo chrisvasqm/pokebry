@@ -23,8 +23,8 @@ class APIClient<T> {
         instance.get<T>(url)
             .then(response => response.data);
 
-    get = (id: number) =>
-        instance.get<T>(`${this.endpoint}/${id}`)
+    get = (idOrName: number | string) =>
+        instance.get<T>(`${this.endpoint}/${idOrName}`)
             .then(response => response.data);
 
 }

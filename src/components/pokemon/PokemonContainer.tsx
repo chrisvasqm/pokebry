@@ -32,7 +32,8 @@ const PokemonsContainer = () => {
             <Text id='list-empty' data-testid='list-empty' textAlign={'center'} paddingY={12}>{emptyMessage}</Text>}
         <InfiniteScroll
             dataLength={fetchedPokemonsCount}
-            hasMore={hasNextPage}
+            // Placeholder pages belong to the previous filter; never page them into a query that has not loaded yet.
+            hasMore={hasNextPage && !isPlaceholderData}
             next={fetchNextPage}
             loader={<Center marginY={4}><Spinner /></Center>}>
             <SimpleGrid

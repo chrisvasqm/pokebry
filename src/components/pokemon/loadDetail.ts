@@ -1,4 +1,4 @@
-/** One importer for the detail chunk: the route loads it, and cards prefetch it on hover or focus. */
+/** Importer for the detail chunk. Not prefetched: a failed prefetch after a deploy would reload the page under the cursor. */
 export const loadPokemonDetail = () => import('./PokemonDetail');
 
 /**

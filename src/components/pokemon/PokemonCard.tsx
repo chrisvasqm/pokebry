@@ -6,7 +6,6 @@ import { FALLBACK_IMAGE, FIRST_FORM_ID, capitalizeName, getIdFromUrl, getPrimary
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
 import PokemonResult from "../../models/PokemonResult"
 import { fadeUp, fadeUpTransition } from "../motion/fadeUp"
-import { loadPokemonDetail } from "./loadDetail"
 
 interface Props {
   result: PokemonResult
@@ -43,9 +42,7 @@ const PokemonCard = ({ result, isPriority = false, isFirstRow = false }: Props) 
     >
       {/* The detail page's Back link returns to this list with the same filter. */}
       {/* Named from the list result so the link has a name while the card is still loading. */}
-      {/* Fetch the detail chunk on hover or focus so the click does not wait for it. */}
-      <Link to={`/pokemons/${id}`} state={{ search: location.search }} aria-label={capitalizeName(result.name)}
-        onMouseEnter={loadPokemonDetail} onFocus={loadPokemonDetail}>
+      <Link to={`/pokemons/${id}`} state={{ search: location.search }} aria-label={capitalizeName(result.name)}>
         <Card
           padding={2}
           boxShadow={'lg'}

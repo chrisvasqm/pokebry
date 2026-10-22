@@ -21,7 +21,7 @@ const PokemonArtwork = ({ id, pokemon }: Props) => {
     // Setting img.src does not override a matching <source>, so a failed URL drops out through state instead.
     const [failed, setFailed] = useState<string[]>([]);
     // Forms often have no image upstream: they wait for the data instead of guessing.
-    const canGuess = Number.isInteger(id) && id < FIRST_FORM_ID;
+    const canGuess = Number.isInteger(id) && id > 0 && id < FIRST_FORM_ID;
     const artwork = pokemon ? pokemon.sprites.other['official-artwork'].front_default : canGuess ? getArtworkUrl(id) : undefined;
     const sprite = pokemon ? pokemon.sprites.front_default : canGuess ? getSpriteUrl(id) : undefined;
     const usable = (url: string | null | undefined) => url && !failed.includes(url) ? url : undefined;

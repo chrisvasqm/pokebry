@@ -27,7 +27,7 @@ const PokemonDetail = () => {
           variant={'ghost'}
           height={'70px'}
           width={'70px'}
-          aria-label="back-button"
+          aria-label="Back to list"
         />
       </Link>
       <Center>

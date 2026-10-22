@@ -32,7 +32,7 @@ const NavBar = ({ children }: Props) => {
     }, []);
 
     return (
-        <Card as='header' id='navbar' borderRadius={0} boxShadow={'md'} position={'sticky'} top={0} zIndex={'sticky'}>
+        <Card as='header' id='navbar' data-testid='navbar' borderRadius={0} boxShadow={'md'} position={'sticky'} top={0} zIndex={'sticky'}>
             <Container maxWidth={'4xl'}>
                 <HStack>
                     <Heading marginY={2} as={'h1'} fontSize={'3xl'}>
@@ -46,8 +46,7 @@ const NavBar = ({ children }: Props) => {
                         size={'sm'}
                         leftIcon={<SearchIcon />}
                         onClick={() => setIsOpen(true)}
-                        // The accessible name includes the visible shortcut keys (WCAG 2.5.3).
-                        aria-label={`Search Pokemon ${isMac ? '⌘' : 'Ctrl'} K`}
+                        aria-label='Search Pokemon'
                         aria-keyshortcuts={isMac ? 'Meta+K' : 'Control+K'}>
                         <HStack spacing={1} display={{ base: 'none', md: 'flex' }}>
                             <Kbd>{isMac ? '⌘' : 'Ctrl'}</Kbd>

@@ -13,7 +13,6 @@ const TypeFilter = () => {
     // Matches for the whole selection, shown on every selected chip so two chips never disagree with the list.
     const matchCount = useTypeMatchCount(selected);
     const idleBorder = useColorModeValue('gray.200', 'whiteAlpha.300');
-    const selectedText = 'gray.800';
     const railRef = useRef<HTMLDivElement>(null);
     const selectedKey = selected.join(',');
 
@@ -52,7 +51,7 @@ const TypeFilter = () => {
                             borderWidth={1}
                             borderColor={isSelected ? color : idleBorder}
                             backgroundColor={isSelected ? color : 'transparent'}
-                            color={isSelected ? selectedText : undefined}
+                            color={isSelected ? 'type.fg' : undefined}
                             _hover={{ backgroundColor: isSelected ? color : undefined, filter: 'brightness(0.96)' }}
                             leftIcon={
                                 <Box

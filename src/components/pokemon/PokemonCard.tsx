@@ -42,7 +42,7 @@ const PokemonCard = ({ result, isPriority = false }: Props) => {
             boxShadow={'lg'}
             borderRadius={'xl'}
             backgroundColor={typeColor}
-            color={'type.fg'}
+            color={typeColor ? 'type.fg' : undefined}
             alignItems={'center'}
             justifyContent={'center'}
             minWidth='40px'

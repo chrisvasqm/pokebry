@@ -106,14 +106,14 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                                     cursor='pointer'
                                     borderRadius='md'
                                     padding={2}
-                                    background={index === clampedIndex ? 'blackAlpha.200' : undefined}
-                                    _dark={{ background: index === clampedIndex ? 'whiteAlpha.100' : undefined }}
+                                    background={index === clampedIndex ? 'bg.active' : undefined}
                                     onMouseEnter={() => setActiveIndex(index)}
                                     onClick={() => select(result.id)}>
                                     <HStack>
                                         <Avatar size='sm' name={result.name} src={result.sprite} background='transparent' />
                                         <Text fontWeight='semibold'>{capitalizeName(result.name)}</Text>
-                                        <Text color='text.muted'>#{result.id}</Text>
+                                        {/* Muted text is below 4.5:1 on the dark highlight, so the active row uses the normal text color. */}
+                                        <Text color={index === clampedIndex ? undefined : 'text.muted'}>#{result.id}</Text>
                                     </HStack>
                                 </ListItem>
                             )}

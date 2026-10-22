@@ -5,7 +5,7 @@ import { PokemonType } from "../models/PokemonType";
 import APIClient from "../services/apiClient";
 import { intersectTypeLists, typePokemonsQuery } from "./useTypePokemons";
 
-const client = new APIClient<PokemonResult>('/pokemon')
+const client = new APIClient<PokemonResult>('pokemon')
 
 interface PokemonsQuery {
     limit: number

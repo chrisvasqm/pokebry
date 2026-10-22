@@ -11,9 +11,9 @@ interface FetchResponse<T> {
 class APIClient<T> {
     endpoint: string;
 
+    /** Relative to the base URL, without a leading slash (e.g. 'pokemon'): '/pokemon' would drop /api/v2. */
     constructor(endpoint: string) {
-        // Relative to baseUrl: a leading slash would resolve against the origin and drop /api/v2.
-        this.endpoint = endpoint.replace(/^\//, '');
+        this.endpoint = endpoint;
     }
 
     getAll = (searchParams?: SearchParamsOption) =>

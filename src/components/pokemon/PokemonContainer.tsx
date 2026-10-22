@@ -22,7 +22,7 @@ const PokemonsContainer = () => {
         hasNextPage
     } = usePokemons({ limit: 52, types: selected });
 
-    if (error) return <p>{error.message}</p>
+    if (error) return <Text id='list-error' data-testid='list-error' padding={4}>Could not load the Pokemon list. Try again later.</Text>
 
     const fetchedPokemonsCount = data?.pages.reduce((total, page) => total + page.length, 0) || 0;
     const summary = selected.length === 0 ? 'All Pokemon' : `${selected.map(capitalizeName).join(' and ')} Pokemon`;

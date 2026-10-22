@@ -192,9 +192,12 @@ test.describe('unknown numeric Pokemon id', () => {
     test.use({ allowedConsoleErrors: [/Failed to load resource/] });
 
     test('says the Pokemon does not exist', async ({ page }) => {
+        let requests = 0;
+        page.on('request', request => { if (request.url().endsWith('/pokemon/99999')) requests++; });
         await page.goto('/pokemons/99999');
 
         await expect(page.getByTestId('details-error')).toHaveText('This Pokemon does not exist.');
+        expect(requests).toBe(1);
     });
 });
 
@@ -202,9 +205,27 @@ test.describe('PokeAPI failure', () => {
     test.use({ allowedConsoleErrors: [/Failed to load resource/] });
 
     test('the detail page shows a load error, not "does not exist"', async ({ page }) => {
-        await page.route(/pokeapi\.co\/api\/v2\/pokemon\/1$/, route => route.fulfill({ status: 500 }));
+        let requests = 0;
+        // CORS header so the browser hands the 500 to the app as an HTTP error, not a network error.
+        await page.route(/pokeapi\.co\/api\/v2\/pokemon\/1$/, route => {
+            requests++;
+            return route.fulfill({ status: 500, headers: { 'access-control-allow-origin': '*' } });
+        });
         await page.goto('/pokemons/1');
 
+        // A 500 is retried (1 + 3 attempts with backoff), unlike a 404.
         await expect(page.getByTestId('details-error')).toHaveText('Could not load this Pokemon. Try again later.', { timeout: 20_000 });
+        expect(requests).toBe(4);
+    });
+});
+
+test.describe('PokeAPI list failure', () => {
+    test.use({ allowedConsoleErrors: [/Failed to load resource/] });
+
+    test('the list shows a friendly error without the request URL', async ({ page }) => {
+        await page.route(/pokeapi\.co\/api\/v2\/pokemon\?/, route => route.fulfill({ status: 500, headers: { 'access-control-allow-origin': '*' } }));
+        await page.goto('/');
+
+        await expect(page.getByTestId('list-error')).toHaveText('Could not load the Pokemon list. Try again later.', { timeout: 20_000 });
     });
 });

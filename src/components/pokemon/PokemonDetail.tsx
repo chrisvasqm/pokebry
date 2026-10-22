@@ -1,5 +1,5 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Card, Center, IconButton, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Card, Center, IconButton, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { capitalizeName } from "../../common";
 import usePokemon from "../../hooks/usePokemon";
@@ -33,11 +33,13 @@ const PokemonDetail = () => {
       <Center>
         <VStack>
           <PokemonArtwork id={pokemonId} />
-          {isLoading && <Spinner id='details-loading' />}
-          {pokemon && <>
-            <Text id='details-name' data-testid='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon.name)}</Text>
-            <PokemonTypeBadge types={pokemon.types} />
-          </>}
+          {/* Placeholders keep the name and badge rows' height, so nothing shifts when the data arrives. */}
+          <Skeleton isLoaded={!isLoading} minWidth={'120px'} minHeight={'30px'}>
+            <Text id='details-name' data-testid='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name ?? '')}</Text>
+          </Skeleton>
+          <Skeleton isLoaded={!isLoading} minWidth={'120px'} minHeight={'40px'}>
+            <PokemonTypeBadge types={pokemon?.types ?? []} />
+          </Skeleton>
         </VStack>
       </Center>
       {pokemon && <PokemonTabs pokemon={pokemon} />}

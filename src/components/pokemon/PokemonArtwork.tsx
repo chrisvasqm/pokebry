@@ -30,8 +30,8 @@ const PokemonArtwork = ({ id }: Props) => {
                 onError={() => setFailed(true)}
                 // React 18 does not know the camelCase fetchPriority prop; the lowercase attribute passes through.
                 {...{ fetchpriority: 'high' }}
-                width={250}
-                height={250}
+                htmlWidth={250}
+                htmlHeight={250}
                 boxSize={['192px', '250px']}
                 objectFit={'contain'}
                 // Pixel art upscaled on phones stays sharp; the artwork downscale on wider screens stays smooth.

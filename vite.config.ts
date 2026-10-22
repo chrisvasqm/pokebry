@@ -9,12 +9,12 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // Libraries change less often than app code: separate chunks stay cached across deploys.
+        // React changes less often than app code: its own chunk stays cached across deploys.
         manualChunks: (id) => {
           if (!id.includes('node_modules')) return undefined
           if (/node_modules\/\.pnpm\/(react|react-dom|scheduler|react-router|react-router-dom|@remix-run\+router)@/.test(id)) return 'react'
-          if (/node_modules\/\.pnpm\/(@chakra-ui|@emotion|framer-motion)/.test(id)) return 'ui'
-          return 'vendor'
+          // Other libraries are left to Rollup, so detail-only modules (tabs, icons) stay in the lazy detail chunk.
+          return undefined
         },
       },
     },

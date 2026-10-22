@@ -1,4 +1,3 @@
-import { SyntheticEvent } from "react";
 import typeColors from "./colors/typeColors";
 import Pokemon from "./models/Pokemon";
 
@@ -23,9 +22,3 @@ export const getArtworkUrl = (id: number) => `${SPRITES}/other/official-artwork/
 
 /** Fallback when a Pokemon has no image at the expected URL (some alternate forms). */
 export const FALLBACK_IMAGE = '/pokeball.png'
-
-export const replaceWithFallback = (event: SyntheticEvent<HTMLImageElement>) => {
-    const image = event.currentTarget
-    // Guard so a missing fallback cannot loop.
-    if (!image.src.endsWith(FALLBACK_IMAGE)) image.src = FALLBACK_IMAGE
-}

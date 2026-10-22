@@ -19,7 +19,8 @@ window.addEventListener('vite:preloadError', (event) => {
     if (Date.now() - last < 60_000) return;
     sessionStorage.setItem(RELOAD_KEY, String(Date.now()));
   } catch {
-    // Storage can be blocked; reloading is still the best recovery.
+    // Without storage a reload cannot be throttled and could loop; let the error page show instead.
+    return;
   }
   event.preventDefault();
   window.location.reload();

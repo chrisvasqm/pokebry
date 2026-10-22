@@ -1,7 +1,8 @@
 import { Card, Image, Text, VStack } from "@chakra-ui/react"
 import { motion } from 'framer-motion'
+import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { FALLBACK_IMAGE, capitalizeName, getIdFromUrl, getPrimaryColorByType, getSpriteUrl, replaceWithFallback } from "../../common"
+import { FALLBACK_IMAGE, capitalizeName, getIdFromUrl, getPrimaryColorByType, getSpriteUrl } from "../../common"
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
 import PokemonResult from "../../models/PokemonResult"
 import { fadeUp, fadeUpTransition } from "../motion/fadeUp"
@@ -15,15 +16,16 @@ interface Props {
 }
 
 const PokemonCard = ({ result, isPriority = false, isFirstRow = false }: Props) => {
-  const { data: pokemon, isLoading, error } = usePokemonByUrl(result.url);
+  // A failed fetch only costs the type color: name, link and sprite come from the list result.
+  const { data: pokemon, isLoading } = usePokemonByUrl(result.url);
   const location = useLocation();
-
-  if (error) return <p>{error.message}</p>
+  const [imageFailed, setImageFailed] = useState(false);
 
   const typeColor = getPrimaryColorByType(pokemon!)
   const id = getIdFromUrl(result.url) ?? pokemon?.id
   // Name and sprite come from the list result, so the card shows them at once; only the type color waits for the data.
-  const sprite = id ? getSpriteUrl(id) : pokemon?.sprites.front_default
+  // Once loaded, the API's sprite wins: forms without one (null) go straight to the fallback, with no failed request.
+  const sprite = pokemon ? pokemon.sprites.front_default : id && getSpriteUrl(id)
 
   return (
     <motion.div
@@ -62,9 +64,11 @@ const PokemonCard = ({ result, isPriority = false, isFirstRow = false }: Props) 
               {...(isPriority ? { fetchpriority: 'high' } : {})}
               boxSize={'96px'}
               objectFit={'contain'}
-              src={sprite || FALLBACK_IMAGE}
+              src={sprite && !imageFailed ? sprite : FALLBACK_IMAGE}
               // Chakra ignores fallbackSrc when `loading` is set, so swap to the fallback on error instead.
-              onError={replaceWithFallback} />
+              onError={() => setImageFailed(true)}
+              htmlWidth={96}
+              htmlHeight={96} />
 
             <Text
               data-testid='card-name'

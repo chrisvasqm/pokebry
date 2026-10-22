@@ -65,7 +65,7 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={inputRef} size={'lg'}>
             <ModalOverlay />
-            <ModalContent id='search-modal' marginTop={'10vh'}>
+            <ModalContent id='search-modal' aria-label='Search Pokemon' marginTop={'10vh'}>
                 <ModalBody padding={2}>
                     <InputGroup>
                         <InputLeftElement pointerEvents='none'>
@@ -107,19 +107,19 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                                     borderRadius='md'
                                     padding={2}
                                     background={index === clampedIndex ? 'blackAlpha.200' : undefined}
-                                    _dark={{ background: index === clampedIndex ? 'whiteAlpha.200' : undefined }}
+                                    _dark={{ background: index === clampedIndex ? 'whiteAlpha.100' : undefined }}
                                     onMouseEnter={() => setActiveIndex(index)}
                                     onClick={() => select(result.id)}>
                                     <HStack>
                                         <Avatar size='sm' name={result.name} src={result.sprite} background='transparent' />
                                         <Text fontWeight='semibold'>{capitalizeName(result.name)}</Text>
-                                        <Text color='gray.500'>#{result.id}</Text>
+                                        <Text color='text.muted'>#{result.id}</Text>
                                     </HStack>
                                 </ListItem>
                             )}
                         </List>}
 
-                    <Box paddingX={2} paddingTop={2} fontSize='xs' color='gray.500'>
+                    <Box paddingX={2} paddingTop={2} fontSize='xs' color='text.muted'>
                         <Kbd>↑</Kbd> <Kbd>↓</Kbd> to navigate, <Kbd>Enter</Kbd> to open, <Kbd>Esc</Kbd> to close
                     </Box>
                 </ModalBody>

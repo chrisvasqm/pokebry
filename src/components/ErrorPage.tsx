@@ -7,7 +7,7 @@ const ErrorPage = () => {
     return (
         <>
             <NavBar />
-            <Center height={'100vh'}>
+            <Center as='main' height={'100vh'}>
                 <FadeIn>
                     <VStack>
                         <Heading id='error-title' data-testid='error-title'>Oops!</Heading>

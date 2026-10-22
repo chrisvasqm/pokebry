@@ -34,6 +34,7 @@ const PokemonDetail = () => {
         <VStack>
           <Image
             id='details-image'
+            alt={capitalizeName(pokemon?.name || '')}
             src={pokemon?.sprites.other["official-artwork"].front_default || "/pokeball.png"}
             boxSize={'250px'}
           />

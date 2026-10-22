@@ -19,7 +19,7 @@ const PokemonTypeBadge = ({ types }: Props) => {
                     borderRadius={'full'}
                     fontWeight={'bold'}
                     fontSize={'xs'}
-                    color={'white'}
+                    color={'type.fg'}
                     backgroundColor={typeColors[type.name]}
                 >
                     {type.name}

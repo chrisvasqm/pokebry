@@ -6,6 +6,9 @@ import usePokemons from "../../hooks/usePokemons";
 import useTypeFilter from "../../hooks/useTypeFilter";
 import PokemonCard from "./PokemonCard";
 
+/** The widest grid shows 6 columns, so the first 6 cards cover the first row at any width. */
+const PRIORITY_CARDS = 6;
+
 const PokemonsContainer = () => {
     const { selected } = useTypeFilter();
     const {
@@ -27,7 +30,7 @@ const PokemonsContainer = () => {
 
     return (
         <>
-        <Text id='list-summary' data-testid='list-summary' fontSize={'sm'} color={'gray.500'} marginBottom={2} marginX={1}>{summary}</Text>
+        <Text id='list-summary' data-testid='list-summary' fontSize={'sm'} color={'text.muted'} marginBottom={2} marginX={1}>{summary}</Text>
         {!isPending && !isPlaceholderData && fetchedPokemonsCount === 0 &&
             <Text id='list-empty' data-testid='list-empty' textAlign={'center'} paddingY={12}>{emptyMessage}</Text>}
         <InfiniteScroll
@@ -48,9 +51,9 @@ const PokemonsContainer = () => {
                 opacity={isPlaceholderData ? 0.4 : 1}
                 transition={'opacity 150ms'}
                 aria-busy={isPlaceholderData}>
-                {data?.pages.map((page, index) =>
-                    <React.Fragment key={index}>
-                        {page.map(result => <PokemonCard key={result.name} result={result} />)}
+                {data?.pages.map((page, pageIndex) =>
+                    <React.Fragment key={pageIndex}>
+                        {page.map((result, index) => <PokemonCard key={result.name} result={result} isPriority={pageIndex === 0 && index < PRIORITY_CARDS} />)}
                     </React.Fragment>
                 )}
             </SimpleGrid>

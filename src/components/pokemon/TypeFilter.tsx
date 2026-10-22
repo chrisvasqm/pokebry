@@ -77,6 +77,7 @@ const TypeFilter = () => {
                     onClick={clear}
                     size={'sm'}
                     variant={'link'}
+                    color={'text.muted'}
                     flexShrink={0}>
                     Clear
                 </Button>}

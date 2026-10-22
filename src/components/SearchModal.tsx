@@ -65,7 +65,7 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={inputRef} size={'lg'}>
             <ModalOverlay />
-            <ModalContent id='search-modal' marginTop={'10vh'}>
+            <ModalContent id='search-modal' aria-label='Search Pokemon' marginTop={'10vh'}>
                 <ModalBody padding={2}>
                     <InputGroup>
                         <InputLeftElement pointerEvents='none'>
@@ -77,6 +77,7 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                             ref={inputRef}
                             variant='filled'
                             placeholder='Search Pokemon by name'
+                            aria-label='Search Pokemon by name'
                             role='combobox'
                             aria-expanded={results.length > 0}
                             aria-controls={results.length > 0 ? 'search-results' : undefined}
@@ -106,20 +107,20 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                                     cursor='pointer'
                                     borderRadius='md'
                                     padding={2}
-                                    background={index === clampedIndex ? 'blackAlpha.200' : undefined}
-                                    _dark={{ background: index === clampedIndex ? 'whiteAlpha.200' : undefined }}
+                                    background={index === clampedIndex ? 'bg.active' : undefined}
                                     onMouseEnter={() => setActiveIndex(index)}
                                     onClick={() => select(result.id)}>
                                     <HStack>
                                         <Avatar size='sm' name={result.name} src={result.sprite} background='transparent' />
                                         <Text fontWeight='semibold'>{capitalizeName(result.name)}</Text>
-                                        <Text color='gray.500'>#{result.id}</Text>
+                                        {/* Muted text is below 4.5:1 on the dark highlight, so the active row uses the normal text color. */}
+                                        <Text color={index === clampedIndex ? undefined : 'text.muted'}>#{result.id}</Text>
                                     </HStack>
                                 </ListItem>
                             )}
                         </List>}
 
-                    <Box paddingX={2} paddingTop={2} fontSize='xs' color='gray.500'>
+                    <Box paddingX={2} paddingTop={2} fontSize='xs' color='text.muted'>
                         <Kbd>↑</Kbd> <Kbd>↓</Kbd> to navigate, <Kbd>Enter</Kbd> to open, <Kbd>Esc</Kbd> to close
                     </Box>
                 </ModalBody>

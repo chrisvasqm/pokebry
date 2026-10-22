@@ -32,7 +32,7 @@ const NavBar = ({ children }: Props) => {
     }, []);
 
     return (
-        <Card id='navbar' borderRadius={0} boxShadow={'md'} position={'sticky'} top={0} zIndex={'sticky'}>
+        <Card as='header' id='navbar' data-testid='navbar' borderRadius={0} boxShadow={'md'} position={'sticky'} top={0} zIndex={'sticky'}>
             <Container maxWidth={'4xl'}>
                 <HStack>
                     <Heading marginY={2} as={'h1'} fontSize={'3xl'}>
@@ -46,20 +46,23 @@ const NavBar = ({ children }: Props) => {
                         size={'sm'}
                         leftIcon={<SearchIcon />}
                         onClick={() => setIsOpen(true)}
-                        aria-label='Search Pokemon'>
+                        aria-label='Search Pokemon'
+                        aria-keyshortcuts={isMac ? 'Meta+K' : 'Control+K'}>
                         <HStack spacing={1} display={{ base: 'none', md: 'flex' }}>
                             <Kbd>{isMac ? '⌘' : 'Ctrl'}</Kbd>
                             <Kbd>K</Kbd>
                         </HStack>
                     </Button>
-                    <a href='https://github.com/chrisvasqm/pokebry' target='_blank'>
-                        <IconButton
-                            variant={'ghost'}
-                            aria-label='githubicon'
-                            icon={<FaGithub size={20} />}
-                        />
-                    </a>
-                    <Switch id='navbar-switch' data-testid='navbar-switch' isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
+                    <IconButton
+                        as='a'
+                        href='https://github.com/chrisvasqm/pokebry'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        variant={'ghost'}
+                        aria-label='GitHub repository'
+                        icon={<FaGithub size={20} />}
+                    />
+                    <Switch id='navbar-switch' data-testid='navbar-switch' aria-label='Dark mode' isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
                     <MoonIcon id='navbar-moon-icon' marginLeft={1} />
                 </HStack>
                 {children}

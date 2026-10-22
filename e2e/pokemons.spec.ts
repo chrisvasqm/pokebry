@@ -106,3 +106,25 @@ test('ignores unknown types in the URL and shows an empty state for a pair with 
     await expect(page.getByTestId('type-chip-count-fire')).toHaveText('0');
     await expect(page.getByTestId(/^card-/)).toHaveCount(0);
 });
+
+test('exposes landmarks, accessible names and robots.txt', async ({ page, request }) => {
+    await page.goto('/');
+
+    await expect(page.getByTestId('navbar')).toHaveJSProperty('tagName', 'HEADER');
+    await expect(page.getByTestId('page-main')).toHaveJSProperty('tagName', 'MAIN');
+    // Chakra puts the test id on the Switch's label wrapper; the name belongs to its input.
+    await expect(page.getByTestId('navbar-switch').getByRole('checkbox')).toHaveAccessibleName('Dark mode');
+    await expect(page.getByTestId('navbar-search')).toHaveAccessibleName('Search Pokemon');
+    const card = page.getByTestId('card-bulbasaur');
+    // Wait for the loaded card; while loading it has no sprite at all.
+    await expect(card.getByTestId('card-name')).toHaveText('Bulbasaur');
+    await expect(card.getByRole('link')).toHaveAccessibleName('Bulbasaur');
+    await expect(card.getByRole('img')).toHaveCount(0); // decorative sprite (alt="") has no img role
+
+    await card.click();
+    await expect(page.getByTestId('details-button-back')).toHaveAccessibleName('Back to list');
+    await expect(page.getByTestId('page-main')).toHaveJSProperty('tagName', 'MAIN');
+
+    const robots = await request.get('/robots.txt');
+    expect(await robots.text()).toContain('User-agent: *');
+});

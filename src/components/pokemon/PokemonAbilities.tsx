@@ -8,10 +8,12 @@ interface Props {
 const PokemonAbilities = ({ moves }: Props) => {
     return (
         <>
-            <SimpleGrid columns={[2, 3]} gap={5} overflowY={'scroll'} height={'230px'}>
+            <SimpleGrid columns={[2, 3]} gap={5} overflowY={'scroll'} height={'230px'}
+                // Focusable so keyboard users can scroll the list; it holds no focusable items.
+                tabIndex={0} role='region' aria-label='Moves'>
                 {moves.map(({ move, version_group_details }) =>
                     <Stat id={`move-${move.name}`} key={move.name}>
-                        <StatLabel id={`move-label-${move.name}`} color={'gray.500'}>Required level: {version_group_details[0].level_learned_at}</StatLabel>
+                        <StatLabel id={`move-label-${move.name}`} color={'text.muted'}>Required level: {version_group_details[0].level_learned_at}</StatLabel>
                         <StatNumber id={`move-number-${move.name}`} fontSize={'md'}>{move.name.toUpperCase()}</StatNumber>
                     </Stat>)}
             </SimpleGrid >

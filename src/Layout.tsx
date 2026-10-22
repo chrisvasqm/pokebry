@@ -15,7 +15,7 @@ function Layout() {
       <NavBar>
         {isListPage && <TypeFilter />}
       </NavBar>
-      <Container paddingY={4} paddingX={2} maxWidth={'4xl'}>
+      <Container as='main' data-testid='page-main' paddingY={4} paddingX={2} maxWidth={'4xl'}>
         <AnimatePresence mode='wait'>
           <PageTransition key={location.pathname}>
             {outlet}

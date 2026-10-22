@@ -1,7 +1,9 @@
-import axios, { AxiosRequestConfig } from "axios";
+import ky, { SearchParamsOption } from "ky";
 
-const instance = axios.create({
-    baseURL: 'https://pokeapi.co/api/v2'
+const instance = ky.create({
+    baseUrl: 'https://pokeapi.co/api/v2/',
+    // TanStack Query already retries failed queries; retrying here too would multiply the attempts.
+    retry: 0
 });
 
 interface FetchResponse<T> {
@@ -12,20 +14,19 @@ class APIClient<T> {
     endpoint: string;
 
     constructor(endpoint: string) {
-        this.endpoint = endpoint;
+        // Relative to baseUrl: a leading slash would resolve against the origin and drop /api/v2.
+        this.endpoint = endpoint.replace(/^\//, '');
     }
 
-    getAll = (config?: AxiosRequestConfig) =>
-        instance.get<FetchResponse<T>>(`${this.endpoint}`, config)
-            .then(response => response.data.results);
+    getAll = (searchParams?: SearchParamsOption) =>
+        instance.get(this.endpoint, { searchParams }).json<FetchResponse<T>>()
+            .then(response => response.results);
 
     find = (url: string) =>
-        instance.get<T>(url)
-            .then(response => response.data);
+        instance.get(url).json<T>();
 
     get = (idOrName: number | string) =>
-        instance.get<T>(`${this.endpoint}/${idOrName}`)
-            .then(response => response.data);
+        instance.get(`${this.endpoint}/${idOrName}`).json<T>();
 
 }
 

@@ -1,21 +1,26 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Card, Center, IconButton, Image, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Card, Center, IconButton, Skeleton, Text, VStack } from "@chakra-ui/react";
+import { AxiosError } from "axios";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { capitalizeName } from "../../common";
 import usePokemon from "../../hooks/usePokemon";
+import PokemonArtwork from "./PokemonArtwork";
 import PokemonTabs from "./PokemonTabs";
 import PokemonTypeBadge from "./PokemonTypeBadge";
+
+const hasStatus = (error: Error, status: number) => error instanceof AxiosError && error.response?.status === status;
 
 const PokemonDetail = () => {
   const { id } = useParams();
   const location = useLocation();
   // Back to the list the card was opened from, filter included; a direct open goes to the plain list.
   const listSearch = (location.state as { search?: string } | null)?.search ?? '';
-  const { data: pokemon, isLoading, error } = usePokemon(parseInt(id!));
+  // Number, not parseInt: '1abc' or '25.9' must not resolve to a Pokemon.
+  const pokemonId = Number(id);
+  const { data: pokemon, isLoading, error } = usePokemon(pokemonId);
 
-  if (isLoading) return <Center height={'100vh'}><Spinner /></Center>
-
-  if (error) return <Text>{error.message}</Text>
+  // A non-numeric id is never fetched; both cases keep the Back button.
+  const notFound = error || !Number.isInteger(pokemonId) || pokemonId <= 0;
 
   return (
     <Card>
@@ -30,20 +35,21 @@ const PokemonDetail = () => {
         width={'70px'}
         aria-label="Back to list"
       />
-      <Center>
+      {notFound && <Text id='details-error' data-testid='details-error' padding={4}>{error && !hasStatus(error, 404) ? 'Could not load this Pokemon. Try again later.' : 'This Pokemon does not exist.'}</Text>}
+      {!notFound && <Center>
         <VStack>
-          <Image
-            id='details-image'
-            // The name is shown right below.
-            alt=''
-            src={pokemon?.sprites.other["official-artwork"].front_default || "/pokeball.png"}
-            boxSize={'250px'}
-          />
-          <Text id='details-name' data-testid='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>
-          <PokemonTypeBadge types={pokemon?.types || []} />
+          {/* Keyed by id: failed image URLs are per Pokemon, not kept across navigations. */}
+          <PokemonArtwork key={pokemonId} id={pokemonId} pokemon={pokemon} />
+          {/* Placeholders keep the name and badge rows' height, so nothing shifts when the data arrives. */}
+          <Skeleton isLoaded={!isLoading} minWidth={'120px'} minHeight={'30px'}>
+            <Text id='details-name' data-testid='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name ?? '')}</Text>
+          </Skeleton>
+          <Skeleton isLoaded={!isLoading} minWidth={'120px'} minHeight={'40px'}>
+            <PokemonTypeBadge types={pokemon?.types ?? []} />
+          </Skeleton>
         </VStack>
-      </Center>
-      <PokemonTabs pokemon={pokemon!} />
+      </Center>}
+      {pokemon && <PokemonTabs pokemon={pokemon} />}
     </Card>
   )
 }

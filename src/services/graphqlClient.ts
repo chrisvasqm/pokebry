@@ -1,9 +1,6 @@
-import axios from "axios";
+import http from "./http";
 
-const instance = axios.create({
-    baseURL: 'https://graphql.pokeapi.co/v1beta2',
-    headers: { 'Content-Type': 'application/json' }
-});
+const GRAPHQL_URL = 'https://graphql.pokeapi.co/v1beta2';
 
 interface GraphQLResponse<T> {
     data?: T;
@@ -12,9 +9,8 @@ interface GraphQLResponse<T> {
 
 class GraphQLClient {
     query = <T, V extends object = object>(query: string, variables?: V) =>
-        instance.post<GraphQLResponse<T>>('', { query, variables })
-            .then(response => {
-                const { data, errors } = response.data;
+        http.post(GRAPHQL_URL, { json: { query, variables } }).json<GraphQLResponse<T>>()
+            .then(({ data, errors }) => {
                 if (errors?.length) throw new Error(errors.map(error => error.message).join('; '));
                 if (!data) throw new Error('Empty GraphQL response');
                 return data;

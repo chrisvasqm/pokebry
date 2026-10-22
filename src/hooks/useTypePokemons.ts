@@ -9,7 +9,7 @@ interface TypeResponse {
     pokemon: { pokemon: PokemonResult }[]
 }
 
-const client = new APIClient<TypeResponse>('/type');
+const client = new APIClient<TypeResponse>('type');
 
 /** Every Pokemon of one type, ordered by id. Shared by the list query and the chip counts. */
 export const typePokemonsQuery = (type: PokemonType) => queryOptions<PokemonResult[], Error>({

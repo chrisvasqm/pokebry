@@ -1,8 +1,8 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { SearchParamsOption } from "ky";
+import http from "./http";
 
-const instance = axios.create({
-    baseURL: 'https://pokeapi.co/api/v2'
-});
+// baseUrl, not prefix: `find` gets absolute URLs, which prefix would prepend to.
+const instance = http.extend({ baseUrl: 'https://pokeapi.co/api/v2/' });
 
 interface FetchResponse<T> {
     results: T[]
@@ -11,21 +11,20 @@ interface FetchResponse<T> {
 class APIClient<T> {
     endpoint: string;
 
+    /** Relative to the base URL, without a leading slash (e.g. 'pokemon'): '/pokemon' would drop /api/v2. */
     constructor(endpoint: string) {
         this.endpoint = endpoint;
     }
 
-    getAll = (config?: AxiosRequestConfig) =>
-        instance.get<FetchResponse<T>>(`${this.endpoint}`, config)
-            .then(response => response.data.results);
+    getAll = (searchParams?: SearchParamsOption) =>
+        instance.get(this.endpoint, { searchParams }).json<FetchResponse<T>>()
+            .then(response => response.results);
 
     find = (url: string) =>
-        instance.get<T>(url)
-            .then(response => response.data);
+        instance.get(url).json<T>();
 
     get = (idOrName: number | string) =>
-        instance.get<T>(`${this.endpoint}/${idOrName}`)
-            .then(response => response.data);
+        instance.get(`${this.endpoint}/${idOrName}`).json<T>();
 
 }
 

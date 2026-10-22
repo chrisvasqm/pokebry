@@ -5,7 +5,7 @@ import { PokemonType } from "../models/PokemonType";
 import APIClient from "../services/apiClient";
 import { intersectTypeLists, typePokemonsQuery } from "./useTypePokemons";
 
-const client = new APIClient<PokemonResult>('/pokemon')
+const client = new APIClient<PokemonResult>('pokemon')
 
 interface PokemonsQuery {
     limit: number
@@ -32,7 +32,7 @@ const usePokemons = (query: PokemonsQuery) => {
         queryFn: ({ pageParam }) => {
             const offset = (pageParam as number - 1) * query.limit;
             if (types.length > 0) return fetchByTypes(queryClient, { ...query, types }, offset);
-            return client.getAll({ params: { limit: query.limit, offset } });
+            return client.getAll({ limit: query.limit, offset });
         },
         placeholderData: previousData => previousData,
         staleTime: ms('24h'),

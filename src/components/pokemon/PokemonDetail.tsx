@@ -1,6 +1,6 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Card, Center, IconButton, Skeleton, Text, VStack } from "@chakra-ui/react";
-import { AxiosError } from "axios";
+import { isHTTPError } from "ky";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { capitalizeName } from "../../common";
 import usePokemon from "../../hooks/usePokemon";
@@ -8,7 +8,7 @@ import PokemonArtwork from "./PokemonArtwork";
 import PokemonTabs from "./PokemonTabs";
 import PokemonTypeBadge from "./PokemonTypeBadge";
 
-const hasStatus = (error: Error, status: number) => error instanceof AxiosError && error.response?.status === status;
+const hasStatus = (error: Error, status: number) => isHTTPError(error) && error.response.status === status;
 
 const PokemonDetail = () => {
   const { id } = useParams();

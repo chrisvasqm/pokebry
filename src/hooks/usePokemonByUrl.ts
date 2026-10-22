@@ -3,7 +3,7 @@ import Pokemon from "../models/Pokemon";
 import APIClient from "../services/apiClient";
 import ms from "ms";
 
-const client = new APIClient<Pokemon>('/api/pokemon');
+const client = new APIClient<Pokemon>('pokemon');
 
 const usePokemonByUrl = (url: string) => useQuery<Pokemon, Error>({
     queryKey: ['pokemonUrl', url],

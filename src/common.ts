@@ -15,6 +15,9 @@ export const getPrimaryColorByType = (pokemon: Pokemon) => {
 }
 const SPRITES = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
 
+/** Alternate forms (megas, regional forms) start here; many of them have no image upstream. */
+export const FIRST_FORM_ID = 10001
+
 /** Sprite URLs follow a fixed pattern per id, so images can load before the Pokemon's own data arrives. */
 export const getSpriteUrl = (id: number) => `${SPRITES}/${id}.png`
 

@@ -8,7 +8,9 @@ const client = new APIClient<Pokemon>('/pokemon');
 const usePokemon = (id: number) => useQuery<Pokemon, Error>({
     queryKey: ['pokemon', id],
     queryFn: () => client.get(id),
-    staleTime: ms('24h')
+    staleTime: ms('24h'),
+    // A non-numeric route id (e.g. /pokemons/abc) has nothing to fetch.
+    enabled: Number.isInteger(id)
 })
 
 export default usePokemon;

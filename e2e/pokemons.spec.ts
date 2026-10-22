@@ -164,11 +164,25 @@ test.describe('missing sprite', () => {
         await expect(page.getByTestId('card-image-bulbasaur')).toHaveAttribute('src', /\/pokeball\.png$/);
     });
 
-    test('falls back to the pokeball image on the detail page', async ({ page }) => {
+    test('the detail page falls back to the sprite, then to the pokeball image', async ({ page }) => {
         await page.route(/\/official-artwork\/1\.png$/, route => route.fulfill({ status: 404 }));
         await page.goto('/pokemons/1');
 
         const artwork = page.getByTestId('details-image');
+        await expect.poll(() => artwork.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/sprites\/pokemon\/1\.png$/);
+
+        await page.route(/\/sprites\/pokemon\/1\.png$/, route => route.fulfill({ status: 404 }));
+        await page.reload();
         await expect.poll(() => artwork.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/pokeball\.png$/);
     });
+});
+
+test('a non-numeric Pokemon id shows a message and a way back without fetching', async ({ page }) => {
+    const requests: string[] = [];
+    page.on('request', request => { if (request.url().includes('/pokemon/abc')) requests.push(request.url()); });
+    await page.goto('/pokemons/abc');
+
+    await expect(page.getByTestId('details-error')).toBeVisible();
+    await expect(page.getByTestId('details-button-back')).toBeVisible();
+    expect(requests).toEqual([]);
 });

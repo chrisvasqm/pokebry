@@ -2,10 +2,11 @@ import { Card, Image, Text, VStack } from "@chakra-ui/react"
 import { motion } from 'framer-motion'
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { FALLBACK_IMAGE, capitalizeName, getIdFromUrl, getPrimaryColorByType, getSpriteUrl } from "../../common"
+import { FALLBACK_IMAGE, FIRST_FORM_ID, capitalizeName, getIdFromUrl, getPrimaryColorByType, getSpriteUrl } from "../../common"
 import usePokemonByUrl from "../../hooks/usePokemonByUrl"
 import PokemonResult from "../../models/PokemonResult"
 import { fadeUp, fadeUpTransition } from "../motion/fadeUp"
+import { loadPokemonDetail } from "./loadDetail"
 
 interface Props {
   result: PokemonResult
@@ -19,13 +20,13 @@ const PokemonCard = ({ result, isPriority = false, isFirstRow = false }: Props) 
   // A failed fetch only costs the type color: name, link and sprite come from the list result.
   const { data: pokemon, isLoading } = usePokemonByUrl(result.url);
   const location = useLocation();
-  const [imageFailed, setImageFailed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string>();
 
   const typeColor = getPrimaryColorByType(pokemon!)
   const id = getIdFromUrl(result.url) ?? pokemon?.id
   // Name and sprite come from the list result, so the card shows them at once; only the type color waits for the data.
-  // Once loaded, the API's sprite wins: forms without one (null) go straight to the fallback, with no failed request.
-  const sprite = pokemon ? pokemon.sprites.front_default : id && getSpriteUrl(id)
+  // Once loaded, the API's sprite wins. Forms often have no sprite, so they wait for the data instead of guessing.
+  const sprite = pokemon ? pokemon.sprites.front_default : id && id < FIRST_FORM_ID ? getSpriteUrl(id) : undefined
 
   return (
     <motion.div
@@ -42,7 +43,9 @@ const PokemonCard = ({ result, isPriority = false, isFirstRow = false }: Props) 
     >
       {/* The detail page's Back link returns to this list with the same filter. */}
       {/* Named from the list result so the link has a name while the card is still loading. */}
-      <Link to={`/pokemons/${id}`} state={{ search: location.search }} aria-label={capitalizeName(result.name)}>
+      {/* Fetch the detail chunk on hover or focus so the click does not wait for it. */}
+      <Link to={`/pokemons/${id}`} state={{ search: location.search }} aria-label={capitalizeName(result.name)}
+        onMouseEnter={loadPokemonDetail} onFocus={loadPokemonDetail}>
         <Card
           padding={2}
           boxShadow={'lg'}
@@ -64,9 +67,9 @@ const PokemonCard = ({ result, isPriority = false, isFirstRow = false }: Props) 
               {...(isPriority ? { fetchpriority: 'high' } : {})}
               boxSize={'96px'}
               objectFit={'contain'}
-              src={sprite && !imageFailed ? sprite : FALLBACK_IMAGE}
+              src={sprite && sprite !== failedSrc ? sprite : FALLBACK_IMAGE}
               // Chakra ignores fallbackSrc when `loading` is set, so swap to the fallback on error instead.
-              onError={() => setImageFailed(true)}
+              onError={() => setFailedSrc(sprite || undefined)}
               htmlWidth={96}
               htmlHeight={96} />
 

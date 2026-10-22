@@ -15,7 +15,8 @@ const PokemonDetail = () => {
   const pokemonId = parseInt(id!);
   const { data: pokemon, isLoading, error } = usePokemon(pokemonId);
 
-  if (error) return <Text>{error.message}</Text>
+  // A non-numeric id is never fetched; both cases keep the Back button.
+  const notFound = error || !Number.isInteger(pokemonId);
 
   return (
     <Card>
@@ -30,9 +31,10 @@ const PokemonDetail = () => {
         width={'70px'}
         aria-label="Back to list"
       />
-      <Center>
+      {notFound && <Text id='details-error' data-testid='details-error' padding={4}>{error?.message ?? 'This Pokemon does not exist.'}</Text>}
+      {!notFound && <Center>
         <VStack>
-          <PokemonArtwork id={pokemonId} />
+          <PokemonArtwork id={pokemonId} pokemon={pokemon} />
           {/* Placeholders keep the name and badge rows' height, so nothing shifts when the data arrives. */}
           <Skeleton isLoaded={!isLoading} minWidth={'120px'} minHeight={'30px'}>
             <Text id='details-name' data-testid='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name ?? '')}</Text>
@@ -41,7 +43,7 @@ const PokemonDetail = () => {
             <PokemonTypeBadge types={pokemon?.types ?? []} />
           </Skeleton>
         </VStack>
-      </Center>
+      </Center>}
       {pokemon && <PokemonTabs pokemon={pokemon} />}
     </Card>
   )

@@ -12,7 +12,13 @@ const client = new QueryClient();
 
 // After a deploy, an open tab may ask for a chunk that no longer exists: reload once to get the new build.
 const RELOAD_KEY = 'chunk-reload-at';
+// One import can fire several preloadError events (each failed dependency); all of them wait for the same reload.
+let isReloading = false;
 window.addEventListener('vite:preloadError', (event) => {
+  if (isReloading) {
+    event.preventDefault();
+    return;
+  }
   try {
     const last = Number(sessionStorage.getItem(RELOAD_KEY) ?? 0);
     // A second failure within a minute means the chunk is really missing; let the error page show.
@@ -22,6 +28,7 @@ window.addEventListener('vite:preloadError', (event) => {
     // Without storage a reload cannot be throttled and could loop; let the error page show instead.
     return;
   }
+  isReloading = true;
   event.preventDefault();
   window.location.reload();
 });

@@ -1,3 +1,4 @@
+import { SyntheticEvent } from "react";
 import typeColors from "./colors/typeColors";
 import Pokemon from "./models/Pokemon";
 
@@ -12,4 +13,19 @@ export const getIdFromUrl = (url: string) => {
 export const getPrimaryColorByType = (pokemon: Pokemon) => {
     const primaryType = pokemon?.types[0].type.name;
     return typeColors[primaryType || '']
+}
+const SPRITES = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
+
+/** Sprite URLs follow a fixed pattern per id, so images can load before the Pokemon's own data arrives. */
+export const getSpriteUrl = (id: number) => `${SPRITES}/${id}.png`
+
+export const getArtworkUrl = (id: number) => `${SPRITES}/other/official-artwork/${id}.png`
+
+/** Fallback when a Pokemon has no image at the expected URL (some alternate forms). */
+export const FALLBACK_IMAGE = '/pokeball.png'
+
+export const replaceWithFallback = (event: SyntheticEvent<HTMLImageElement>) => {
+    const image = event.currentTarget
+    // Guard so a missing fallback cannot loop.
+    if (!image.src.endsWith(FALLBACK_IMAGE)) image.src = FALLBACK_IMAGE
 }

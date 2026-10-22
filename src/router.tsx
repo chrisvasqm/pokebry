@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from './Layout'
-import PokemonDetail from './components/pokemon/PokemonDetail'
 import PokemonsContainer from './components/pokemon/PokemonContainer'
 import ErrorPage from './components/ErrorPage'
 
@@ -11,7 +10,8 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: '/', element: <PokemonsContainer /> },
-            { path: '/pokemons/:id', element: <PokemonDetail /> }
+            // Own chunk: the list page does not load the detail code. main.tsx reloads when a chunk is gone after a deploy.
+            { path: '/pokemons/:id', lazy: () => import('./components/pokemon/PokemonDetail').then(m => ({ Component: m.default })) }
         ]
     },
 ])

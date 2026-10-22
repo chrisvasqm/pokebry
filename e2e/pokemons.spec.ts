@@ -128,3 +128,47 @@ test('exposes landmarks, accessible names and robots.txt', async ({ page, reques
     const robots = await request.get('/robots.txt');
     expect(await robots.text()).toContain('User-agent: *');
 });
+
+test('loads list sprites and detail artwork from their id-based URLs', async ({ page }) => {
+    await page.goto('/');
+
+    const sprite = page.getByTestId('card-image-bulbasaur');
+    await expect(sprite).toHaveAttribute('src', /\/sprites\/pokemon\/1\.png$/);
+    await expect.poll(() => sprite.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+
+    await page.getByTestId('card-bulbasaur').click();
+    const artwork = page.getByTestId('details-image');
+    await expect.poll(() => artwork.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/official-artwork\/1\.png$/);
+    await expect.poll(() => artwork.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+});
+
+test.describe('on a phone', () => {
+    test.use({ viewport: { width: 390, height: 844 } });
+
+    test('the detail page shows the small sprite instead of the artwork', async ({ page }) => {
+        await page.goto('/pokemons/1');
+
+        const artwork = page.getByTestId('details-image');
+        await expect.poll(() => artwork.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/sprites\/pokemon\/1\.png$/);
+        await expect.poll(() => artwork.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+    });
+});
+
+test.describe('missing sprite', () => {
+    test.use({ allowedConsoleErrors: [/Failed to load resource/] });
+
+    test('falls back to the pokeball image', async ({ page }) => {
+        await page.route(/\/sprites\/pokemon\/1\.png$/, route => route.fulfill({ status: 404 }));
+        await page.goto('/');
+
+        await expect(page.getByTestId('card-image-bulbasaur')).toHaveAttribute('src', /\/pokeball\.png$/);
+    });
+
+    test('falls back to the pokeball image on the detail page', async ({ page }) => {
+        await page.route(/\/official-artwork\/1\.png$/, route => route.fulfill({ status: 404 }));
+        await page.goto('/pokemons/1');
+
+        const artwork = page.getByTestId('details-image');
+        await expect.poll(() => artwork.evaluate((image: HTMLImageElement) => image.currentSrc)).toMatch(/\/pokeball\.png$/);
+    });
+});

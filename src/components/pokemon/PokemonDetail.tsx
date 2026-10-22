@@ -1,8 +1,9 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Card, Center, IconButton, Image, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Card, Center, IconButton, Spinner, Text, VStack } from "@chakra-ui/react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { capitalizeName } from "../../common";
 import usePokemon from "../../hooks/usePokemon";
+import PokemonArtwork from "./PokemonArtwork";
 import PokemonTabs from "./PokemonTabs";
 import PokemonTypeBadge from "./PokemonTypeBadge";
 
@@ -11,9 +12,8 @@ const PokemonDetail = () => {
   const location = useLocation();
   // Back to the list the card was opened from, filter included; a direct open goes to the plain list.
   const listSearch = (location.state as { search?: string } | null)?.search ?? '';
-  const { data: pokemon, isLoading, error } = usePokemon(parseInt(id!));
-
-  if (isLoading) return <Center height={'100vh'}><Spinner /></Center>
+  const pokemonId = parseInt(id!);
+  const { data: pokemon, isLoading, error } = usePokemon(pokemonId);
 
   if (error) return <Text>{error.message}</Text>
 
@@ -32,18 +32,15 @@ const PokemonDetail = () => {
       />
       <Center>
         <VStack>
-          <Image
-            id='details-image'
-            // The name is shown right below.
-            alt=''
-            src={pokemon?.sprites.other["official-artwork"].front_default || "/pokeball.png"}
-            boxSize={'250px'}
-          />
-          <Text id='details-name' data-testid='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon?.name || '')}</Text>
-          <PokemonTypeBadge types={pokemon?.types || []} />
+          <PokemonArtwork id={pokemonId} />
+          {isLoading && <Spinner id='details-loading' />}
+          {pokemon && <>
+            <Text id='details-name' data-testid='details-name' as={'h2'} fontSize={'xl'} fontWeight={'bold'}>{capitalizeName(pokemon.name)}</Text>
+            <PokemonTypeBadge types={pokemon.types} />
+          </>}
         </VStack>
       </Center>
-      <PokemonTabs pokemon={pokemon!} />
+      {pokemon && <PokemonTabs pokemon={pokemon} />}
     </Card>
   )
 }

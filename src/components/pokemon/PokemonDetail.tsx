@@ -20,16 +20,16 @@ const PokemonDetail = () => {
   return (
     <Card>
       <IconButton
-          as={Link}
-          to={{ pathname: '/', search: listSearch }}
-          id='details-button-back'
-          data-testid='details-button-back'
-          icon={<ArrowBackIcon boxSize={'30px'} />}
-          variant={'ghost'}
-          height={'70px'}
-          width={'70px'}
-          aria-label="Back to list"
-        />
+        as={Link}
+        to={{ pathname: '/', search: listSearch }}
+        id='details-button-back'
+        data-testid='details-button-back'
+        icon={<ArrowBackIcon boxSize={'30px'} />}
+        variant={'ghost'}
+        height={'70px'}
+        width={'70px'}
+        aria-label="Back to list"
+      />
       <Center>
         <VStack>
           <Image

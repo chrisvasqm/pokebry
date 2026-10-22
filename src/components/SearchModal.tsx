@@ -77,6 +77,7 @@ const SearchModal = ({ isOpen, onClose }: Props) => {
                             ref={inputRef}
                             variant='filled'
                             placeholder='Search Pokemon by name'
+                            aria-label='Search Pokemon by name'
                             role='combobox'
                             aria-expanded={results.length > 0}
                             aria-controls={results.length > 0 ? 'search-results' : undefined}

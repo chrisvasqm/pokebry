@@ -10,9 +10,11 @@ interface Props {
   result: PokemonResult
   /** Cards in the first visible row: load their sprites first, since one is the page's largest paint. */
   isPriority?: boolean
+  /** Cards that can be in the first row: load eagerly. */
+  isFirstRow?: boolean
 }
 
-const PokemonCard = ({ result, isPriority = false }: Props) => {
+const PokemonCard = ({ result, isPriority = false, isFirstRow = false }: Props) => {
   const { data: pokemon, isLoading, error } = usePokemonByUrl(result.url);
   const location = useLocation();
 
@@ -56,7 +58,7 @@ const PokemonCard = ({ result, isPriority = false }: Props) => {
                 <Image
                   // The name below already labels the link.
                   alt=''
-                  loading={isPriority ? 'eager' : 'lazy'}
+                  loading={isFirstRow ? 'eager' : 'lazy'}
                   // React 18 does not know the camelCase fetchPriority prop; the lowercase attribute passes through.
                   {...(isPriority ? { fetchpriority: 'high' } : {})}
                   boxSize={'96px'}

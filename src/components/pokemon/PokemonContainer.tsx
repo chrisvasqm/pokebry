@@ -6,6 +6,8 @@ import usePokemons from "../../hooks/usePokemons";
 import useTypeFilter from "../../hooks/useTypeFilter";
 import PokemonCard from "./PokemonCard";
 
+/** The widest grid shows 6 columns: these sprites are in the first row at any width, so never lazy-load them. */
+const FIRST_ROW_CARDS = 6;
 /** The narrowest grid shows 2 columns; boosting more would compete with the largest image on phones. */
 const PRIORITY_CARDS = 2;
 
@@ -53,7 +55,7 @@ const PokemonsContainer = () => {
                 aria-busy={isPlaceholderData}>
                 {data?.pages.map((page, pageIndex) =>
                     <React.Fragment key={pageIndex}>
-                        {page.map((result, index) => <PokemonCard key={result.name} result={result} isPriority={pageIndex === 0 && index < PRIORITY_CARDS} />)}
+                        {page.map((result, index) => <PokemonCard key={result.name} result={result} isPriority={pageIndex === 0 && index < PRIORITY_CARDS} isFirstRow={pageIndex === 0 && index < FIRST_ROW_CARDS} />)}
                     </React.Fragment>
                 )}
             </SimpleGrid>

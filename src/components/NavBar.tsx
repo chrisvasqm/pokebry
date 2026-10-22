@@ -53,13 +53,15 @@ const NavBar = ({ children }: Props) => {
                             <Kbd>K</Kbd>
                         </HStack>
                     </Button>
-                    <a href='https://github.com/chrisvasqm/pokebry' target='_blank'>
-                        <IconButton
-                            variant={'ghost'}
-                            aria-label='githubicon'
-                            icon={<FaGithub size={20} />}
-                        />
-                    </a>
+                    <IconButton
+                        as='a'
+                        href='https://github.com/chrisvasqm/pokebry'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        variant={'ghost'}
+                        aria-label='GitHub repository'
+                        icon={<FaGithub size={20} />}
+                    />
                     <Switch id='navbar-switch' data-testid='navbar-switch' aria-label='Dark mode' isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
                     <MoonIcon id='navbar-moon-icon' marginLeft={1} />
                 </HStack>

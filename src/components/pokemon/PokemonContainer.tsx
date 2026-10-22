@@ -6,8 +6,8 @@ import usePokemons from "../../hooks/usePokemons";
 import useTypeFilter from "../../hooks/useTypeFilter";
 import PokemonCard from "./PokemonCard";
 
-/** The widest grid shows 6 columns, so the first 6 cards cover the first row at any width. */
-const PRIORITY_CARDS = 6;
+/** The narrowest grid shows 2 columns; boosting more would compete with the largest image on phones. */
+const PRIORITY_CARDS = 2;
 
 const PokemonsContainer = () => {
     const { selected } = useTypeFilter();

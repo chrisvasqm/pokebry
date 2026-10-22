@@ -19,8 +19,9 @@ const PokemonDetail = () => {
 
   return (
     <Card>
-      <Link to={{ pathname: '/', search: listSearch }}>
-        <IconButton
+      <IconButton
+          as={Link}
+          to={{ pathname: '/', search: listSearch }}
           id='details-button-back'
           data-testid='details-button-back'
           icon={<ArrowBackIcon boxSize={'30px'} />}
@@ -29,12 +30,12 @@ const PokemonDetail = () => {
           width={'70px'}
           aria-label="Back to list"
         />
-      </Link>
       <Center>
         <VStack>
           <Image
             id='details-image'
-            alt={capitalizeName(pokemon?.name || '')}
+            // The name is shown right below.
+            alt=''
             src={pokemon?.sprites.other["official-artwork"].front_default || "/pokeball.png"}
             boxSize={'250px'}
           />

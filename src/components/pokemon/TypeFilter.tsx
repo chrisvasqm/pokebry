@@ -1,4 +1,4 @@
-import { Box, Button, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, HStack } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import typeColors from "../../colors/typeColors";
 import { capitalizeName } from "../../common";
@@ -12,7 +12,6 @@ const TypeFilter = () => {
     const { selected, toggle, clear } = useTypeFilter();
     // Matches for the whole selection, shown on every selected chip so two chips never disagree with the list.
     const matchCount = useTypeMatchCount(selected);
-    const idleBorder = useColorModeValue('gray.200', 'whiteAlpha.300');
     const railRef = useRef<HTMLDivElement>(null);
     const selectedKey = selected.join(',');
 
@@ -23,7 +22,7 @@ const TypeFilter = () => {
     }, [selectedKey]);
 
     return (
-        <HStack id='type-filter' data-testid='type-filter' spacing={2} paddingY={1} borderTopWidth={1} borderColor={idleBorder}>
+        <HStack id='type-filter' data-testid='type-filter' spacing={2} paddingY={1} borderTopWidth={1} borderColor={'border.subtle'}>
             <HStack
                 ref={railRef}
                 role='group'
@@ -49,7 +48,7 @@ const TypeFilter = () => {
                             flexShrink={0}
                             borderRadius={'full'}
                             borderWidth={1}
-                            borderColor={isSelected ? color : idleBorder}
+                            borderColor={isSelected ? color : 'border.subtle'}
                             backgroundColor={isSelected ? color : 'transparent'}
                             color={isSelected ? 'type.fg' : undefined}
                             _hover={{ backgroundColor: isSelected ? color : undefined, filter: 'brightness(0.96)' }}

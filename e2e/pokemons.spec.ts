@@ -116,6 +116,8 @@ test('exposes landmarks, accessible names and robots.txt', async ({ page, reques
     await expect(page.getByTestId('navbar-switch').getByRole('checkbox')).toHaveAccessibleName('Dark mode');
     await expect(page.getByTestId('navbar-search')).toHaveAccessibleName('Search Pokemon');
     const card = page.getByTestId('card-bulbasaur');
+    // Wait for the loaded card; while loading it has no sprite at all.
+    await expect(card.getByTestId('card-name')).toHaveText('Bulbasaur');
     await expect(card.getByRole('link')).toHaveAccessibleName('Bulbasaur');
     await expect(card.getByRole('img')).toHaveCount(0); // decorative sprite (alt="") has no img role
 

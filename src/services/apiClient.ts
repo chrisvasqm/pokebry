@@ -1,10 +1,8 @@
-import ky, { SearchParamsOption } from "ky";
+import { SearchParamsOption } from "ky";
+import http from "./http";
 
-const instance = ky.create({
-    baseUrl: 'https://pokeapi.co/api/v2/',
-    // TanStack Query already retries failed queries; retrying here too would multiply the attempts.
-    retry: 0
-});
+// baseUrl, not prefix: `find` gets absolute URLs, which prefix would prepend to.
+const instance = http.extend({ baseUrl: 'https://pokeapi.co/api/v2/' });
 
 interface FetchResponse<T> {
     results: T[]

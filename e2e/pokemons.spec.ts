@@ -186,3 +186,25 @@ test('a non-numeric Pokemon id shows a message and a way back without fetching',
     await expect(page.getByTestId('details-button-back')).toBeVisible();
     expect(requests).toEqual([]);
 });
+
+test.describe('unknown numeric Pokemon id', () => {
+    // The browser logs the 404 from PokeAPI.
+    test.use({ allowedConsoleErrors: [/Failed to load resource/] });
+
+    test('says the Pokemon does not exist', async ({ page }) => {
+        await page.goto('/pokemons/99999');
+
+        await expect(page.getByTestId('details-error')).toHaveText('This Pokemon does not exist.');
+    });
+});
+
+test.describe('PokeAPI failure', () => {
+    test.use({ allowedConsoleErrors: [/Failed to load resource/] });
+
+    test('the detail page shows a load error, not "does not exist"', async ({ page }) => {
+        await page.route(/pokeapi\.co\/api\/v2\/pokemon\/1$/, route => route.fulfill({ status: 500 }));
+        await page.goto('/pokemons/1');
+
+        await expect(page.getByTestId('details-error')).toHaveText('Could not load this Pokemon. Try again later.', { timeout: 20_000 });
+    });
+});
